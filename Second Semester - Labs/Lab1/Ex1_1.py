@@ -1,4 +1,5 @@
 
+
 #first use undirected graph
 #then import directed graph
 #strongly connected component
@@ -7,9 +8,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
 import statistics
-import random
 
-random.seed(17)
 G = nx.Graph()
 
 #create and print small subset of the graph
@@ -25,7 +24,7 @@ G = nx.Graph()
 #plt.show()
 
 #create graph
-with open("./names.txt", "r") as file:
+with open("names.txt", "r") as file:
     for row in file:
         node = row.split()
         G.add_edge(node[1], node[2])
@@ -35,59 +34,50 @@ print("number of nodes = ", nx.number_of_nodes(G))
 print("number of edges = ", nx.number_of_edges(G))
 
 
-all_nodes = list(nx.nodes(G))
-infected=set()
-new_infected = set()
-infected.update(set(random.choices(all_nodes,k=100)))
-safe=[]
+#plot degree distribution
+#for each node returns the degree
+degrees = G.degree()
+# max_deg=0
+# for i in list(G.nodes):
+#     if G.degree(i) > max_deg:
+#         max_deg = G.degree(i)
+#         max_profile = i
+# print("profile with highest degree: ", max_profile)
 
-
-#with probability p=0.7, independently from number of infected neighbors
-for t in range(0,50):
-    #print("len infected run %d at t= %d " %(len(infected), t))
-    for n in infected:
-        found = set(G.neighbors(n))
-        p=np.ones(len(found))
-        p=p*0.7
-        new_infected.update(set(random.choices(list(found), list(p), k=random.randint(0, len(found)))))
-        #print(len(new_infected))
-    infected.update(new_infected)
-    safe.append(len(all_nodes)-len(infected))
-    if t>2 and safe[t] == safe[t-2]:
-        break
-    #print("len infected updated run %d at t= %d " %(len(infected), t))
-
-print(safe)
-y = np.array(safe)
-print(y)
-x= np.arange(0,t+1,1)
-print(x)
-plt.semilogy(x,y)
-plt.title("Survival function")
-plt.xlabel("time")
-plt.ylabel("Survivors")
+sort_node = sorted([d for n,d in degrees], reverse=True) #degrees sorted from largest to smallest
+plt.loglog(sort_node, marker = 'o') #dovrebbe essere al contrario, con gli assi invertiti...
+plt.title("Degree distribution")
+plt.xlabel("Nodes")
+plt.ylabel("Degree")
 plt.show()
 
+#compute average degree distribution
+deg_list = [degrees(i) for i in list(G.nodes)]
+average = np.mean(deg_list)
+print("Average degree distribution = ", average)
 
+#print clustering coefficient
+print("Clustering coefficient = ", nx.average_clustering(G))
 
-infected=set()
-new_infected = set()
-infected.update(set(random.choices(all_nodes,k=100)))
-
-for n in infected:
-    found = set(G.neighbors(n))
-    for f in found:
-        f_neigh = set(G.neighbors(f))
-        f_inf =
-
-
-
+#print size of giant component
+giant = max(nx.connected_components(G))
+print("Size of giant component = ", len(giant))
 
 
 
+#Directed Graph
+DiG = nx.DiGraph()
+with open("names.txt", "r") as file:
+    for row in file:
+        node = row.split()
+        DiG.add_edge(node[1], node[2])
 
+print("number of nodes of Directed Graph = ", nx.number_of_nodes(DiG))
+print("number of edges of Directed Graph = ", nx.number_of_edges(DiG))
 
+strongly_conn = max(nx.strongly_connected_component_subgraphs(DiG), key=len)
+print("Size of largest strongly connected component = ", len(strongly_conn))
+# print("Radius of strongly connected component = ", nx.radius(strongly_conn)) #non funziona, perché???
 
-
-
-
+weakly_conn = max(nx.weakly_connected_component_subgraphs(DiG), key=len)
+print("Size of largest weakly connected component = ", len(weakly_conn))
