@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 
 #first use undirected graph
 #then import directed graph
