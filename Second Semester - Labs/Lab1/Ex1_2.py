@@ -1,4 +1,7 @@
-#!/usr/bin/env python3
+
+#first use undirected graph
+#then import directed graph
+#strongly connected component
 
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -66,12 +69,33 @@ plt.ylabel("Survivors")
 plt.show()
 
 
-
+#considering percentage of infected neighbors
 infected=set()
 new_infected = set()
 infected.update(set(random.choices(all_nodes,k=100)))
+safe=[]
 
-for n in infected:
-    found = set(G.neighbors(n))
-    for f in found:
-        f_neigh = set(G.neighbors(f))
+for t in range(0,30):
+    for n in infected:
+        found = set(G.neighbors(n))
+        for f in found:
+            f_neigh = set(G.neighbors(f))
+            number_inf = len(f_neigh & infected)
+            inf_flag = random.randrange(number_inf)
+            if inf_flag>0:
+                new_infected.add(f)
+    infected.update(new_infected)
+    safe.append(len(all_nodes) - len(infected))
+    if t > 2 and safe[t] == safe[t - 2]:
+        break
+
+print(safe)
+y = np.array(safe)
+print(y)
+x= np.arange(0,t+1,1)
+print(x)
+plt.semilogy(x,y)
+plt.title("Survival function")
+plt.xlabel("time")
+plt.ylabel("Survivors")
+plt.show()
