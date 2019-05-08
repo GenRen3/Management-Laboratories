@@ -1,7 +1,4 @@
-
-#first use undirected graph
-#then import directed graph
-#strongly connected component
+#!/usr/bin/env python3
 
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -78,4 +75,3 @@ for n in infected:
     found = set(G.neighbors(n))
     for f in found:
         f_neigh = set(G.neighbors(f))
-        
