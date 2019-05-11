@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.7
 
 #first use undirected graph
 #then import directed graph
@@ -43,13 +43,48 @@ degrees = G.degree()
 #         max_deg = G.degree(i)
 #         max_profile = i
 # print("profile with highest degree: ", max_profile)
+# print("Highest degree = ", max_deg)
 
-sort_node = sorted([d for n,d in degrees], reverse=True) #degrees sorted from largest to smallest
-plt.loglog(sort_node, marker = 'o') #dovrebbe essere al contrario, con gli assi invertiti...
+#Plot the degree distribution
+nodes_list = []
+nodes_degree = []
+nodes_list, nodes_degree = zip(*list(degrees))
+nodes_degree_set = list(set(nodes_degree))
+#print(nodes_degree_set)
+nodes_degree_sorted = sorted(nodes_degree)
+nodes_degree_plot = []
+j = 0
+count = 0
+for i in nodes_degree_sorted:
+    if int(i)==int(nodes_degree_set[j]):
+        count+=1
+    elif int(i)==int(nodes_degree_set[j+1]):
+        nodes_degree_plot.append((int(nodes_degree_set[j]), count))
+        count=1
+        j+=1
+
+x, y = zip(*nodes_degree_plot)
+plt.plot(x, y)
 plt.title("Degree distribution")
-plt.xlabel("Nodes")
-plt.ylabel("Degree")
+plt.xlabel("Degree")
+plt.ylabel("Number of nodes")
 plt.show()
+
+# plt.hist(nodes_degree, len(nodes_degree_set))
+# plt.show()
+
+# plt.plot(nodes_degree)
+# plt.title("Degree distribution")
+# plt.xlabel("Degree")
+# plt.ylabel("Nodes")
+# plt.show()
+
+# sort_node = sorted([d for n,d in degrees], reverse=True) #degrees sorted from largest to smallest
+# plt.loglog(list(sort_node), marker = 'o') 
+# plt.title("Degree distribution")
+# plt.xlabel("Nodes")
+# plt.ylabel("Degree")
+# plt.show()
 
 #compute average degree distribution
 deg_list = [degrees(i) for i in list(G.nodes)]
@@ -77,7 +112,6 @@ print("number of edges of Directed Graph = ", nx.number_of_edges(DiG))
 
 strongly_conn = max(nx.strongly_connected_component_subgraphs(DiG), key=len)
 print("Size of largest strongly connected component = ", len(strongly_conn))
-# print("Radius of strongly connected component = ", nx.radius(strongly_conn)) #non funziona, perché???
 
 weakly_conn = max(nx.weakly_connected_component_subgraphs(DiG), key=len)
 print("Size of largest weakly connected component = ", len(weakly_conn))
