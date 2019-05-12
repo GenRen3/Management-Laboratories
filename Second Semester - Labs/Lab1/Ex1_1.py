@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 
 #first use undirected graph
 #then import directed graph
@@ -80,7 +80,7 @@ plt.show()
 # plt.show()
 
 # sort_node = sorted([d for n,d in degrees], reverse=True) #degrees sorted from largest to smallest
-# plt.loglog(list(sort_node), marker = 'o') 
+# plt.loglog(list(sort_node), marker = 'o')
 # plt.title("Degree distribution")
 # plt.xlabel("Nodes")
 # plt.ylabel("Degree")
