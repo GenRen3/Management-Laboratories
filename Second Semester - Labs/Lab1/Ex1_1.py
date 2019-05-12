@@ -64,7 +64,7 @@ for i in nodes_degree_sorted:
         j+=1
 
 x, y = zip(*nodes_degree_plot)
-plt.plot(x, y)
+plt.loglog(x, y)
 plt.title("Degree distribution")
 plt.xlabel("Degree")
 plt.ylabel("Number of nodes")
