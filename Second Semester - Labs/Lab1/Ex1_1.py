@@ -64,10 +64,15 @@ for i in nodes_degree_sorted:
         j+=1
 
 x, y = zip(*nodes_degree_plot)
-plt.loglog(x, y)
+fig = plt.figure()
+ax = plt.gca()
+ax.scatter(x, y)
+ax.set_yscale('log')
+ax.set_xscale('log')
 plt.title("Degree distribution")
 plt.xlabel("Degree")
 plt.ylabel("Number of nodes")
+plt.savefig("./images_1_1/scatter.pdf", bbox_inches="tight")
 plt.show()
 
 # plt.hist(nodes_degree, len(nodes_degree_set))
@@ -86,32 +91,32 @@ plt.show()
 # plt.ylabel("Degree")
 # plt.show()
 
-#compute average degree distribution
-deg_list = [degrees(i) for i in list(G.nodes)]
-average = np.mean(deg_list)
-print("Average degree distribution = ", average)
-
-#print clustering coefficient
-print("Clustering coefficient = ", nx.average_clustering(G))
-
-#print size of giant component
-giant = max(nx.connected_components(G))
-print("Size of giant component = ", len(giant))
-
-
-
-#Directed Graph
-DiG = nx.DiGraph()
-with open("names.txt", "r") as file:
-    for row in file:
-        node = row.split()
-        DiG.add_edge(node[1], node[2])
-
-print("number of nodes of Directed Graph = ", nx.number_of_nodes(DiG))
-print("number of edges of Directed Graph = ", nx.number_of_edges(DiG))
-
-strongly_conn = max(nx.strongly_connected_component_subgraphs(DiG), key=len)
-print("Size of largest strongly connected component = ", len(strongly_conn))
-
-weakly_conn = max(nx.weakly_connected_component_subgraphs(DiG), key=len)
-print("Size of largest weakly connected component = ", len(weakly_conn))
+# #compute average degree distribution
+# deg_list = [degrees(i) for i in list(G.nodes)]
+# average = np.mean(deg_list)
+# print("Average degree distribution = ", average)
+#
+# #print clustering coefficient
+# print("Clustering coefficient = ", nx.average_clustering(G))
+#
+# #print size of giant component
+# giant = max(nx.connected_components(G))
+# print("Size of giant component = ", len(giant))
+#
+#
+#
+# #Directed Graph
+# DiG = nx.DiGraph()
+# with open("names.txt", "r") as file:
+#     for row in file:
+#         node = row.split()
+#         DiG.add_edge(node[1], node[2])
+#
+# print("number of nodes of Directed Graph = ", nx.number_of_nodes(DiG))
+# print("number of edges of Directed Graph = ", nx.number_of_edges(DiG))
+#
+# strongly_conn = max(nx.strongly_connected_component_subgraphs(DiG), key=len)
+# print("Size of largest strongly connected component = ", len(strongly_conn))
+#
+# weakly_conn = max(nx.weakly_connected_component_subgraphs(DiG), key=len)
+# print("Size of largest weakly connected component = ", len(weakly_conn))

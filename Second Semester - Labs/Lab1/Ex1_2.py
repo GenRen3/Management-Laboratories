@@ -1,31 +1,28 @@
 #!/usr/bin/env python3
 
-#first use undirected graph
-#then import directed graph
-#strongly connected component
-
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
 import statistics
 import random
-import pylab
 
+#setting the seed
 random.seed(17)
-G = nx.Graph()
 
 #create graph
+G = nx.Graph()
 with open("./names.txt", "r") as file:
     for row in file:
         node = row.split()
         G.add_edge(node[1], node[2])
 
-
+#Printing of the number of nodes and edges
 print("number of nodes = ", nx.number_of_nodes(G))
 print("number of edges = ", nx.number_of_edges(G))
 
 n_iteration = 0
 
+#Running the code for 3 different set-ups (different probabilities and number of infected)
 while n_iteration != 3:
     all_nodes = list(nx.nodes(G))
     infected=set()
@@ -35,36 +32,35 @@ while n_iteration != 3:
     infected.update(set(random.choices(all_nodes,k=inf)))
     safe=[]
 
-    prob = input("Enter probability of infection: ")
+    #prob = input("Enter probability of infection: ")
 
-    #with probability p=0.7, independently from number of infected neighbors
+    #here we itereate by seeing how the survival function evolves untill no new changes happen
     for t in range(0,50):
-        #print("len infected run %d at t= %d " %(len(infected), t))
         for n in infected:
             found = set(G.neighbors(n))
             p=np.ones(len(found))
-            prob=float(prob)
-            p=p*prob #WE NEED TO VARY THIS VARIABLE
+            #prob=float(prob)
+            #p=p*prob
+            p=p*0.3
             new_infected.update(set(random.choices(list(found), list(p), k=random.randint(0, len(found)))))
-            #print(len(new_infected))
         infected.update(new_infected)
         safe.append(len(all_nodes)-len(infected))
         if t>2 and safe[t] == safe[t-2]:
             break
-        #print("len infected updated run %d at t= %d " %(len(infected), t))
 
-    print(safe)
     y = np.array(safe)
     x = np.arange(0,t+1,1)
-    plt.semilogy(x,y, label="Probability:"+str(prob)+" New Infections:"+str(inf)+"")
+    #plt.semilogy(x,y, label="Probability:"+str(prob)+" New Infections:"+str(inf)+"")
+    plt.semilogy(x,y, label="Initial Infections: "+str(inf))
     n_iteration+=1
 
-plt.title("Survival function")
+plt.title("Survival function with different initial infections (Probability = 0.3)")
 plt.xlabel("Time")
 plt.ylabel("Survivors")
+plt.grid(True)
 plt.legend()
+plt.savefig("./images_1_2/Surv_func_different_n_infections.pdf", bbox_inches='tight')
 plt.show()
-
 
 #HERE WE USED A DIFFERENT APPROACH BUT THE PREVIOUS ONE, IS THE ONE WE CHOSE TO APPLY
 # #considering percentage of infected neighbors
@@ -97,6 +93,3 @@ plt.show()
 # plt.xlabel("time")
 # plt.ylabel("Survivors")
 # plt.show()
-
-
-#plt.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, 'g^')
