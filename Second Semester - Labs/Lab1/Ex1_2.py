@@ -32,16 +32,15 @@ while n_iteration != 3:
     infected.update(set(random.choices(all_nodes,k=inf)))
     safe=[]
 
-    #prob = input("Enter probability of infection: ")
+    prob = input("Enter probability of infection: ")
 
     #here we itereate by seeing how the survival function evolves untill no new changes happen
     for t in range(0,50):
         for n in infected:
             found = set(G.neighbors(n))
             p=np.ones(len(found))
-            #prob=float(prob)
-            #p=p*prob
-            p=p*0.3
+            prob=float(prob)
+            p=p*prob
             new_infected.update(set(random.choices(list(found), list(p), k=random.randint(0, len(found)))))
         infected.update(new_infected)
         safe.append(len(all_nodes)-len(infected))
@@ -50,16 +49,15 @@ while n_iteration != 3:
 
     y = np.array(safe)
     x = np.arange(0,t+1,1)
-    #plt.semilogy(x,y, label="Probability:"+str(prob)+" New Infections:"+str(inf)+"")
-    plt.semilogy(x,y, label="Initial Infections: "+str(inf))
+    plt.semilogy(x,y, label="Probability:"+str(prob)+" New Infections:"+str(inf)+"")
     n_iteration+=1
 
-plt.title("Survival function with different initial infections (Probability = 0.3)")
+plt.title("Survival function")
 plt.xlabel("Time")
 plt.ylabel("Survivors")
 plt.grid(True)
 plt.legend()
-plt.savefig("./images_1_2/Surv_func_different_n_infections.pdf", bbox_inches='tight')
+#plt.savefig("./images_1_2/Surv_func_different_n_infections.pdf", bbox_inches='tight')
 plt.show()
 
 #HERE WE USED A DIFFERENT APPROACH BUT THE PREVIOUS ONE, IS THE ONE WE CHOSE TO APPLY
