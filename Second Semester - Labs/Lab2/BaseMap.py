@@ -85,14 +85,14 @@ def get_map(lats,lons,Title):
 
     # build and plot coordinates onto map
     x,y = m(lons,lats)
-    
+
     if Title=="Clients":
         m.plot(x,y,'r*',markersize=1)
     else:
         m.plot(x,y,'r*',markersize=5)
 
     plt.title(Title+" Distribution")
-    plt.savefig(Title +'_station_plot.pdf', format='pdf', dpi=1000)
+    plt.savefig(Title +'.pdf', format='pdf', dpi=1000)
     plt.show()
 
 
@@ -102,8 +102,8 @@ def get_map(lats,lons,Title):
 if __name__ == '__main__':
 
     #HERE I GET THE CLIENTS ON THE MAP
-    #[latitudine_clients,longitudine_clients] = get_data_clients()
-    #get_map(latitudine_clients,longitudine_clients,"Clients")
+    [latitudine_clients,longitudine_clients] = get_data_clients()
+    get_map(latitudine_clients,longitudine_clients,"Clients")
 
     #HERE I GET THE SERVERS ON THE MAP
     [latitudine_servers,longitudine_servers] = get_data_servers()
