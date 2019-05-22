@@ -27,7 +27,7 @@ def calculate_dist(lat1,lon1,lat2,lon2):
 
     distance = R * c
 
-    return distance
+    return print(distance)
 
 
 #THIS FUNCTION GETS DATA
@@ -57,7 +57,7 @@ def get_data_servers():
 
     return lats_ser,lons_ser
 
-def get_map(lats,lons):
+def get_map(lats,lons,Title):
 
     # How much to zoom from coordinates (in degrees)
     zoom_scale = 0
@@ -66,9 +66,9 @@ def get_map(lats,lons):
     bbox = [np.min(lats)-zoom_scale,np.max(lats)+zoom_scale,\
             np.min(lons)-zoom_scale,np.max(lons)+zoom_scale]
 
-    fig = plt.figure(figsize=(12, 6), edgecolor='w')
+    fig = plt.figure(figsize=(12, 7), edgecolor='b')
     m = Basemap(projection='cyl', resolution=None,llcrnrlat=-90, urcrnrlat=90,llcrnrlon=-180, urcrnrlon=180,)
-    m.etopo()
+    m.bluemarble()
 
 
     # Draw coastlines and fill continents and water with color
@@ -83,8 +83,8 @@ def get_map(lats,lons):
     # build and plot coordinates onto map
     x,y = m(lons,lats)
     m.plot(x,y,'r*',markersize=1)
-    plt.title("SERVERS Station Distribution")
-    plt.savefig('asos_station_plot.pdf', format='pdf', dpi=700)
+    plt.title(Title+" Distribution")
+    plt.savefig(Title +'_station_plot.pdf', format='pdf', dpi=700)
     plt.show()
 
 
@@ -95,8 +95,9 @@ if __name__ == '__main__':
 
     #HERE I GET THE CLIENTS ON THE MAP
     [latitudine_clients,longitudine_clients] = get_data_clients()
-    get_map(latitudine_clients,longitudine_clients)
+    get_map(latitudine_clients,longitudine_clients,"Clients")
 
     #HERE I GET THE SERVERS ON THE MAP
     [latitudine_servers,longitudine_servers] = get_data_servers()
-    get_map(latitudine_servers,longitudine_servers)
+    get_map(latitudine_servers,longitudine_servers, "Servers")
+    #calculate_dist(latitudine_servers[0],longitudine_servers[0],latitudine_servers[1],longitudine_servers[1])
