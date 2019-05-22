@@ -49,13 +49,13 @@ class Client(object):
     def run(self):
         # store the absolute arrival time
         time_arrival = self.env.now
-        #print("client", self.number, "has arrived at", time_arrival)
+        print("client", self.number, "has arrived at", time_arrival)
 
         # The client goes to the first server to be served
         yield self.env.process(self.env.servers.serve())
 
         # calculate the response time
-        #print("client", self.number, "response time", self.env.now - time_arrival)
+        print("client", self.number, "response time", self.env.now - time_arrival)
         self.env.stats.push(self.env.now - time_arrival)
 
 #*******************************************************************************
