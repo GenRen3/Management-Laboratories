@@ -47,7 +47,7 @@ def get_data_clients():
 
 def get_data_servers():
     # the Servers can be found here:
-    with open('./TRY.csv') as csvfile:
+    with open('./Amazon_servers_stations.csv') as csvfile:
         reader_ser = csv.DictReader(csvfile,delimiter=';')
         for data_ser in reader_ser:
             #names_ser.append(data_ser['NAME'])
@@ -68,8 +68,8 @@ def get_map(lats,lons,Title):
 
     fig = plt.figure(figsize=(12, 7), edgecolor='b')
     m = Basemap(projection='cyl', resolution=None,llcrnrlat=-90, urcrnrlat=90,llcrnrlon=-180, urcrnrlon=180,)
-    m.bluemarble()
-
+    #m.bluemarble()
+    m.arcgisimage(service='ESRI_Imagery_World_2D', xpixels = 1500, verbose= True)
 
     # Draw coastlines and fill continents and water with color
     #m.drawcoastlines()
@@ -84,7 +84,7 @@ def get_map(lats,lons,Title):
     x,y = m(lons,lats)
     m.plot(x,y,'r*',markersize=1)
     plt.title(Title+" Distribution")
-    plt.savefig(Title +'_station_plot.pdf', format='pdf', dpi=700)
+    plt.savefig(Title +'_station_plot.pdf', format='pdf', dpi=1000)
     plt.show()
 
 
