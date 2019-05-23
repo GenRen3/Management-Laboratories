@@ -4,6 +4,7 @@ from matplotlib.collections import LineCollection
 import matplotlib.pyplot as plt
 import matplotlib.image as image
 import numpy as np
+import os
 import csv
 
 from math import sin, cos, sqrt, atan2, radians
