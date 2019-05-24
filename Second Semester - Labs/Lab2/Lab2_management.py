@@ -4,8 +4,7 @@ import simpy
 import random
 from runstats import Statistics
 import matplotlib.pyplot as pyplot
-#import map
-#from mpl_toolkits.basemap import Basemap
+import map
 
 #in another file we build geography and routing table
 
@@ -56,7 +55,8 @@ class Client(object):
 
     def run(self):
         time_arrival = self.env.now
-        #qui viene passato il cliente
+        [lat_client,long_client]=map.get_random_client() #with this line we get a random client
+        #here we get the list of nearest servers.
         K = random.randint(10,100)
         count_req = 1
         while count_req <= K:

@@ -6,11 +6,14 @@ import matplotlib.image as image
 import numpy as np
 import csv
 import random
+import heapq
 
 from math import sin, cos, sqrt, atan2, radians
 
 lats_ser,lons_ser,names_ser,country_ser = [],[],[],[]
 lats_cl,lons_cl,names_cl,country_cl = [],[],[],[]
+name_ser=[], names_cl[]
+N=5
 
 
 #THIS FUNCTION CALCULATES THE DISTANCE BETWEEN TWO POINTS WITH LATITUDE AND LONGITUDINE
@@ -39,8 +42,7 @@ def get_data_clients():
     with open('./worldcities.csv') as csvfile:
         reader_cl = csv.DictReader(csvfile,delimiter=',')
         for data_cl in reader_cl:
-            #names_cl.append(data_cl['city'])
-            #country_cl.append(str(data_cl['country']))
+            names_cl.append(data_cl['city'])
             lats_cl.append(float(data_cl['lat']))
             lons_cl.append(float(data_cl['lng']))
     return lats_cl,lons_cl
@@ -51,8 +53,7 @@ def get_data_servers():
     with open('./Amazon_servers_stations.csv') as csvfile:
         reader_ser = csv.DictReader(csvfile,delimiter=';')
         for data_ser in reader_ser:
-            #names_ser.append(data_ser['NAME'])
-            #country_ser.append(float(data_ser['COUNTRY']))
+            names_ser.append(data_ser['NAME'])
             lats_ser.append(float(data_ser['LAT']))
             lons_ser.append(float(data_ser['LON']))
     return lats_ser,lons_ser
@@ -98,3 +99,12 @@ def get_random_client():
     [lats_cl,lons_cl]= get_data_clients()
     k = random.randint(0,int(len(lats_cl)))
     return lats_cl[k], lons_cl[k]
+
+#THIS FUNCTION RETURNS A RANDOM CLIENT
+def get_nearest_servers(lat_r_cl,lon_r_cl):
+    [lats_ser,lons_ser]=get_data_servers()
+
+    for i in range(len(lats_cl)):
+        distances[i] = calculate_dist(lat_r_cl,lon_r_cl,lats_ser[i],lons_ser[i])
+
+    return heapq.nsmallest(5,enumerate(distances),key=lambda x: x[1])
