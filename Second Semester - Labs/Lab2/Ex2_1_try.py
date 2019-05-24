@@ -16,3 +16,4 @@ if __name__ == '__main__':
 
     #HERE I GET THE SERVERS ON THE MAP
     [latitudine_servers,longitudine_servers] = map.get_data_servers()
+#ciao sono silvia
