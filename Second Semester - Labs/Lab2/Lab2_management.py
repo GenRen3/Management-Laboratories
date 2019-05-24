@@ -5,6 +5,7 @@ import random
 from runstats import Statistics
 import matplotlib.pyplot as pyplot
 import map
+import time
 
 
 #in another file we build geography and routing table
@@ -75,11 +76,12 @@ class Client(object):
 
     def run(self):
         time_arrival = self.env.now
-        # map.get_data_clients()
-        # map.get_data_servers()
+        map.get_data_clients()
+        map.get_data_servers()
         tot_list_servers = map.get_list_servers()
         [lat_client,long_client] = map.get_random_client(ORIGIN) #with this line we get a random client
         nearest_servers = map.get_nearest_servers(lat_client,long_client) #with this line we get the nearset servers to the chosen client
+        random.seed(time.clock())
         K = random.randint(10,100)
         count_req = 1
         while count_req <= K:
@@ -131,23 +133,23 @@ if __name__=='__main__':
     random.seed(RANDOM_SEED)
     mu = 1.0/20.0
 
-    map.get_data_clients()
-    map.get_data_servers()
-    #map.get_map("Clients")
-    tot_list_servers = map.get_list_servers()
-    [lat_client,long_client] = map.get_random_client(ORIGIN) #with this line we get a random client
-    nearest_servers = map.get_nearest_servers(lat_client,long_client) #with this line we get the nearset servers to the chosen client
-    print(nearest_servers)
+    # map.get_data_clients()
+    # map.get_data_servers()
+    # #map.get_map("Clients")
+    # tot_list_servers = map.get_list_servers()
+    # [lat_client,long_client] = map.get_random_client(ORIGIN) #with this line we get a random client
+    # nearest_servers = map.get_nearest_servers(lat_client,long_client) #with this line we get the nearset servers to the chosen client
+    # print(nearest_servers)
 
-    # # #create simulation environment
-    # env = simpy.Environment()
-    # env.servers = Server(env,mu)
-    # # #start the arrival process
-    # env.process(arrival(env, 'NA'))
-    # env.process(arrival(env,'SA'))
-    # env.process(arrival(env,'EU'))
-    # env.process(arrival(env, 'AF'))
-    # env.process(arrival(env,'AS'))
-    # env.process(arrival(env,'OC'))
-    # # #simulate until SIM_TIME
-    # env.run(until=SIM_TIME)
+    # #create simulation environment
+    env = simpy.Environment()
+    env.servers = Server(env,mu)
+    # #start the arrival process
+    env.process(arrival(env, 'NA'))
+    env.process(arrival(env,'SA'))
+    env.process(arrival(env,'EU'))
+    env.process(arrival(env, 'AF'))
+    env.process(arrival(env,'AS'))
+    env.process(arrival(env,'OC'))
+    # #simulate until SIM_TIME
+    env.run(until=SIM_TIME)

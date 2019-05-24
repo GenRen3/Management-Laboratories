@@ -144,8 +144,6 @@ def get_random_client(ORIGIN):
         k = random.randint(0,len(lats_cl))
         if countries_cl[k]==ORIGIN:
             flag=1
-            
-    print(names_cl[k])
 
     return lats_cl[k], lons_cl[k]
 
