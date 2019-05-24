@@ -95,8 +95,6 @@ def get_map(lats,lons,Title):
 
 #THIS FUNCTION RETURNS A RANDOM CLIENT
 def get_random_client():
-
     [lats_cl,lons_cl]= get_data_clients()
     k = random.randint(0,int(len(lats_cl)))
-
     return lats_cl[k], lons_cl[k]
