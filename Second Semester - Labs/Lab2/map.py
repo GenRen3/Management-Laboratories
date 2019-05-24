@@ -67,8 +67,6 @@ def get_data_servers():
 
 def get_list_servers():
 
-    # get_data_servers()
-
     return names_ser
 
 
@@ -96,8 +94,8 @@ def get_map(Title):
     #m.fillcontinents(color='peru',lake_color='dodgerblue')
 
     # draw parallels, meridians, and color boundaries
-    m.drawparallels(np.arange(bbox[0],bbox[1],(bbox[1]-bbox[0])/5),labels=[1,0,0,0])
-    m.drawmeridians(np.arange(bbox[2],bbox[3],(bbox[3]-bbox[2])/5),labels=[0,0,0,1],rotation=45)
+    #m.drawparallels(np.arange(bbox[0],bbox[1],(bbox[1]-bbox[0])/5),labels=[1,0,0,0])
+    #m.drawmeridians(np.arange(bbox[2],bbox[3],(bbox[3]-bbox[2])/5),labels=[0,0,0,1],rotation=45)
     #m.drawmapboundary(fill_color='dodgerblue')
 
     # # build and plot coordinates onto map
@@ -130,30 +128,23 @@ def get_map(Title):
         x,y = m(lons_ser,lats_ser)
         m.plot(x,y,'r*',markersize=5)
 
+
     plt.title(Title+" Distribution")
     plt.savefig(Title +'.pdf', format='pdf', dpi=1000)
     plt.show()
 
 
-
 #THIS FUNCTION RETURNS A RANDOM CLIENT
 def get_random_client(ORIGIN):
-
-    # if ORIGIN=='NA':
-    #     k = random.randint()
-    # if ORIGIN=='SA':
-    #     k = random.randint()
-    # if ORIGIN=='EU':
-    #     k = random.randint()
-    # if ORIGIN=='AF':
-    #     k = random.randint()
-    # if ORIGIN=='AS':
-    #     k = random.randint()
-    # if ORIGIN=='OC':
-    #     k = random.randint()
-
-
-    return lats_cl[754], lons_cl[754]
+    flag=0
+    while flag!=1:
+        k = random.randint(0,len(lats_cl))
+        print(k)
+        if countries_cl[k]==ORIGIN:
+            flag=1
+    print(names_cl[k])
+    
+    return lats_cl[k], lons_cl[k]
 
 #THIS FUNCTION IS USED FOR THE SORTING IN get_nearest_servers()
 def takeFirst(elem):

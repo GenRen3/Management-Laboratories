@@ -31,7 +31,7 @@ mu_as = 1/40
 #mu_AS =
 #mu_OC =
 
-ORIGIN = 'NA' #(we can use NA,SA,EU,AF,AS,OC)
+ORIGIN = 'EU' #(we can use NA,SA,EU,AF,AS,OC)
 
 
 
@@ -132,10 +132,11 @@ if __name__=='__main__':
 
     map.get_data_clients()
     map.get_data_servers()
-    map.get_map("Clients")
+    #map.get_map("Clients")
     tot_list_servers = map.get_list_servers()
     [lat_client,long_client] = map.get_random_client(ORIGIN) #with this line we get a random client
     nearest_servers = map.get_nearest_servers(lat_client,long_client) #with this line we get the nearset servers to the chosen client
+    print(nearest_servers)
 
     # # #create simulation environment
     # env = simpy.Environment()
