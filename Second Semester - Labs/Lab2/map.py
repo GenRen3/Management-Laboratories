@@ -12,7 +12,10 @@ from math import sin, cos, sqrt, atan2, radians
 
 lats_ser,lons_ser,names_ser,country_ser = [],[],[],[]
 lats_cl,lons_cl,names_cl,country_cl = [],[],[],[]
-name_ser=[], names_cl[]
+name_ser=[]
+names_cl=[]
+distances=[]
+min_servers = []
 N=5
 
 
@@ -34,7 +37,7 @@ def calculate_dist(lat1,lon1,lat2,lon2):
 
     distance = R * c
 
-    return print(distance)
+    return distance
 
 #THIS FUNCTION GETS CLIENT'S DATA
 def get_data_clients():
@@ -57,6 +60,13 @@ def get_data_servers():
             lats_ser.append(float(data_ser['LAT']))
             lons_ser.append(float(data_ser['LON']))
     return lats_ser,lons_ser
+
+def get_list_servers():
+
+    get_data_servers()
+
+    return names_ser
+
 
 #THIS FUNCTION PRODUCESE THE MAP
 def get_map(lats,lons,Title):
@@ -95,16 +105,34 @@ def get_map(lats,lons,Title):
     plt.show()
 
 #THIS FUNCTION RETURNS A RANDOM CLIENT
-def get_random_client():
+def get_random_client(ORIGIN):
     [lats_cl,lons_cl]= get_data_clients()
-    k = random.randint(0,int(len(lats_cl)))
+
+    # if ORIGIN=='north_us':
+    #     k = random.randint(0,int(len(lats_cl))-1)
+    # if ORIGIN=='south_us':
+    #     k = random.randint(0,int(len(lats_cl))-1)
+    # if ORIGIN=='europe':
+    #     k = random.randint(0,int(len(lats_cl))-1)
+    # if ORIGIN=='africa':
+    #     k = random.randint(0,int(len(lats_cl))-1)
+    # if ORIGIN=='asia':
+    #     k = random.randint(0,int(len(lats_cl))-1)
+    # if ORIGIN=='austr':
+    #     k = random.randint(0,int(len(lats_cl))-1)
+
     return lats_cl[k], lons_cl[k]
+
+#THIS FUNCTION IS USED FOR THE SORTING IN get_nearest_servers()
+def takeFirst(elem):
+    return elem[0]
 
 #THIS FUNCTION RETURNS A RANDOM CLIENT
 def get_nearest_servers(lat_r_cl,lon_r_cl):
-    [lats_ser,lons_ser]=get_data_servers()
+    [lats_ser, lons_ser] = get_data_servers()
 
-    for i in range(len(lats_cl)):
-        distances[i] = calculate_dist(lat_r_cl,lon_r_cl,lats_ser[i],lons_ser[i])
+    for i in range(len(lats_ser)):
+        distances.append([calculate_dist(lat_r_cl,lon_r_cl,lats_ser[i],lons_ser[i]) , names_ser[i]])
 
-    return heapq.nsmallest(5,enumerate(distances),key=lambda x: x[1])
+    distances.sort(key = takeFirst)
+    return np.asarray(distances[:N])[:N,1]

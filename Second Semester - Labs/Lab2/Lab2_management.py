@@ -15,24 +15,43 @@ RANDOM_SEED = 17
 SIM_TIME = 10
 LINK_CAPACITY = 10 #Gb
 SERVER_NUM = 3
-MAX_REQ = 20
-lambda_us = 25#the higher it is, the higher the num of clients
-lambda_eu = 30
-lambda_as = 40
+#lambda_nort_us = #the higher it is, the higher the num of clients
+#lambda_south_us =
+#lambda_europe =
+#lambda_africa =
+#lambda_asia =
+#lambda_austr =
 mu_us = 1/25
 mu_eu = 1/30
 mu_as = 1/40
+#mu_nort_us =
+#mu_south_us =
+#mu_europe =
+#mu_africa =
+#mu_asia =
+#mu_austr =
+
+ORIGIN = 'north_us' #(we can use north_us,south_us,europe,africa,asia,austr) 
+
+
+
 #--------------
 #Arrival
 #--------------
 def arrival(environment,position):
     i=0
-    if position=='us':
-        arrival_rate=lambda_us
-    if position=='eu':
-        arrival_rate=lambda_eu
-    if position=='as':
-        arrival_rate=lambda_as
+    if position=='north_us':
+        arrival_rate=lambda_nort_us
+    if position=='south_us':
+        arrival_rate=lambda_south_us
+    if position=='europe':
+        arrival_rate=lambda_europe
+    if position=='africa':
+        arrival_rate=lambda_africa
+    if position=='asia':
+        arrival_rate=lambda_asia
+    if position=='austr':
+        arrival_rate=lambda_austr
     time=0
     while time <= SIM_TIME:
         time+=1
@@ -55,8 +74,9 @@ class Client(object):
 
     def run(self):
         time_arrival = self.env.now
-        [lat_client,long_client]=map.get_random_client() #with this line we get a random client
-        #here we get the list of nearest servers.
+        tot_list_servers = map.get_list_servers()
+        [lat_client,long_client] = map.get_random_client(ORIGIN) #with this line we get a random client
+        nearest_servers = map.get_nearest_servers(random_lat,random_lon) #with this line we get the nearset servers to the chosen client
         K = random.randint(10,100)
         count_req = 1
         while count_req <= K:
