@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 
 import simpy
 import random
@@ -15,23 +15,23 @@ RANDOM_SEED = 17
 SIM_TIME = 10
 LINK_CAPACITY = 10 #Gb
 SERVER_NUM = 3
-#lambda_nort_us = #the higher it is, the higher the num of clients
-#lambda_south_us =
-#lambda_europe =
-#lambda_africa =
-#lambda_asia =
-#lambda_austr =
+#lambda_NA = #the higher it is, the higher the num of clients
+#lambda_SA =
+#lambda_EU =
+#lambda_AF =
+#lambda_AS =
+#lambda_OC =
 mu_us = 1/25
 mu_eu = 1/30
 mu_as = 1/40
-#mu_nort_us =
-#mu_south_us =
-#mu_europe =
-#mu_africa =
-#mu_asia =
-#mu_austr =
+#mu_NA =
+#mu_SA =
+#mu_EU =
+#mu_AF =
+#mu_AS =
+#mu_OC =
 
-ORIGIN = 'north_us' #(we can use north_us,south_us,europe,africa,asia,austr) 
+ORIGIN = 'NA' #(we can use NA,SA,EU,AF,AS,OC)
 
 
 
@@ -40,18 +40,18 @@ ORIGIN = 'north_us' #(we can use north_us,south_us,europe,africa,asia,austr)
 #--------------
 def arrival(environment,position):
     i=0
-    if position=='north_us':
-        arrival_rate=lambda_nort_us
-    if position=='south_us':
-        arrival_rate=lambda_south_us
-    if position=='europe':
-        arrival_rate=lambda_europe
-    if position=='africa':
-        arrival_rate=lambda_africa
-    if position=='asia':
-        arrival_rate=lambda_asia
-    if position=='austr':
-        arrival_rate=lambda_austr
+    if position=='NA':
+        arrival_rate=lambda_NA
+    if position=='SA':
+        arrival_rate=lambda_SA
+    if position=='EU':
+        arrival_rate=lambda_EU
+    if position=='AF':
+        arrival_rate=lambda_AF
+    if position=='AS':
+        arrival_rate=lambda_AS
+    if position=='OC':
+        arrival_rate=lambda_OC
     time=0
     while time <= SIM_TIME:
         time+=1
@@ -74,9 +74,11 @@ class Client(object):
 
     def run(self):
         time_arrival = self.env.now
+        # map.get_data_clients()
+        # map.get_data_servers()
         tot_list_servers = map.get_list_servers()
         [lat_client,long_client] = map.get_random_client(ORIGIN) #with this line we get a random client
-        nearest_servers = map.get_nearest_servers(random_lat,random_lon) #with this line we get the nearset servers to the chosen client
+        nearest_servers = map.get_nearest_servers(lat_client,long_client) #with this line we get the nearset servers to the chosen client
         K = random.randint(10,100)
         count_req = 1
         while count_req <= K:
@@ -128,12 +130,22 @@ if __name__=='__main__':
     random.seed(RANDOM_SEED)
     mu = 1.0/20.0
 
-    #create simulation environment
-    env = simpy.Environment()
-    env.servers = Server(env,mu)
-    #start the arrival process
-    env.process(arrival(env, 'us'))
-    env.process(arrival(env,'eu'))
-    env.process(arrival(env,'as'))
-    #simulate until SIM_TIME
-    env.run(until=SIM_TIME)
+    map.get_data_clients()
+    map.get_data_servers()
+    map.get_map("Clients")
+    tot_list_servers = map.get_list_servers()
+    [lat_client,long_client] = map.get_random_client(ORIGIN) #with this line we get a random client
+    nearest_servers = map.get_nearest_servers(lat_client,long_client) #with this line we get the nearset servers to the chosen client
+
+    # # #create simulation environment
+    # env = simpy.Environment()
+    # env.servers = Server(env,mu)
+    # # #start the arrival process
+    # env.process(arrival(env, 'NA'))
+    # env.process(arrival(env,'SA'))
+    # env.process(arrival(env,'EU'))
+    # env.process(arrival(env, 'AF'))
+    # env.process(arrival(env,'AS'))
+    # env.process(arrival(env,'OC'))
+    # # #simulate until SIM_TIME
+    # env.run(until=SIM_TIME)

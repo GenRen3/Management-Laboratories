@@ -14,6 +14,7 @@ lats_ser,lons_ser,names_ser,country_ser = [],[],[],[]
 lats_cl,lons_cl,names_cl,country_cl = [],[],[],[]
 name_ser=[]
 names_cl=[]
+countries_cl = []
 distances=[]
 min_servers = []
 N=5
@@ -43,12 +44,14 @@ def calculate_dist(lat1,lon1,lat2,lon2):
 def get_data_clients():
     # the Clients can be found here:
     with open('./worldcities.csv') as csvfile:
-        reader_cl = csv.DictReader(csvfile,delimiter=',')
+        reader_cl = csv.DictReader(csvfile,delimiter=';')
         for data_cl in reader_cl:
-            names_cl.append(data_cl['city'])
+            names_cl.append(str(data_cl['city']))
+            countries_cl.append(str(data_cl['iso2']))
             lats_cl.append(float(data_cl['lat']))
             lons_cl.append(float(data_cl['lng']))
-    return lats_cl,lons_cl
+    # return lats_cl,lons_cl
+    return
 
 #THIS FUNCTION GETS SERVERS' DATA
 def get_data_servers():
@@ -59,24 +62,29 @@ def get_data_servers():
             names_ser.append(data_ser['NAME'])
             lats_ser.append(float(data_ser['LAT']))
             lons_ser.append(float(data_ser['LON']))
-    return lats_ser,lons_ser
+    # return lats_ser,lons_ser
+    return
 
 def get_list_servers():
 
-    get_data_servers()
+    # get_data_servers()
 
     return names_ser
 
 
 #THIS FUNCTION PRODUCESE THE MAP
-def get_map(lats,lons,Title):
+def get_map(Title):
 
     # How much to zoom from coordinates (in degrees)
     zoom_scale = 0
 
     # Setup the bounding box for the zoom and bounds of the map
-    bbox = [np.min(lats)-zoom_scale,np.max(lats)+zoom_scale,\
-            np.min(lons)-zoom_scale,np.max(lons)+zoom_scale]
+    if Title=="Clients":
+        bbox = [np.min(lats_cl)-zoom_scale,np.max(lats_cl)+zoom_scale,\
+                np.min(lons_cl)-zoom_scale,np.max(lons_cl)+zoom_scale]
+    else:
+        bbox = [np.min(lats_ser)-zoom_scale,np.max(lats_ser)+zoom_scale,\
+                np.min(lons_ser)-zoom_scale,np.max(lons_ser)+zoom_scale]
 
     fig = plt.figure(figsize=(12, 7), edgecolor='b')
     m = Basemap(projection='cyl', resolution=None,llcrnrlat=-90, urcrnrlat=90,llcrnrlon=-180, urcrnrlon=180,)
@@ -92,44 +100,68 @@ def get_map(lats,lons,Title):
     m.drawmeridians(np.arange(bbox[2],bbox[3],(bbox[3]-bbox[2])/5),labels=[0,0,0,1],rotation=45)
     #m.drawmapboundary(fill_color='dodgerblue')
 
-    # build and plot coordinates onto map
-    x,y = m(lons,lats)
+    # # build and plot coordinates onto map
+    # x,y = m(lons,lats)
+    #
+    # if Title=="Clients":
+    #     m.plot(x,y,'r*',markersize=1)
+    # else:
+    #     m.plot(x,y,'r*',markersize=5)
 
     if Title=="Clients":
-        m.plot(x,y,'r*',markersize=1)
+        for i in range(len(lats_cl)):
+            country = countries_cl[i]
+            x,y = m(lons_cl[i],lats_cl[i])
+
+            if country=="NA":
+                m.plot(x,y,'r*',markersize=1)
+            if country=="SA":
+                m.plot(x,y,'y*',markersize=1)
+            if country=="EU":
+                m.plot(x,y,'c*',markersize=1)
+            if country=="AS":
+                m.plot(x,y,'b*',markersize=1)
+            if country=="OC":
+                m.plot(x,y,'r*',markersize=1)
+            if country=="AF":
+                m.plot(x,y,'r*',markersize=1)
+
     else:
+        x,y = m(lons_ser,lats_ser)
         m.plot(x,y,'r*',markersize=5)
 
     plt.title(Title+" Distribution")
     plt.savefig(Title +'.pdf', format='pdf', dpi=1000)
     plt.show()
 
+
+
 #THIS FUNCTION RETURNS A RANDOM CLIENT
 def get_random_client(ORIGIN):
-    [lats_cl,lons_cl]= get_data_clients()
 
-    # if ORIGIN=='north_us':
-    #     k = random.randint(0,int(len(lats_cl))-1)
-    # if ORIGIN=='south_us':
-    #     k = random.randint(0,int(len(lats_cl))-1)
-    # if ORIGIN=='europe':
-    #     k = random.randint(0,int(len(lats_cl))-1)
-    # if ORIGIN=='africa':
-    #     k = random.randint(0,int(len(lats_cl))-1)
-    # if ORIGIN=='asia':
-    #     k = random.randint(0,int(len(lats_cl))-1)
-    # if ORIGIN=='austr':
-    #     k = random.randint(0,int(len(lats_cl))-1)
+    # if ORIGIN=='NA':
+    #     k = random.randint()
+    # if ORIGIN=='SA':
+    #     k = random.randint()
+    # if ORIGIN=='EU':
+    #     k = random.randint()
+    # if ORIGIN=='AF':
+    #     k = random.randint()
+    # if ORIGIN=='AS':
+    #     k = random.randint()
+    # if ORIGIN=='OC':
+    #     k = random.randint()
 
-    return lats_cl[k], lons_cl[k]
+
+    return lats_cl[754], lons_cl[754]
 
 #THIS FUNCTION IS USED FOR THE SORTING IN get_nearest_servers()
 def takeFirst(elem):
     return elem[0]
 
-#THIS FUNCTION RETURNS A RANDOM CLIENT
+#THIS FUNCTION RETURNS THE N NEAREST SERVERS
 def get_nearest_servers(lat_r_cl,lon_r_cl):
-    [lats_ser, lons_ser] = get_data_servers()
+    # [lats_ser, lons_ser] = get_data_servers()
 
     for i in range(len(lats_ser)):
         distances.append([calculate_dist(lat_r_cl,lon_r_cl,lats_ser[i],lons_ser[i]) , names_ser[i]])
