@@ -25,7 +25,7 @@ mu_as = 1/40
 #--------------
 #Arrival
 #--------------
-def arrival(self,environment,position):
+def arrival(environment,position):
     i=0
     if position=='us':
         arrival_rate=lambda_us
@@ -60,11 +60,11 @@ class Client(object):
         count_rejected=0
         while count_req <= K:
             size = 1000 #size = random.randint(1000,1400)
-            routing_table = 'funzione.mappa'
+            routing_table = ['US1', 'EU1', 'AS1']
             ok=0
-            while ok==0: 
+            while ok==0:
                 for server_code in routing_table:
-                    if self.env.process(self.env.servers.serve(server_code,size))==1:
+                    if self.env.process(self.env.list_server.serve(server_code,size))==1:
                         ok=1
                         count_rejected+=1
                         break #set timeout??
@@ -75,20 +75,22 @@ class Client(object):
 #nella funzione mappa fai classe che genera posizione nella zona designata e calcola distanza e routing table
 
 
-class Server():
+class Server(object):
     # we drop requests if everything is full
    def __init__(self, environment):
        self.env = environment
-       self.list_server='funzione.mappa.list_server'
-       for server in self.list_server:
-           server=simpy.Resource(self.env, capacity=MAX_REQ)
+       self.list_server = ['US1', 'EU1', 'AS1']
+       self.list_server = simpy.Resource(self.env, capacity=MAX_REQ)
+       #self.list_server='funzione.mappa.list_server'
+       # for server in self.list_server:
+       #     server=simpy.Resource(self.env, capacity=MAX_REQ)
 
 
-   def serve(self,serve_code,size):
-       with self.servers.request() as request:#bisogna associare il codice a una risorsa(server)
+   def serve(self,server_code,size):
+       with self.server_code.request() as request:#bisogna associare il codice a una risorsa(server)
             yield request
-       if ok=0: return 0 #rejected
-       else return 1 #accepted
+       if ok==0: return 0 #rejected
+       else: return 1 #accepted
 
 
 if __name__=='__main__':
@@ -97,7 +99,7 @@ if __name__=='__main__':
     #create simulation environment
     env = simpy.Environment()
     #start the arrival process
-    env.process(arrival(env,'us'))
+    env.process(arrival(env, 'us'))
     env.process(arrival(env,'eu'))
     env.process(arrival(env,'as'))
     #simulate until SIM_TIME
