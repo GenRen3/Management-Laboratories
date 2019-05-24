@@ -5,8 +5,9 @@ import matplotlib.pyplot as plt
 import matplotlib.image as image
 import numpy as np
 import csv
-import random
 import heapq
+import random
+import time
 
 from math import sin, cos, sqrt, atan2, radians
 
@@ -18,7 +19,6 @@ countries_cl = []
 distances=[]
 min_servers = []
 N=5
-
 
 #THIS FUNCTION CALCULATES THE DISTANCE BETWEEN TWO POINTS WITH LATITUDE AND LONGITUDINE
 def calculate_dist(lat1,lon1,lat2,lon2):
@@ -136,14 +136,17 @@ def get_map(Title):
 
 #THIS FUNCTION RETURNS A RANDOM CLIENT
 def get_random_client(ORIGIN):
+
     flag=0
+
     while flag!=1:
+        random.seed(time.clock())
         k = random.randint(0,len(lats_cl))
-        print(k)
         if countries_cl[k]==ORIGIN:
             flag=1
+            
     print(names_cl[k])
-    
+
     return lats_cl[k], lons_cl[k]
 
 #THIS FUNCTION IS USED FOR THE SORTING IN get_nearest_servers()

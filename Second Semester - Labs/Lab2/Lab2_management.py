@@ -6,6 +6,7 @@ from runstats import Statistics
 import matplotlib.pyplot as pyplot
 import map
 
+
 #in another file we build geography and routing table
 
 #------------
@@ -31,7 +32,7 @@ mu_as = 1/40
 #mu_AS =
 #mu_OC =
 
-ORIGIN = 'EU' #(we can use NA,SA,EU,AF,AS,OC)
+ORIGIN = 'SA' #(we can use NA,SA,EU,AF,AS,OC)
 
 
 
