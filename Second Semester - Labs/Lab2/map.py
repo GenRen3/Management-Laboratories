@@ -122,9 +122,9 @@ def get_map(Title):
             if country=="AS":
                 m.plot(x,y,'b*',markersize=1)
             if country=="OC":
-                m.plot(x,y,'r*',markersize=1)
+                m.plot(x,y,'w*',markersize=1)
             if country=="AF":
-                m.plot(x,y,'r*',markersize=1)
+                m.plot(x,y,'m*',markersize=1)
 
     else:
         x,y = m(lons_ser,lats_ser)
