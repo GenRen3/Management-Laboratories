@@ -4,8 +4,8 @@ from matplotlib.collections import LineCollection
 import matplotlib.pyplot as plt
 import matplotlib.image as image
 import numpy as np
-import os
 import csv
+import random
 
 from math import sin, cos, sqrt, atan2, radians
 
@@ -33,8 +33,7 @@ def calculate_dist(lat1,lon1,lat2,lon2):
 
     return print(distance)
 
-
-#THIS FUNCTION GETS DATA
+#THIS FUNCTION GETS CLIENT'S DATA
 def get_data_clients():
     # the Clients can be found here:
     with open('./worldcities.csv') as csvfile:
@@ -44,11 +43,9 @@ def get_data_clients():
             #country_cl.append(str(data_cl['country']))
             lats_cl.append(float(data_cl['lat']))
             lons_cl.append(float(data_cl['lng']))
-
     return lats_cl,lons_cl
 
-
-
+#THIS FUNCTION GETS SERVERS' DATA
 def get_data_servers():
     # the Servers can be found here:
     with open('./Amazon_servers_stations.csv') as csvfile:
@@ -58,9 +55,9 @@ def get_data_servers():
             #country_ser.append(float(data_ser['COUNTRY']))
             lats_ser.append(float(data_ser['LAT']))
             lons_ser.append(float(data_ser['LON']))
-
     return lats_ser,lons_ser
 
+#THIS FUNCTION PRODUCESE THE MAP
 def get_map(lats,lons,Title):
 
     # How much to zoom from coordinates (in degrees)
@@ -96,17 +93,10 @@ def get_map(lats,lons,Title):
     plt.savefig(Title +'.pdf', format='pdf', dpi=1000)
     plt.show()
 
+#THIS FUNCTION RETURNS A RANDOM CLIENT
+def get_random_client():
 
-#*******************************************************************************
-# main
-#*******************************************************************************
-if __name__ == '__main__':
+    [lats_cl,lons_cl]= get_data_clients()
+    k = random.randint(0,int(len(lats_cl)))
 
-    #HERE I GET THE CLIENTS ON THE MAP
-    [latitudine_clients,longitudine_clients] = get_data_clients()
-    get_map(latitudine_clients,longitudine_clients,"Clients")
-
-    #HERE I GET THE SERVERS ON THE MAP
-    [latitudine_servers,longitudine_servers] = get_data_servers()
-    get_map(latitudine_servers,longitudine_servers, "Servers")
-    #calculate_dist(latitudine_servers[0],longitudine_servers[0],latitudine_servers[1],longitudine_servers[1])
+    return lats_cl[k], lons_cl[k]
