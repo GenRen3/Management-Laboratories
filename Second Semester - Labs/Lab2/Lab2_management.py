@@ -4,6 +4,7 @@ import simpy
 import random
 from runstats import Statistics
 import matplotlib.pyplot as pyplot
+#import map
 #from mpl_toolkits.basemap import Basemap
 
 #in another file we build geography and routing table
@@ -55,18 +56,17 @@ class Client(object):
 
     def run(self):
         time_arrival = self.env.now
+        #qui viene passato il cliente
         K = random.randint(10,100)
         count_req = 1
-        count_rejected=0
         while count_req <= K:
             size = 1000 #size = random.randint(1000,1400)
-            routing_table = ['US1', 'EU1', 'AS1']
+            routing_table = 'US1'
             ok=0
             while ok==0:
                 for server_code in routing_table:
-                    if self.env.process(self.env.list_server.serve(server_code,size))==1:
-                        ok=1
-                        count_rejected+=1
+                    yield self.env.process(self.env.servers.serve(server_code,size))
+                    if ok==1:
                         break #set timeout??
             count_req+=1
             #calculate response time
@@ -77,27 +77,40 @@ class Client(object):
 
 class Server(object):
     # we drop requests if everything is full
-   def __init__(self, environment):
+   def __init__(self, environment, service_rate):
        self.env = environment
        self.list_server = ['US1', 'EU1', 'AS1']
-       self.list_server = simpy.Resource(self.env, capacity=MAX_REQ)
+       self.service_rate = service_rate
+       #self.list_server = simpy.Resource(self.env, capacity=MAX_REQ)
        #self.list_server='funzione.mappa.list_server'
-       # for server in self.list_server:
-       #     server=simpy.Resource(self.env, capacity=MAX_REQ)
+       for server in self.list_server:
+           server=simpy.Resource(self.env, capacity=MAX_REQ)
 
 
    def serve(self,server_code,size):
-       with self.server_code.request() as request:#bisogna associare il codice a una risorsa(server)
-            yield request
-       if ok==0: return 0 #rejected
-       else: return 1 #accepted
+       if server_code.count==MAX_REQ:
+           ok=0
+           return ok
+       else:
+           with self.server_code.request() as request:#bisogna associare il codice a una risorsa(server)
+                yield request
+                service_time = random.expovariate(lambd=self.service_rate)
+                yield self.env.timeout(service_time)
+                ok =1
+           return ok
+       # if ok==0: return 0 #rejected
+       # else:
+       #     print('ok')
+       #     return 1 #accepted
 
 
 if __name__=='__main__':
     random.seed(RANDOM_SEED)
+    mu = 1.0/20.0
 
     #create simulation environment
     env = simpy.Environment()
+    env.servers = Server(env,mu)
     #start the arrival process
     env.process(arrival(env, 'us'))
     env.process(arrival(env,'eu'))
