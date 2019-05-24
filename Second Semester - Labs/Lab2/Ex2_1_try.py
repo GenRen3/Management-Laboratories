@@ -4,7 +4,7 @@ import numpy
 import random
 from runstats import Statistics
 import matplotlib.pyplot as pyplot
-import map.py
+import map
 
 
 if __name__ == '__main__':
@@ -12,8 +12,8 @@ if __name__ == '__main__':
 
     #HERE I GET THE CLIENTS ON THE MAP
     [latitudine_clients,longitudine_clients] = map.get_data_clients()
-    get_map(latitudine_clients,longitudine_clients,"Clients")
+    map.get_map(latitudine_clients,longitudine_clients,"Clients")
 
     #HERE I GET THE SERVERS ON THE MAP
     [latitudine_servers,longitudine_servers] = map.get_data_servers()
-#ciao sono silvia
+    map.get_map(latitudine_servers,longitudine_servers,"Servers")
