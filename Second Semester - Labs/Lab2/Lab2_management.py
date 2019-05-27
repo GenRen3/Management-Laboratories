@@ -79,8 +79,8 @@ class Client(object):
     def run(self):
         time_arrival = self.env.now
         print("Client ", self.number, "arrived at ", time_arrival)
-        map.get_data_clients()
-        map.get_data_servers()
+        # map.get_data_clients()
+        # map.get_data_servers()
         #tot_list_servers = map.get_list_servers()
         [lat_client,long_client] = map.get_random_client(self.position) #with this line we get a random client
         nearest_servers = map.get_nearest_servers(lat_client,long_client) #with this line we get the nearset servers to the chosen client
@@ -154,7 +154,7 @@ if __name__=='__main__':
     random.seed(RANDOM_SEED)
     mu = 1.0/20.0
 
-    # map.get_data_clients()
+    map.get_data_clients()
     map.get_data_servers()
     #map.get_map("Clients")
     # tot_list_servers = map.get_list_servers()
