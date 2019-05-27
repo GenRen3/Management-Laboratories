@@ -144,7 +144,7 @@ def get_random_client(ORIGIN):
         k = random.randint(0,len(lats_cl))
         if countries_cl[k]==ORIGIN:
             flag=1
-
+    print(names_cl[k])
     return lats_cl[k], lons_cl[k]
 
 #THIS FUNCTION IS USED FOR THE SORTING IN get_nearest_servers()
@@ -159,4 +159,4 @@ def get_nearest_servers(lat_r_cl,lon_r_cl):
         distances.append([calculate_dist(lat_r_cl,lon_r_cl,lats_ser[i],lons_ser[i]) , names_ser[i]])
 
     distances.sort(key = takeFirst)
-    return np.asarray(distances[:N])[:N,1]
+    return np.asarray(distances[:N])[:N]

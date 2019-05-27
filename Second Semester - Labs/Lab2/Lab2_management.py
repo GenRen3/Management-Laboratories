@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 
 import simpy
 import random
@@ -81,6 +81,7 @@ class Client(object):
         #tot_list_servers = map.get_list_servers()
         [lat_client,long_client] = map.get_random_client(self.position) #with this line we get a random client
         nearest_servers = map.get_nearest_servers(lat_client,long_client) #with this line we get the nearset servers to the chosen client
+        print(nearest_servers)
         random.seed(time.clock())
         K = random.randint(10,100)
         count_req = 1
@@ -149,9 +150,9 @@ if __name__=='__main__':
 
     # map.get_data_clients()
     # map.get_data_servers()
-    # #map.get_map("Clients")
+    #map.get_map("Clients")
     # tot_list_servers = map.get_list_servers()
-    # [lat_client,long_client] = map.get_random_client(ORIGIN) #with this line we get a random client
+    # [lat_client,long_client] = map.get_random_client(position) #with this line we get a random client
     # nearest_servers = map.get_nearest_servers(lat_client,long_client) #with this line we get the nearset servers to the chosen client
     # print(nearest_servers)
 
