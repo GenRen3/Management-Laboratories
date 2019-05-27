@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 
 import simpy
 import random
@@ -156,7 +156,7 @@ if __name__=='__main__':
 
     map.get_data_clients()
     map.get_data_servers()
-    #map.get_map("Clients")
+    #map.get_map_total("Clients")
     # tot_list_servers = map.get_list_servers()
     # [lat_client,long_client] = map.get_random_client(position) #with this line we get a random client
     # nearest_servers = map.get_nearest_servers(lat_client,long_client) #with this line we get the nearset servers to the chosen client
@@ -174,11 +174,11 @@ if __name__=='__main__':
 
     env.servers = Server(env, mu, all_servers)
     # #start the arrival process
-    env.process(arrival(env, 'NA'))
-    # env.process(arrival(env,'SA'))
-    # env.process(arrival(env,'EU'))
-    # env.process(arrival(env, 'AF'))
-    # env.process(arrival(env,'AS'))
-    # env.process(arrival(env,'OC'))
+    env.process(arrival(env,'NA'))
+    env.process(arrival(env,'SA'))
+    env.process(arrival(env,'EU'))
+    env.process(arrival(env,'AF'))
+    env.process(arrival(env,'AS'))
+    env.process(arrival(env,'OC'))
     # #simulate until SIM_TIME
     env.run(until=SIM_TIME)

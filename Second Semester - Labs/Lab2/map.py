@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.7
 from mpl_toolkits.basemap import Basemap
 from matplotlib.collections import LineCollection
 import matplotlib.pyplot as plt
@@ -62,7 +62,6 @@ def get_data_servers():
     return
 
 def get_list_servers():
-
     return names_ser
 
 
