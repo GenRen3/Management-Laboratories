@@ -14,7 +14,7 @@ import time
 # Constants
 #------------
 RANDOM_SEED = 17
-SIM_TIME = 100
+SIM_TIME = 10
 LINK_CAPACITY = 10 #Gb
 MAX_REQ = 10
 #SERVER_NUM = 3
@@ -24,7 +24,6 @@ lambda_EU = 2
 lambda_AF = 1
 lambda_AS = 1.5
 lambda_OC = 1.5
-
 #ORIGIN = 'SA' #(we can use NA,SA,EU,AF,AS,OC)
 
 
@@ -34,6 +33,7 @@ lambda_OC = 1.5
 #--------------
 def arrival(environment,position):
     i=0
+    time=0
     if position=='NA':
         arrival_rate=lambda_NA
     if position=='SA':
@@ -46,13 +46,19 @@ def arrival(environment,position):
         arrival_rate=lambda_AS
     if position=='OC':
         arrival_rate=lambda_OC
-    time=0
     while time <= SIM_TIME:
         time+=1
         inter_arrival = random.expovariate(lambd=arrival_rate)
         yield environment.timeout(inter_arrival)
         i+=1
         Client(environment,i,position)
+    print("End time for ", position, "= ", time)
+
+#per alcune località la simulazione sembra non finire, time non raggiunge il valore SIM_TIME
+#infatti non viene stampato "End time for..."
+#a volte invece tutto sembra andare a buon fine
+#da cosa dipende??
+
 
 #------------
 # Clients
@@ -96,10 +102,9 @@ class Server(object):
    def __init__(self, environment, all_servers):
        self.env = environment
        self.server_resources = all_servers
-       self.flag = 0
-
 
    def serve(self,list_nearest):
+       self.flag = 0
        for server in list_nearest: #select the nearest servers
            if self.server_resources[server[0]].count < MAX_REQ:
                #print(server[0], self.server_resources[server[0]].count)
@@ -117,10 +122,10 @@ class Server(object):
                break
 
    def success_req(self):
-       if self.flag == 0:
-           return 0
-       else:
+       if self.flag == 1:
            return 1
+       else:
+           return 0
 
 
 
@@ -139,7 +144,7 @@ if __name__=='__main__':
     env = simpy.Environment()
 
     tot_list_servers = map.get_list_servers()
-    print(tot_list_servers)
+    #print(tot_list_servers)
     all_servers = {}
     for server in tot_list_servers: #create dictionary of all servers
         all_servers[server]=simpy.Resource(env, capacity=MAX_REQ)
