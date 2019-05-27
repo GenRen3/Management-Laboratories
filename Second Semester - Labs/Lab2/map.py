@@ -42,7 +42,6 @@ def calculate_dist(lat1,lon1,lat2,lon2):
 
 #THIS FUNCTION GETS CLIENT'S DATA
 def get_data_clients():
-    # the Clients can be found here:
     with open('./worldcities.csv') as csvfile:
         reader_cl = csv.DictReader(csvfile,delimiter=';')
         for data_cl in reader_cl:
@@ -50,19 +49,16 @@ def get_data_clients():
             countries_cl.append(str(data_cl['iso2']))
             lats_cl.append(float(data_cl['lat']))
             lons_cl.append(float(data_cl['lng']))
-    # return lats_cl,lons_cl
     return
 
 #THIS FUNCTION GETS SERVERS' DATA
 def get_data_servers():
-    # the Servers can be found here:
     with open('./Amazon_servers_stations.csv') as csvfile:
         reader_ser = csv.DictReader(csvfile,delimiter=';')
         for data_ser in reader_ser:
             names_ser.append(data_ser['NAME'])
             lats_ser.append(float(data_ser['LAT']))
             lons_ser.append(float(data_ser['LON']))
-    # return lats_ser,lons_ser
     return
 
 def get_list_servers():
@@ -70,8 +66,8 @@ def get_list_servers():
     return names_ser
 
 
-#THIS FUNCTION PRODUCESE THE MAP
-def get_map(Title):
+#THIS FUNCTION PRODUCES THE MAP
+def get_map_total(Title):
 
     # How much to zoom from coordinates (in degrees)
     zoom_scale = 0
@@ -98,14 +94,6 @@ def get_map(Title):
     #m.drawmeridians(np.arange(bbox[2],bbox[3],(bbox[3]-bbox[2])/5),labels=[0,0,0,1],rotation=45)
     #m.drawmapboundary(fill_color='dodgerblue')
 
-    # # build and plot coordinates onto map
-    # x,y = m(lons,lats)
-    #
-    # if Title=="Clients":
-    #     m.plot(x,y,'r*',markersize=1)
-    # else:
-    #     m.plot(x,y,'r*',markersize=5)
-
     if Title=="Clients":
         for i in range(len(lats_cl)):
             country = countries_cl[i]
@@ -131,6 +119,43 @@ def get_map(Title):
 
     plt.title(Title+" Distribution")
     plt.savefig(Title +'.pdf', format='pdf', dpi=1000)
+    plt.show()
+
+
+#THIS FUNCTION PRODUCES THE MAP WITH THE LINKS
+def get_map_links():
+    # How much to zoom from coordinates (in degrees)
+    zoom_scale = 0
+
+    # Setup the bounding box for the zoom and bounds of the map
+    bbox = [np.min(lats)-zoom_scale,np.max(lats)+zoom_scale,\
+            np.min(lons)-zoom_scale,np.max(lons)+zoom_scale]
+
+    plt.figure(figsize=(12,6))
+    # Define the projection, scale, the corners of the map, and the resolution.
+    m = Basemap(projection='merc',llcrnrlat=bbox[0],urcrnrlat=bbox[1],\
+                llcrnrlon=bbox[2],urcrnrlon=bbox[3],lat_ts=10,resolution='i')
+
+    # Draw coastlines and fill continents and water with color
+    m.drawcoastlines()
+    m.fillcontinents(color='white')
+
+    # Draw the lines
+    x, y = m(lon, lat)
+    m.plot(x, y, 'o-', markersize=5, linewidth=1)
+
+    # draw parallels, meridians, and color boundaries
+    m.drawparallels(np.arange(bbox[0],bbox[1],(bbox[1]-bbox[0])/5),labels=[1,0,0,0])
+    m.drawmeridians(np.arange(bbox[2],bbox[3],(bbox[3]-bbox[2])/5),labels=[0,0,0,1],rotation=45)
+    m.drawmapboundary(fill_color='white')
+    m.drawstates(color='black')
+    m.drawcountries(color='black')
+
+    # build and plot coordinates onto map
+    x,y = m(lons,lats)
+    m.plot(x,y,'r*',markersize=5)
+    plt.title("ASOS Station Distribution")
+    plt.savefig('asos_station_plot.png', format='png', dpi=500)
     plt.show()
 
 

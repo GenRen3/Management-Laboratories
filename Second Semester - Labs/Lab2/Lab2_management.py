@@ -78,7 +78,6 @@ class Client(object):
         time_arrival = self.env.now
         map.get_data_clients()
         map.get_data_servers()
-        #tot_list_servers = map.get_list_servers()
         [lat_client,long_client] = map.get_random_client(self.position) #with this line we get a random client
         nearest_servers = map.get_nearest_servers(lat_client,long_client) #with this line we get the nearset servers to the chosen client
         print(nearest_servers)
@@ -148,23 +147,21 @@ if __name__=='__main__':
     random.seed(RANDOM_SEED)
     mu = 1.0/20.0
 
-    # map.get_data_clients()
-    # map.get_data_servers()
-    #map.get_map("Clients")
-    # tot_list_servers = map.get_list_servers()
-    # [lat_client,long_client] = map.get_random_client(position) #with this line we get a random client
-    # nearest_servers = map.get_nearest_servers(lat_client,long_client) #with this line we get the nearset servers to the chosen client
-    # print(nearest_servers)
+    #THESE FUNTCTIONS ARE FOR THE MAP
+    #map.get_data_clients()
+    map.get_data_servers()
+    map.get_map_total("Servers")
 
-    # #create simulation environment
+
+    #create simulation environment
     env = simpy.Environment()
     env.servers = Server(env,mu)
-    # #start the arrival process
+    #start the arrival process
     env.process(arrival(env, 'NA'))
     env.process(arrival(env,'SA'))
     env.process(arrival(env,'EU'))
     env.process(arrival(env, 'AF'))
     env.process(arrival(env,'AS'))
     env.process(arrival(env,'OC'))
-    # #simulate until SIM_TIME
+    #simulate until SIM_TIME
     env.run(until=SIM_TIME)
