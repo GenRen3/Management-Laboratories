@@ -80,7 +80,7 @@ def get_map_total(Title):
                 np.min(lons_ser)-zoom_scale,np.max(lons_ser)+zoom_scale]
 
     fig = plt.figure(figsize=(12, 7), edgecolor='b')
-    m = Basemap(projection='cyl', resolution=None,llcrnrlat=-90, urcrnrlat=90,llcrnrlon=-180, urcrnrlon=180,)
+    m = Basemap(projection='cyl', resolution=None,llcrnrlat=-90, urcrnrlat=90,llcrnrlon=-180, urcrnrlon=180)
     #m.bluemarble()
     m.arcgisimage(service='ESRI_Imagery_World_2D', xpixels = 1500, verbose= True)
 
@@ -122,39 +122,54 @@ def get_map_total(Title):
 
 
 #THIS FUNCTION PRODUCES THE MAP WITH THE LINKS
-def get_map_links():
+def get_map_links(nearest_servers,lat_r_cl,lon_r_cl):
+
     # How much to zoom from coordinates (in degrees)
     zoom_scale = 0
+    lat,lon = [],[]
 
-    # Setup the bounding box for the zoom and bounds of the map
-    bbox = [np.min(lats)-zoom_scale,np.max(lats)+zoom_scale,\
-            np.min(lons)-zoom_scale,np.max(lons)+zoom_scale]
+    # # Setup the bounding box for the zoom and bounds of the map
+    # bbox = [np.min(lats)-zoom_scale,np.max(lats)+zoom_scale,\
+    #         np.min(lons)-zoom_scale,np.max(lons)+zoom_scale]
 
     plt.figure(figsize=(12,6))
     # Define the projection, scale, the corners of the map, and the resolution.
-    m = Basemap(projection='merc',llcrnrlat=bbox[0],urcrnrlat=bbox[1],\
-                llcrnrlon=bbox[2],urcrnrlon=bbox[3],lat_ts=10,resolution='i')
+    m = Basemap(projection='merc',resolution=None,llcrnrlat=-90, urcrnrlat=90,llcrnrlon=-180, urcrnrlon=180)
+
 
     # Draw coastlines and fill continents and water with color
-    m.drawcoastlines()
-    m.fillcontinents(color='white')
+    #m.drawcoastlines()
+    #m.fillcontinents(color='white')
 
-    # Draw the lines
-    x, y = m(lon, lat)
-    m.plot(x, y, 'o-', markersize=5, linewidth=1)
+    lat.append(lat_r_cl)
+    lon.append(lon_r_cl)
+
+    for i in range(len(nearest_servers)):
+
+        if i!=0:
+            lat.pop()
+            lon.pop()
+
+        lat.append(float(nearest_servers[i][2]))
+        lon.append(float(nearest_servers[i][3]))
+        print(lat,lon)
+
+        # Draw the lines
+        x, y = m(lon[:], lat[:])
+        m.plot(x, y, 'o-', markersize=5, linewidth=1)
 
     # draw parallels, meridians, and color boundaries
-    m.drawparallels(np.arange(bbox[0],bbox[1],(bbox[1]-bbox[0])/5),labels=[1,0,0,0])
-    m.drawmeridians(np.arange(bbox[2],bbox[3],(bbox[3]-bbox[2])/5),labels=[0,0,0,1],rotation=45)
-    m.drawmapboundary(fill_color='white')
-    m.drawstates(color='black')
-    m.drawcountries(color='black')
+    #m.drawparallels(np.arange(bbox[0],bbox[1],(bbox[1]-bbox[0])/5),labels=[1,0,0,0])
+    #m.drawmeridians(np.arange(bbox[2],bbox[3],(bbox[3]-bbox[2])/5),labels=[0,0,0,1],rotation=45)
+    #m.drawmapboundary(fill_color='white')
+    #m.drawstates(color='black')
+    #m.drawcountries(color='black')
 
     # build and plot coordinates onto map
-    x,y = m(lons,lats)
-    m.plot(x,y,'r*',markersize=5)
+    #x,y = m(lons,lats)
+    #m.plot(x,y,'r*',markersize=5)
     plt.title("ASOS Station Distribution")
-    plt.savefig('asos_station_plot.png', format='png', dpi=500)
+    #plt.savefig('asos_station_plot.png', format='png', dpi=500)
     plt.show()
 
 
@@ -173,14 +188,14 @@ def get_random_client(ORIGIN):
 
 #THIS FUNCTION IS USED FOR THE SORTING IN get_nearest_servers()
 def takeFirst(elem):
-    return elem[0]
+    return elem[1]
 
 #THIS FUNCTION RETURNS THE N NEAREST SERVERS
 def get_nearest_servers(lat_r_cl,lon_r_cl):
     # [lats_ser, lons_ser] = get_data_servers()
 
     for i in range(len(lats_ser)):
-        distances.append([calculate_dist(lat_r_cl,lon_r_cl,lats_ser[i],lons_ser[i]) , names_ser[i]])
+        distances.append([names_ser[i], calculate_dist(lat_r_cl,lon_r_cl,lats_ser[i],lons_ser[i]), lats_ser[i],lons_ser[i]])
 
     distances.sort(key = takeFirst)
     return np.asarray(distances[:N])[:N]

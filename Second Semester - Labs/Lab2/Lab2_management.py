@@ -78,13 +78,14 @@ class Client(object):
 
     def run(self):
         time_arrival = self.env.now
-        print("Client ", self.number, "arrived at ", time_arrival)
+        print("Client from ", self.position, "arrived at ", time_arrival)
         # map.get_data_clients()
         # map.get_data_servers()
         #tot_list_servers = map.get_list_servers()
         [lat_client,long_client] = map.get_random_client(self.position) #with this line we get a random client
         nearest_servers = map.get_nearest_servers(lat_client,long_client) #with this line we get the nearset servers to the chosen client
         print(nearest_servers)
+        #map.get_map_links(nearest_servers,lat_client,long_client)
         random.seed(time.clock())
         K = random.randint(10,100)
         count_req = 1
@@ -124,8 +125,8 @@ class Server(object):
    def serve(self,list_nearest):
        ok = 0
        for server in list_nearest: #select the nearest servers
-           if self.server_resources[server[1]].count < MAX_REQ:
-               with self.server_resources[server[1]].request() as request:
+           if self.server_resources[server[0]].count < MAX_REQ:
+               with self.server_resources[server[0]].request() as request:
                    yield request
                    service_time = random.expovariate(lambd=self.service_rate)
                    yield self.env.timeout(service_time) #the timeout must be server_latency+RTT(depending on distance)+transfer_delay (depending on available capacity and packet size)
@@ -170,7 +171,7 @@ if __name__=='__main__':
     all_servers = {}
     for server in tot_list_servers: #create dictionary of all servers
         all_servers[server]=simpy.Resource(env, capacity=MAX_REQ)
-    print(all_servers)
+    # print(all_servers)
 
     env.servers = Server(env, mu, all_servers)
     # #start the arrival process
