@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.7
 
 import simpy
 import random
@@ -16,6 +16,7 @@ import time
 RANDOM_SEED = 17
 SIM_TIME = 10
 LINK_CAPACITY = 10 #Gb
+MAX_REQ = 10
 SERVER_NUM = 3
 lambda_NA = 60#the higher it is, the higher the num of clients
 lambda_SA = 40
@@ -74,10 +75,13 @@ class Client(object):
         self.env.process(self.run())
 
 
+
     def run(self):
         time_arrival = self.env.now
+        print("Client ", self.number, "arrived at ", time_arrival)
         map.get_data_clients()
         map.get_data_servers()
+        #tot_list_servers = map.get_list_servers()
         [lat_client,long_client] = map.get_random_client(self.position) #with this line we get a random client
         nearest_servers = map.get_nearest_servers(lat_client,long_client) #with this line we get the nearset servers to the chosen client
         print(nearest_servers)
@@ -105,20 +109,23 @@ class Client(object):
 
 class Server(object):
     # we drop requests if everything is full
-   def __init__(self, environment, service_rate):
+   def __init__(self, environment, service_rate, all_servers):
        self.env = environment
        self.service_rate = service_rate
-       self.tot_list_servers = map.get_list_servers()
-       self.server_resources = {}
-       for server in self.tot_list_servers: #create dictionary of all servers
-           self.server_resources[server]=simpy.Resource(self.env, capacity=MAX_REQ)
+       self.server_resources = all_servers
+       # self.tot_list_servers = map.get_list_servers()
+       # self.server_resources = {}
+       # for server in self.tot_list_servers: #create dictionary of all servers
+       #     self.server_resources[server]=simpy.Resource(self.env, capacity=MAX_REQ)
+       # print(self.server_resources)
+
 
 
    def serve(self,list_nearest):
        ok = 0
        for server in list_nearest: #select the nearest servers
-           if self.server_resources[server].count < MAX_REQ:
-               with self.server_resources[server].request() as request:
+           if self.server_resources[server[1]].count < MAX_REQ:
+               with self.server_resources[server[1]].request() as request:
                    yield request
                    service_time = random.expovariate(lambd=self.service_rate)
                    yield self.env.timeout(service_time) #the timeout must be server_latency+RTT(depending on distance)+transfer_delay (depending on available capacity and packet size)
@@ -147,21 +154,31 @@ if __name__=='__main__':
     random.seed(RANDOM_SEED)
     mu = 1.0/20.0
 
-    #THESE FUNTCTIONS ARE FOR THE MAP
-    #map.get_data_clients()
+    # map.get_data_clients()
     map.get_data_servers()
-    map.get_map_total("Servers")
+    #map.get_map("Clients")
+    # tot_list_servers = map.get_list_servers()
+    # [lat_client,long_client] = map.get_random_client(position) #with this line we get a random client
+    # nearest_servers = map.get_nearest_servers(lat_client,long_client) #with this line we get the nearset servers to the chosen client
+    # print(nearest_servers)
 
-
-    #create simulation environment
+    # #create simulation environment
     env = simpy.Environment()
-    env.servers = Server(env,mu)
-    #start the arrival process
+
+    tot_list_servers = map.get_list_servers()
+    print(tot_list_servers)
+    all_servers = {}
+    for server in tot_list_servers: #create dictionary of all servers
+        all_servers[server]=simpy.Resource(env, capacity=MAX_REQ)
+    print(all_servers)
+
+    env.servers = Server(env, mu, all_servers)
+    # #start the arrival process
     env.process(arrival(env, 'NA'))
-    env.process(arrival(env,'SA'))
-    env.process(arrival(env,'EU'))
-    env.process(arrival(env, 'AF'))
-    env.process(arrival(env,'AS'))
-    env.process(arrival(env,'OC'))
-    #simulate until SIM_TIME
+    # env.process(arrival(env,'SA'))
+    # env.process(arrival(env,'EU'))
+    # env.process(arrival(env, 'AF'))
+    # env.process(arrival(env,'AS'))
+    # env.process(arrival(env,'OC'))
+    # #simulate until SIM_TIME
     env.run(until=SIM_TIME)
