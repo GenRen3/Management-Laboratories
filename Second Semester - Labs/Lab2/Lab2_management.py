@@ -6,6 +6,9 @@ from runstats import Statistics
 import matplotlib.pyplot as pyplot
 import map
 import time
+import get_client
+import get_nearest
+
 
 
 #in another file we build geography and routing table
@@ -54,11 +57,6 @@ def arrival(environment,position):
         Client(environment,i,position)
     print("End time for ", position, "= ", time)
 
-#per alcune località la simulazione sembra non finire, time non raggiunge il valore SIM_TIME
-#infatti non viene stampato "End time for..."
-#a volte invece tutto sembra andare a buon fine
-#da cosa dipende??
-
 
 #------------
 # Clients
@@ -76,12 +74,11 @@ class Client(object):
         random.seed(time.clock())
         K = random.randint(1,3)
         print("Client ", self.number, "from ", self.position, "arrived at ", time_arrival, "with ", K, "requests")
-        # map.get_data_clients()
-        # map.get_data_servers()
-        #tot_list_servers = map.get_list_servers()
         [lat_client,long_client] = map.get_random_client(self.position) #with this line we get a random client
+        #[lat_client,long_client] = get_client.random_client(self.position)
         nearest_servers = map.get_nearest_servers(lat_client,long_client) #with this line we get the nearset servers to the chosen client
-        #print(nearest_servers)
+        #nearest_servers = get_nearest.nearest_serv(lat_client, long_client)
+        #print(nearest_servers[0:5])
         #map.get_map_links(nearest_servers,lat_client,long_client)
         count_req = 1
         while count_req <= K:
@@ -95,7 +92,7 @@ class Client(object):
             #self.env.stats.push(self.env.now-time_arrival)
         self.tot_time = self.env.now-time_arrival
         print("Client ", self.number, "from ", self.position, "served in ", self.tot_time)
-#ok non funziona
+
 
 class Server(object):
     # we drop requests if everything is full
@@ -111,7 +108,7 @@ class Server(object):
                with self.server_resources[server[0]].request() as request:
                    yield request
                    server_latency = random.uniform(1, 10)
-                   RTT = float(server[1])/(3*10^8)
+                   RTT = float(server[1])/(3*10^5)
                    # print(RTT)
                    transfer_delay = random.randint(1, 5)
                    service_time = server_latency + transfer_delay + RTT
@@ -148,7 +145,7 @@ if __name__=='__main__':
     all_servers = {}
     for server in tot_list_servers: #create dictionary of all servers
         all_servers[server]=simpy.Resource(env, capacity=MAX_REQ)
-    # print(all_servers)
+    #print(all_servers)
 
     env.servers = Server(env, all_servers)
     # #start the arrival process

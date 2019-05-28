@@ -8,17 +8,19 @@ import csv
 import heapq
 import random
 import time
+from operator import itemgetter
 
 from math import sin, cos, sqrt, atan2, radians
 
-lats_ser,lons_ser,names_ser,country_ser = [],[],[],[]
+lats_ser,lons_ser = [],[]
+names_ser,country_ser = [],[]
 lats_cl,lons_cl,names_cl,country_cl = [],[],[],[]
 name_ser=[]
 names_cl=[]
 countries_cl = []
-distances=[]
+#distances=[]
 min_servers = []
-N=5
+N=10
 
 #THIS FUNCTION CALCULATES THE DISTANCE BETWEEN TWO POINTS WITH LATITUDE AND LONGITUDINE
 def calculate_dist(lat1,lon1,lat2,lon2):
@@ -53,13 +55,19 @@ def get_data_clients():
 
 #THIS FUNCTION GETS SERVERS' DATA
 def get_data_servers():
+    global names_ser
+    global lats_ser
+    global lons_ser
+    names_ser = []
+    lats_ser = []
+    lons_ser = []
     with open('./Amazon_servers_stations.csv') as csvfile:
         reader_ser = csv.DictReader(csvfile,delimiter=';')
         for data_ser in reader_ser:
             names_ser.append(data_ser['NAME'])
             lats_ser.append(float(data_ser['LAT']))
             lons_ser.append(float(data_ser['LON']))
-    return
+    return names_ser, lats_ser, lons_ser
 
 def get_list_servers():
     return names_ser
@@ -193,9 +201,14 @@ def takeFirst(elem):
 #THIS FUNCTION RETURNS THE N NEAREST SERVERS
 def get_nearest_servers(lat_r_cl,lon_r_cl):
     # [lats_ser, lons_ser] = get_data_servers()
+    distances = []
 
     for i in range(len(lats_ser)):
         distances.append([names_ser[i], calculate_dist(lat_r_cl,lon_r_cl,lats_ser[i],lons_ser[i]), lats_ser[i],lons_ser[i]])
 
-    distances.sort(key = takeFirst)
-    return np.asarray(distances[:N])[:N]
+    #print(lat_r_cl,lon_r_cl)
+    #print(distances)
+    #distances.sort(key = takeFirst)
+    sorted_dist = sorted(distances, key = itemgetter(1))
+    #return np.asarray(distances[:N])[:N]
+    return np.asarray(sorted_dist[:N])[:N]
