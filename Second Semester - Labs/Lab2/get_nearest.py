@@ -7,15 +7,17 @@ from operator import itemgetter
 from math import sin, cos, sqrt, atan2, radians
 
 def get_servers():
-    names_s = []
+    names_s = [] #initialize all to empty lists
     lats_s = []
     lons_s = []
-    names_s, lats_s, lons_s = map.get_data_servers()
+    names_s, lats_s, lons_s = map.get_data_servers() #get the servers data from map
     return names_s, lats_s, lons_s
 
+#compute the distance between the client and the server i
 def compute_dist(lat1,lon1,lat2,lon2):
     R = 6373.0
 
+    #convert geographical coordinates to radians
     lat1 = radians(lat1)
     lon1 = radians(lon1)
     lat2 = radians(lat2)
@@ -33,11 +35,10 @@ def compute_dist(lat1,lon1,lat2,lon2):
 
 def nearest_serv(lat_cl,lon_cl):
     names, lats, lons = get_servers()
-    print(len(names))
-    all_dist = []
+    all_dist = [] #initialize the list that will contain [name_server, distance] for all servers
+    #iterate over all servers
     for i in range(len(names)):
         dist = compute_dist(lat_cl,lon_cl,lats[i],lons[i])
         all_dist.append([names[i], dist])
-    print(len(all_dist))
-    ordered_dist = sorted(all_dist, key=itemgetter(1))
+    ordered_dist = sorted(all_dist, key=itemgetter(1)) #order all_dist according to distance
     return ordered_dist
