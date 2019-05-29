@@ -4,7 +4,7 @@ import simpy
 import random
 from runstats import Statistics
 import matplotlib.pyplot as pyplot
-import map
+import Map_generator as map
 import time
 import get_client
 import get_nearest
