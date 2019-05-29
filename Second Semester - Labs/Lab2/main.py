@@ -81,10 +81,11 @@ class Client(object):
         #with this line we get a random client:
         [lat_client,long_client] = C.random_client(self.position)
 
+
         #with this line we get the nearset servers to the chosen client:
         nearest_servers = S.nearest_servers(lat_client,long_client)
 
-        #print(nearest_servers[0:5])
+        # print(nearest_servers[0:5])
 
         count_req = 1
 
@@ -157,8 +158,8 @@ if __name__=='__main__':
 
     random.seed(RANDOM_SEED)
 
-    map.get_map_total("Clients")
-    map.get_map_total("Servers")
+    #map.get_map_total("Clients")
+    #map.get_map_total("Servers")
 
     #create simulation environment
     env = simpy.Environment()
