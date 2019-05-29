@@ -1,4 +1,3 @@
-city;lat;lng;continent
 Malishevë;42.4822;20.7458;EU
 Prizren;42.2139;20.7397;EU
 Zubin Potok;42.9144;20.6897;EU
@@ -2088,576 +2087,576 @@ Leskovac;42.9976;21.9445;EU
 Čajetina;43.7497;19.715;EU
 Velika Plana;44.3323;21.0751;EU
 Beočin;45.1916;19.725;EU
-Volgodonsk;47.51;42.1599;EU
-Saskylakh;71.9166;114.0833;EU
-Polevskoy;56.4434;60.188;EU
-Saranpaul;64.2505;60.97;EU
-Severnyy;67.6083;64.1233;EU
-Pervouralsk;56.91;59.955;EU
-Novy Port;67.6983;72.9283;EU
-Pugachev;52.0148;48.7944;EU
-Numto;63.6667;71.3333;EU
-Novy Urengoy;66.0833;76.6332;EU
-Novyy Uoyin;56.135;111.7339;EU
-Nizhny Novgorod;56.333;44.0001;EU
-Miass;54.9954;60.0949;EU
-Omsk;54.99;73.4;EU
-Naltchik;43.4981;43.6179;EU
-Mirnyy;62.54;113.9614;EU
+Volgodonsk;47.51;42.1599;AS
+Saskylakh;71.9166;114.0833;AS
+Polevskoy;56.4434;60.188;AS
+Saranpaul;64.2505;60.97;AS
+Severnyy;67.6083;64.1233;AS
+Pervouralsk;56.91;59.955;AS
+Novy Port;67.6983;72.9283;AS
+Pugachev;52.0148;48.7944;AS
+Numto;63.6667;71.3333;AS
+Novy Urengoy;66.0833;76.6332;AS
+Novyy Uoyin;56.135;111.7339;AS
+Nizhny Novgorod;56.333;44.0001;AS
+Miass;54.9954;60.0949;AS
+Omsk;54.99;73.4;AS
+Naltchik;43.4981;43.6179;AS
+Mirnyy;62.54;113.9614;AS
 Monchegorsk;67.9291;32.8287;EU
-Nyagan;62.1465;65.3814;EU
+Nyagan;62.1465;65.3814;AS
 Maykop;44.61;40.12;EU
-Kirensk;57.7857;108.1119;EU
+Kirensk;57.7857;108.1119;AS
 Kolpino;59.73;30.65;EU
-Khorgo;73.4833;113.63;EU
-Kislovodsk;43.91;42.72;EU
-Guryevsk;54.2981;85.9377;EU
-Ivdel;60.6936;60.4133;EU
-Gusinoozyorsk;51.2808;106.5004;EU
-Kamenka;53.1947;44.0444;EU
-Kargat;55.1959;80.2811;EU
+Khorgo;73.4833;113.63;AS
+Kislovodsk;43.91;42.72;AS
+Guryevsk;54.2981;85.9377;AS
+Ivdel;60.6936;60.4133;AS
+Gusinoozyorsk;51.2808;106.5004;AS
+Kamenka;53.1947;44.0444;AS
+Kargat;55.1959;80.2811;AS
 Kasimov;54.9435;41.3931;EU
 Kolomna;55.08;38.785;EU
-Khanty Mansiysk;61.0015;69.0015;EU
-Dimitrovgrad;54.2504;49.56;EU
-Cheremkhovo;53.1588;103.0739;EU
-Gornyak;50.9881;81.4877;EU
-Blagodarnyy;45.1047;43.4344;EU
-Bodaybo;57.965;114.329;EU
-Biysk;52.5341;85.18;EU
-Abakan;53.7037;91.445;EU
-Angarsk;52.56;103.92;EU
-Birsk;55.4244;55.5444;EU
+Khanty Mansiysk;61.0015;69.0015;AS
+Dimitrovgrad;54.2504;49.56;AS
+Cheremkhovo;53.1588;103.0739;AS
+Gornyak;50.9881;81.4877;AS
+Blagodarnyy;45.1047;43.4344;AS
+Bodaybo;57.965;114.329;AS
+Biysk;52.5341;85.18;AS
+Abakan;53.7037;91.445;AS
+Angarsk;52.56;103.92;AS
+Birsk;55.4244;55.5444;AS
 Pskov;57.83;28.3299;EU
 Smolensk;54.7827;32.0473;EU
-Put Lenina;68.5166;107.8;EU
-Kemerovo;55.34;86.09;EU
-Kolpashevo;58.3004;82.9954;EU
+Put Lenina;68.5166;107.8;AS
+Kemerovo;55.34;86.09;AS
+Kolpashevo;58.3004;82.9954;AS
 Polyarnyy;69.2052;33.4502;EU
 St. Petersburg;59.939;30.316;EU
-Pyatigorsk;44.08;43.09;EU
-Nefteyugansk;61.0777;72.7027;EU
-Chernogorsk;53.8313;91.2227;EU
-Lensk;60.7253;114.947;EU
-Krasnoarmeysk;51.0174;45.6974;EU
-Saratov;51.58;46.03;EU
-Shira;54.4914;89.9531;EU
+Pyatigorsk;44.08;43.09;AS
+Nefteyugansk;61.0777;72.7027;AS
+Chernogorsk;53.8313;91.2227;AS
+Lensk;60.7253;114.947;AS
+Krasnoarmeysk;51.0174;45.6974;AS
+Saratov;51.58;46.03;AS
+Shira;54.4914;89.9531;AS
 Solnechnogorsk;56.1807;36.9809;EU
-Irkutsk;52.32;104.245;EU
-Noyabrsk;63.1665;75.6165;EU
-Yurga;55.7258;84.8854;EU
-Zelenokumsk;44.4091;43.8787;EU
-Olenek;68.525;112.45;EU
-Salekhard;66.535;66.61;EU
+Irkutsk;52.32;104.245;AS
+Noyabrsk;63.1665;75.6165;AS
+Yurga;55.7258;84.8854;AS
+Zelenokumsk;44.4091;43.8787;AS
+Olenek;68.525;112.45;AS
+Salekhard;66.535;66.61;AS
 Borovichi;58.3978;33.8974;EU
 Kaluga;54.5204;36.27;EU
-Izhevsk;56.85;53.23;EU
-Volsk;52.0347;47.3743;EU
+Izhevsk;56.85;53.23;AS
+Volsk;52.0347;47.3743;AS
 Cherepovets;59.1404;37.91;EU
-Pallasovka;50.0477;46.8773;EU
-Peregrebnoye;62.967;65.0859;EU
-Tyumen;57.14;65.53;EU
-Toguchin;55.2377;84.3777;EU
-Nadym;65.5298;72.5148;EU
-Matochkin Shar;73.27;56.4497;EU
-Kurtamysh;54.9087;64.4333;EU
-Barnaul;53.355;83.745;EU
+Pallasovka;50.0477;46.8773;AS
+Peregrebnoye;62.967;65.0859;AS
+Tyumen;57.14;65.53;AS
+Toguchin;55.2377;84.3777;AS
+Nadym;65.5298;72.5148;AS
+Matochkin Shar;73.27;56.4497;AS
+Kurtamysh;54.9087;64.4333;AS
+Barnaul;53.355;83.745;AS
 Kimry;56.8691;37.3444;EU
-Elista;46.3287;44.2087;EU
-Gorno Altaysk;51.9613;85.9577;EU
-Surgut;61.2599;73.425;EU
-Cheboksary;56.13;47.25;EU
-Mariinsk;56.2108;87.7604;EU
+Elista;46.3287;44.2087;AS
+Gorno Altaysk;51.9613;85.9577;AS
+Surgut;61.2599;73.425;AS
+Cheboksary;56.13;47.25;AS
+Mariinsk;56.2108;87.7604;AS
 Safonovo;55.1465;33.2161;EU
-Sayanogorsk;53.0894;91.4004;EU
+Sayanogorsk;53.0894;91.4004;AS
 Roslavl;53.9509;32.8604;EU
-Rubtsovsk;51.52;81.21;EU
-Slyudyanka;51.6538;103.6988;EU
-Laryak;61.1012;80.2514;EU
-Abaza;52.669;90.0954;EU
+Rubtsovsk;51.52;81.21;AS
+Slyudyanka;51.6538;103.6988;AS
+Laryak;61.1012;80.2514;AS
+Abaza;52.669;90.0954;AS
 Velikiy Novgorod;58.5;31.33;EU
 Klin;56.3431;36.6987;EU
-Bagdarin;54.4333;113.6;EU
+Bagdarin;54.4333;113.6;AS
 Kovrov;56.3604;41.33;EU
 Sokol;59.4648;40.1144;EU
-Engels;51.5004;46.12;EU
+Engels;51.5004;46.12;AS
 Gatchina;59.5707;30.1333;EU
-Nizhnyaya Tura;58.6436;59.7983;EU
-Mundybash;53.2333;87.3167;EU
-Prokopyevsk;53.9;86.71;EU
-Kiselevsk;54.0;86.64;EU
-Novokuznetsk;53.75;87.115;EU
+Nizhnyaya Tura;58.6436;59.7983;AS
+Mundybash;53.2333;87.3167;AS
+Prokopyevsk;53.9;86.71;AS
+Kiselevsk;54.0;86.64;AS
+Novokuznetsk;53.75;87.115;AS
 Luga;58.7363;29.839;EU
 Moscow;55.7522;37.6155;EU
-Slavgorod;53.0049;78.6696;EU
-Kulunda;52.5827;78.9473;EU
-Krasnoturinsk;59.7948;60.4848;EU
-Vladikavkaz;43.0504;44.67;EU
-Amderma;69.763;61.6677;EU
-Varnek;69.7301;60.0636;EU
-Leninsk Kuznetsky;54.66;86.17;EU
-Mozdok;43.7543;44.6544;EU
-Tashtagol;52.7918;87.8677;EU
-Megion;61.0608;76.0953;EU
-Balashov;51.5535;43.1631;EU
-Zima;53.9331;102.0331;EU
-Samara;53.195;50.1513;EU
+Slavgorod;53.0049;78.6696;AS
+Kulunda;52.5827;78.9473;AS
+Krasnoturinsk;59.7948;60.4848;AS
+Vladikavkaz;43.0504;44.67;AS
+Amderma;69.763;61.6677;AS
+Varnek;69.7301;60.0636;AS
+Leninsk Kuznetsky;54.66;86.17;AS
+Mozdok;43.7543;44.6544;AS
+Tashtagol;52.7918;87.8677;AS
+Megion;61.0608;76.0953;AS
+Balashov;51.5535;43.1631;AS
+Zima;53.9331;102.0331;AS
+Samara;53.195;50.1513;AS
 Vyazma;55.2122;34.2918;EU
-Igrim;63.1933;64.4194;EU
-Norilsk;69.34;88.225;EU
-Belebey;54.1291;54.1187;EU
-Kalachinsk;55.0487;74.5683;EU
+Igrim;63.1933;64.4194;AS
+Norilsk;69.34;88.225;AS
+Belebey;54.1291;54.1187;AS
+Kalachinsk;55.0487;74.5683;AS
 Vologda;59.21;39.92;EU
-Orenburg;51.78;55.11;EU
+Orenburg;51.78;55.11;AS
 Vyborg;60.7039;28.7549;EU
 Svetogorsk;61.1013;28.9177;EU
-Cherlak;54.1605;74.82;EU
-Mezen;65.8522;44.24;EU
-Buzuluk;52.7821;52.2618;EU
-Kupina;54.3592;77.2742;EU
-Karasuk;53.7273;78.0219;EU
-Saransk;54.1704;45.18;EU
-Barabinsk;55.3573;78.3519;EU
-Bukachacha;52.9833;116.9166;EU
-Alatyr;54.8504;46.6;EU
-Shilka;51.8706;116.0306;EU
-Sherlovaya Gora;50.5306;116.3006;EU
-Nerchinsk;52.009;116.5486;EU
-Olovyannaya;50.95;115.5666;EU
-Borzya;50.3886;116.5186;EU
-Bugulma;54.5543;52.7943;EU
-Strezhevoy;60.7332;77.5777;EU
-Nizhenvartovsk;60.935;76.58;EU
-Anzhero Sudzhensk;56.08;86.04;EU
-Rayevskiy;54.0674;54.9269;EU
-Chita;52.055;113.465;EU
-Artemovskiy;57.3652;61.8698;EU
+Cherlak;54.1605;74.82;AS
+Mezen;65.8522;44.24;AS
+Buzuluk;52.7821;52.2618;AS
+Kupina;54.3592;77.2742;AS
+Karasuk;53.7273;78.0219;AS
+Saransk;54.1704;45.18;AS
+Barabinsk;55.3573;78.3519;AS
+Bukachacha;52.9833;116.9166;AS
+Alatyr;54.8504;46.6;AS
+Shilka;51.8706;116.0306;AS
+Sherlovaya Gora;50.5306;116.3006;AS
+Nerchinsk;52.009;116.5486;AS
+Olovyannaya;50.95;115.5666;AS
+Borzya;50.3886;116.5186;AS
+Bugulma;54.5543;52.7943;AS
+Strezhevoy;60.7332;77.5777;AS
+Nizhenvartovsk;60.935;76.58;AS
+Anzhero Sudzhensk;56.08;86.04;AS
+Rayevskiy;54.0674;54.9269;AS
+Chita;52.055;113.465;AS
+Artemovskiy;57.3652;61.8698;AS
 Ryazan;54.62;39.72;EU
 Bezhetsk;57.7647;36.69;EU
 Novomoskovsk;54.09;38.22;EU
 Zheleznogorsk;52.3548;35.4044;EU
-Alapayevsk;57.8465;61.6915;EU
+Alapayevsk;57.8465;61.6915;AS
 Starsy Oskol;51.3004;37.84;EU
 Rostov;57.1892;39.4043;EU
 Gubkin;51.2743;37.3843;EU
-Kumertau;52.7748;55.7843;EU
-Oktyabrskiy;54.46;53.46;EU
-Zheleznogorsk Ilimskiy;56.5762;104.1227;EU
+Kumertau;52.7748;55.7843;AS
+Oktyabrskiy;54.46;53.46;AS
+Zheleznogorsk Ilimskiy;56.5762;104.1227;AS
 Noginsk;55.8704;38.48;EU
 Staraya Russa;57.9948;31.3544;EU
 Tikhvin;59.6448;33.5144;EU
-Asbest;57.023;61.458;EU
-Yoshkar Ola;56.6354;47.8749;EU
-Ufa;54.79;56.04;EU
-Krasnokamensk;50.0665;118.0265;EU
-Orsk;51.21;58.6273;EU
-Novotroitsk;51.2;58.33;EU
+Asbest;57.023;61.458;AS
+Yoshkar Ola;56.6354;47.8749;AS
+Ufa;54.79;56.04;AS
+Krasnokamensk;50.0665;118.0265;AS
+Orsk;51.21;58.6273;AS
+Novotroitsk;51.2;58.33;AS
 Bologoye;57.8722;34.0518;EU
-Mikhaylovka;50.0679;43.2175;EU
+Mikhaylovka;50.0679;43.2175;AS
 Novozybkov;52.5348;31.9449;EU
-Chapayevsk;52.9743;49.7243;EU
-Novokuybishevsk;53.12;49.9199;EU
-Tavda;58.0537;65.2583;EU
+Chapayevsk;52.9743;49.7243;AS
+Novokuybishevsk;53.12;49.9199;AS
+Tavda;58.0537;65.2583;AS
 Michurinsk;52.9;40.5;EU
-Serov;59.615;60.585;EU
+Serov;59.615;60.585;AS
 Alekseyevka;50.6535;38.6931;EU
 Valuyki;50.2091;38.0987;EU
-Tuymazy;54.6048;53.6943;EU
+Tuymazy;54.6048;53.6943;AS
 Lgov;51.6948;35.2744;EU
 Rybinsk;58.0503;38.82;EU
 Uglich;57.5244;38.33;EU
 Slantsy;59.1116;28.0747;EU
-Vyska;55.3247;42.1644;EU
+Vyska;55.3247;42.1644;AS
 Armavir;45.0004;41.13;EU
-Stavropol;45.05;41.98;EU
+Stavropol;45.05;41.98;AS
 Bryansk;53.26;34.43;EU
 Kropotkin;45.4471;40.5821;EU
 Shchekino;54.0143;37.5143;EU
-Derbent;42.0578;48.2774;EU
-Nikolayevsk;50.0161;45.4261;EU
+Derbent;42.0578;48.2774;AS
+Nikolayevsk;50.0161;45.4261;AS
 Tula;54.2;37.6299;EU
-Murom;55.5704;42.04;EU
-Plast;54.3685;60.8085;EU
-Kamyshin;50.0804;45.4;EU
-Syzran;53.17;48.48;EU
-Kuznetsk;53.1204;46.6;EU
+Murom;55.5704;42.04;AS
+Plast;54.3685;60.8085;AS
+Kamyshin;50.0804;45.4;AS
+Syzran;53.17;48.48;AS
+Kuznetsk;53.1204;46.6;AS
 Gelendzhik;44.5748;38.0644;EU
-Sharya;58.3798;45.5094;EU
+Sharya;58.3798;45.5094;AS
 Murmansk;68.97;33.1;EU
-Isikul;54.9287;71.2682;EU
-Frolovo;49.7722;43.6518;EU
+Isikul;54.9287;71.2682;AS
+Frolovo;49.7722;43.6518;AS
 Severomorsk;69.0731;33.4231;EU
-Dzerzhinsk;56.2504;43.46;EU
-Yalutorovsk;56.6736;66.2983;EU
-Uryupinsk;50.7734;42.0031;EU
-Golyshmanovo;56.3819;68.3715;EU
-Nazyvayevsk;55.567;71.35;EU
-Tatarsk;55.2219;75.9665;EU
-Sarapul;56.4791;53.7987;EU
-Tayshet;55.9277;97.9877;EU
-Nevinnomyssk;44.6201;41.95;EU
+Dzerzhinsk;56.2504;43.46;AS
+Yalutorovsk;56.6736;66.2983;AS
+Uryupinsk;50.7734;42.0031;AS
+Golyshmanovo;56.3819;68.3715;AS
+Nazyvayevsk;55.567;71.35;AS
+Tatarsk;55.2219;75.9665;AS
+Sarapul;56.4791;53.7987;AS
+Tayshet;55.9277;97.9877;AS
+Nevinnomyssk;44.6201;41.95;AS
 Velikiye Luki;56.32;30.52;EU
-Nizhnekamsk;55.6404;51.82;EU
+Nizhnekamsk;55.6404;51.82;AS
 Kirov;54.0852;34.3048;EU
 Dyatkovo;53.5891;34.3392;EU
-Tara;56.8982;74.3782;EU
-Borisoglebsk;51.3687;42.0887;EU
+Tara;56.8982;74.3782;AS
+Borisoglebsk;51.3687;42.0887;AS
 Klintsy;52.7652;32.2448;EU
-Mozhga;56.4548;52.1843;EU
+Mozhga;56.4548;52.1843;AS
 Rzhev;56.2574;34.3275;EU
-Naberezhnyye Chelny;55.7;52.3199;EU
-Vichuga;57.2191;41.9287;EU
+Naberezhnyye Chelny;55.7;52.3199;AS
+Vichuga;57.2191;41.9287;AS
 Mtsensk;53.2647;36.5472;EU
-Kanash;55.5091;47.4687;EU
-Topki;55.2802;85.6108;EU
+Kanash;55.5091;47.4687;AS
+Topki;55.2802;85.6108;AS
 Shuya;56.8543;41.3643;EU
 Torzhok;57.0291;34.9787;EU
-Biryusinsk;55.9607;97.8144;EU
-Otradnyy;53.3778;51.3474;EU
+Biryusinsk;55.9607;97.8144;AS
+Otradnyy;53.3778;51.3474;AS
 Serpukhov;54.9304;37.43;EU
-Balakovo;52.03;47.8;EU
-Atkarsk;51.8765;44.9961;EU
-Kirovo-Chepetsk;58.5544;50.0444;EU
-Kirov;58.5901;49.67;EU
-Serdobsk;52.4622;44.2218;EU
+Balakovo;52.03;47.8;AS
+Atkarsk;51.8765;44.9961;AS
+Kirovo-Chepetsk;58.5544;50.0444;AS
+Kirov;58.5901;49.67;AS
+Serdobsk;52.4622;44.2218;AS
 Aleksin;54.5143;37.0944;EU
-Shumerlya;55.4848;46.4244;EU
+Shumerlya;55.4848;46.4244;AS
 Yefremov;53.1491;38.1215;EU
-Buynaksk;42.8335;47.113;EU
-Makhachkala;42.98;47.5;EU
+Buynaksk;42.8335;47.113;AS
+Makhachkala;42.98;47.5;AS
 Yaroslavl;57.62;39.87;EU
-Sovetsk;57.5785;48.9581;EU
-Salavat;53.3703;55.93;EU
-Sterlitamak;53.63;55.96;EU
+Sovetsk;57.5785;48.9581;AS
+Salavat;53.3703;55.93;AS
+Sterlitamak;53.63;55.96;AS
 Bogoroditsk;53.7747;38.1144;EU
-Morshansk;53.4547;41.8044;EU
+Morshansk;53.4547;41.8044;AS
 Obninsk;55.0804;36.62;EU
-Georgievsk;44.1599;43.4699;EU
-Sol-lletsk;51.1603;54.9999;EU
+Georgievsk;44.1599;43.4699;AS
+Sol-lletsk;51.1603;54.9999;AS
 Vladimir;56.13;40.4099;EU
-Pechora;65.1587;57.2087;EU
-Ulyanovsk;54.33;48.41;EU
-Kirsanov;52.6574;42.7174;EU
+Pechora;65.1587;57.2087;AS
+Ulyanovsk;54.33;48.41;AS
+Kirsanov;52.6574;42.7174;AS
 Kotovsk;52.5947;41.5044;EU
 Tambov;52.73;41.43;EU
 Volkhov;59.9291;32.3387;EU
 Vyshnniy Volochek;57.583;34.5631;EU
 Orel;52.97;36.07;EU
 Kandalaksha;67.1643;32.4144;EU
-Ussuriysk;43.8;132.02;EU
+Ussuriysk;43.8;132.02;AS
 Petrozavodsk;61.85;34.28;EU
-Votkinsk;57.0304;53.99;EU
-Omutninsk;58.6589;52.1592;EU
-Novoaltaysk;53.3993;83.9588;EU
-Ust' Ordynskiy;52.833;104.7;EU
-Kirs;59.3138;52.2452;EU
+Votkinsk;57.0304;53.99;AS
+Omutninsk;58.6589;52.1592;AS
+Novoaltaysk;53.3993;83.9588;AS
+Ust' Ordynskiy;52.833;104.7;AS
+Kirs;59.3138;52.2452;AS
 Kondopoga;62.2087;34.2887;EU
-Ruzayevka;54.0643;44.9244;EU
+Ruzayevka;54.0643;44.9244;AS
 Tver;56.86;35.89;EU
-Kotelnich;58.3041;48.3137;EU
+Kotelnich;58.3041;48.3137;AS
 Kaliningrad;54.7;20.4973;EU
-Perm’;58.0174;56.2855;EU
-Penza;53.18;45.0;EU
-Velikiy Ustyug;60.7687;46.2987;EU
-Aleysk;52.4918;82.7777;EU
-Balakhna;56.4943;43.5944;EU
+Perm’;58.0174;56.2855;AS
+Penza;53.18;45.0;AS
+Velikiy Ustyug;60.7687;46.2987;AS
+Aleysk;52.4918;82.7777;AS
+Balakhna;56.4943;43.5944;AS
 Podolsk;55.3804;37.5299;EU
-Kineshma;57.47;42.13;EU
+Kineshma;57.47;42.13;AS
 Yegoryevsk;55.3848;39.0294;EU
-Volzhskiy;48.7948;44.7744;EU
-Volgograd;48.71;44.5;EU
+Volzhskiy;48.7948;44.7744;AS
+Volgograd;48.71;44.5;AS
 Onega;63.9271;38.0771;EU
-Cherepanovo;54.2336;83.3688;EU
+Cherepanovo;54.2336;83.3688;AS
 Apatity;67.5731;33.393;EU
 Umba;66.6814;34.3455;EU
 Kovda;66.6903;32.8702;EU
 Kirovsk;67.6091;33.6687;EU
-Iskitim;54.6509;83.2865;EU
+Iskitim;54.6509;83.2865;AS
 Belgorod;50.63;36.5999;EU
 Taganrog;47.23;38.92;EU
-Velsk;61.0674;42.0974;EU
-Sasovo;54.3491;41.9087;EU
+Velsk;61.0674;42.0974;AS
+Sasovo;54.3491;41.9087;AS
 Voronezh;51.73;39.27;EU
-Syktyvkar;61.66;50.82;EU
-Krasnoufimsk;56.5991;57.7586;EU
+Syktyvkar;61.66;50.82;AS
+Krasnoufimsk;56.5991;57.7586;AS
 Lipetsk;52.62;39.64;EU
 Yelets;52.58;38.5;EU
-Ust Kut;56.765;105.76;EU
-Magnitogorsk;53.4227;58.98;EU
+Ust Kut;56.765;105.76;AS
+Magnitogorsk;53.4227;58.98;AS
 Gryazi;52.4948;39.9343;EU
-Kazan;55.7499;49.1263;EU
-Arzamas;55.4;43.8;EU
+Kazan;55.7499;49.1263;AS
+Arzamas;55.4;43.8;AS
 Buy;58.4847;41.5244;EU
 Kostroma;57.77;40.94;EU
-Zelenodolsk;55.8406;48.655;EU
-Nizhneudinsk;54.8977;99.0277;EU
-Chistopol;55.3648;50.6407;EU
-Perm;58.0;56.25;EU
-Nizhny Tagil;57.92;59.975;EU
+Zelenodolsk;55.8406;48.655;AS
+Nizhneudinsk;54.8977;99.0277;AS
+Chistopol;55.3648;50.6407;AS
+Perm;58.0;56.25;AS
+Nizhny Tagil;57.92;59.975;AS
 Kem;64.9536;34.5684;EU
 Belomorsk;64.5252;34.7658;EU
-Ob;54.998;82.7077;EU
-Novosibirsk;55.03;82.96;EU
-Cherkessk;44.2904;42.06;EU
+Ob;54.998;82.7077;AS
+Novosibirsk;55.03;82.96;AS
+Cherkessk;44.2904;42.06;AS
 Livny;52.4248;37.6044;EU
-Sibay;52.7091;58.6387;EU
+Sibay;52.7091;58.6387;AS
 Kursk;51.74;36.19;EU
-Verkhnyaya Salda;58.0502;60.5498;EU
-Naryan Mar;67.6474;53.0574;EU
-Kyshtym;55.7;60.5595;EU
-Krasnouralsk;58.3515;60.0515;EU
-Almetyevsk;54.9004;52.3199;EU
+Verkhnyaya Salda;58.0502;60.5498;AS
+Naryan Mar;67.6474;53.0574;AS
+Kyshtym;55.7;60.5595;AS
+Krasnouralsk;58.3515;60.0515;AS
+Almetyevsk;54.9004;52.3199;AS
 Archangel;64.575;40.545;EU
-Verkhniy Ufaley;56.0663;60.2313;EU
-Chusovoy;58.2934;57.813;EU
+Verkhniy Ufaley;56.0663;60.2313;AS
+Chusovoy;58.2934;57.813;AS
 Nikel;69.4126;30.2188;EU
-Zlatoust;55.175;59.65;EU
-Nevyansk;57.4902;60.2148;EU
+Zlatoust;55.175;59.65;AS
+Nevyansk;57.4902;60.2148;AS
 Sochi;43.59;39.73;EU
 Novoshakhtinsk;47.77;39.92;EU
-Bugrino;68.8079;49.3042;EU
+Bugrino;68.8079;49.3042;AS
 Shakhty;47.7204;40.27;EU
 Bataysk;47.1368;39.7449;EU
-Astrakhan;46.3487;48.055;EU
-Kotlas;61.2631;46.6631;EU
-Indiga;67.6898;49.0166;EU
-Severouralsk;60.1565;59.9615;EU
-Akhtubinsk;48.2787;46.1687;EU
-Shoyna;67.8666;44.1334;EU
-Sosnogorsk;63.5948;53.8943;EU
+Astrakhan;46.3487;48.055;AS
+Kotlas;61.2631;46.6631;AS
+Indiga;67.6898;49.0166;AS
+Severouralsk;60.1565;59.9615;AS
+Akhtubinsk;48.2787;46.1687;AS
+Shoyna;67.8666;44.1334;AS
+Sosnogorsk;63.5948;53.8943;AS
 Shebekino;50.4144;36.8944;EU
-Ukhta;63.56;53.69;EU
-Yemanzhelinsk;54.7489;61.2935;EU
-Bakal;54.9459;58.7959;EU
-Troitsk;54.1056;61.5702;EU
-Yekaterinburg;56.85;60.6;EU
+Ukhta;63.56;53.69;AS
+Yemanzhelinsk;54.7489;61.2935;AS
+Bakal;54.9459;58.7959;AS
+Troitsk;54.1056;61.5702;AS
+Yekaterinburg;56.85;60.6;AS
 Segezha;63.7548;34.3243;EU
-Kamensk Uralskiy;56.4205;61.935;EU
-Karpinsk;59.7602;60.0098;EU
-Usinsk;65.923;57.403;EU
-Kudymkar;59.0162;54.633;EU
-Vikhorevka;56.0931;101.2427;EU
-Bratsk;56.157;101.615;EU
-Glazov;58.1232;52.6288;EU
-Solikamsk;59.67;56.75;EU
+Kamensk Uralskiy;56.4205;61.935;AS
+Karpinsk;59.7602;60.0098;AS
+Usinsk;65.923;57.403;AS
+Kudymkar;59.0162;54.633;AS
+Vikhorevka;56.0931;101.2427;AS
+Bratsk;56.157;101.615;AS
+Glazov;58.1232;52.6288;AS
+Solikamsk;59.67;56.75;AS
 Severodvinsk;64.57;39.83;EU
-Mednogorsk;51.4191;57.5787;EU
-Gay;51.4747;58.4543;EU
-Dombarovskiy;50.7546;59.54;EU
-Kungur;57.4348;56.9543;EU
-Gubakha;58.8691;57.5887;EU
-Kurgan;55.46;65.345;EU
-Ust-Ulimsk;57.99;102.6333;EU
-Slobodskoy;58.7185;50.188;EU
-Kizel;59.0644;57.6343;EU
-Leninogorsk;54.5987;52.4487;EU
+Mednogorsk;51.4191;57.5787;AS
+Gay;51.4747;58.4543;AS
+Dombarovskiy;50.7546;59.54;AS
+Kungur;57.4348;56.9543;AS
+Gubakha;58.8691;57.5887;AS
+Kurgan;55.46;65.345;AS
+Ust-Ulimsk;57.99;102.6333;AS
+Slobodskoy;58.7185;50.188;AS
+Kizel;59.0644;57.6343;AS
+Leninogorsk;54.5987;52.4487;AS
 Rostov;47.2346;39.7127;EU
 Orekhovo-Zuevo;55.82;38.98;EU
-Buguruslan;53.663;52.433;EU
-Turukhansk;65.8382;87.955;EU
-Zmeinogorsk;51.1571;82.195;EU
-Ulan Ude;51.825;107.625;EU
-Teli;51.0333;90.2333;EU
-Asino;56.9931;86.1627;EU
-Vladivostok;43.13;131.91;EU
-Shadrinsk;56.0837;63.6333;EU
-Vorontsovo;71.6983;83.5642;EU
-Kyzyl;51.7067;94.3831;EU
-Tazovsky;67.4667;78.7;EU
-Magas;43.1667;44.8;EU
-Nazran;43.233;44.783;EU
-Groznyy;43.3187;45.6987;EU
-Krasnokamsk;58.0747;55.7443;EU
-Asha;54.998;57.2726;EU
-Berezniki;59.42;56.76;EU
+Buguruslan;53.663;52.433;AS
+Turukhansk;65.8382;87.955;AS
+Zmeinogorsk;51.1571;82.195;AS
+Ulan Ude;51.825;107.625;AS
+Teli;51.0333;90.2333;AS
+Asino;56.9931;86.1627;AS
+Vladivostok;43.13;131.91;AS
+Shadrinsk;56.0837;63.6333;AS
+Vorontsovo;71.6983;83.5642;AS
+Kyzyl;51.7067;94.3831;AS
+Tazovsky;67.4667;78.7;AS
+Magas;43.1667;44.8;AS
+Nazran;43.233;44.783;AS
+Groznyy;43.3187;45.6987;AS
+Krasnokamsk;58.0747;55.7443;AS
+Asha;54.998;57.2726;AS
+Berezniki;59.42;56.76;AS
 Nelidovo;56.2235;32.7731;EU
 Ivanovo;57.01;41.01;EU
 Sergiyev Posad;56.33;38.17;EU
-Tolyatti;53.4804;49.53;EU
+Tolyatti;53.4804;49.53;AS
 Uelen;66.1541;-169.8106;EU
-Skovorodino;53.9833;123.9167;EU
-Kyakhta;50.3527;106.4527;EU
+Skovorodino;53.9833;123.9167;AS
+Kyakhta;50.3527;106.4527;AS
 Zvezdnyy;70.9566;-179.59;EU
-Dalnerechensk;45.9273;133.7223;EU
-Bikin;46.8203;134.2649;EU
-Magdagachi;53.45;125.8;EU
-Shimanovsk;52.0024;127.6975;EU
-Zeya;53.75;127.2666;EU
-Neftekamsk;56.0835;54.2631;EU
-Nordvik;74.0165;111.51;EU
-Khatanga;72.0411;102.465;EU
-Agapa;71.4504;89.25;EU
-Yessey;68.4837;102.1666;EU
-Nakhodka;42.8374;132.8874;EU
-Partizansk;43.1349;133.1349;EU
-Kodinskiy;58.6981;99.1777;EU
-Khabarovsk;48.455;135.12;EU
-Boyarka;70.767;97.5;EU
-Savetskaya Gavan;48.9699;140.2749;EU
-Uyar;55.8104;94.3153;EU
-Bogotol;56.2165;89.5184;EU
-Lesosibirsk;58.2433;92.4833;EU
-Noginsk;64.4833;91.2333;EU
-Artemovsk;54.3487;93.4355;EU
-Podkamennaya;61.5995;90.1236;EU
-Dikson;73.507;80.5451;EU
-Igarka;67.4671;86.5833;EU
-Komsa;61.868;89.2577;EU
-Kansk;56.19;95.71;EU
-Arsenyev;44.1623;133.2823;EU
-Starorybnoye;72.7666;104.8;EU
-Zaozernyy;55.962;94.7028;EU
-Achinsk;56.27;90.5;EU
-Omolon;65.25;160.5;EU
-Pevek;69.7008;170.3133;EU
-Mikhalkino;69.4244;161.4811;EU
-Lesozavodsk;45.4748;133.4298;EU
-Pokrovsk;61.4934;129.1272;EU
-Olyokminsk;60.5032;120.3926;EU
-Svobodnyy;51.4062;128.1312;EU
-Omsukchan;62.5333;155.8;EU
-Tynda;55.1743;124.7076;EU
-Omchak;61.6333;147.9167;EU
-Progress;49.7504;129.6167;EU
-Belogorsk;50.9191;128.4637;EU
-Susuman;62.7833;148.1668;EU
-Amursk;50.2228;136.8974;EU
-Kavalerovo;44.2702;135.0498;EU
-Dalnegorsk;44.5372;135.5172;EU
-Ishim;56.1502;69.4498;EU
-Yakutsk;62.035;129.735;EU
-Kamenna Obi;53.7936;81.3388;EU
-Severobaykalsk;55.634;109.313;EU
-Trofimovsk;72.5997;127.0337;EU
+Dalnerechensk;45.9273;133.7223;AS
+Bikin;46.8203;134.2649;AS
+Magdagachi;53.45;125.8;AS
+Shimanovsk;52.0024;127.6975;AS
+Zeya;53.75;127.2666;AS
+Neftekamsk;56.0835;54.2631;AS
+Nordvik;74.0165;111.51;AS
+Khatanga;72.0411;102.465;AS
+Agapa;71.4504;89.25;AS
+Yessey;68.4837;102.1666;AS
+Nakhodka;42.8374;132.8874;AS
+Partizansk;43.1349;133.1349;AS
+Kodinskiy;58.6981;99.1777;AS
+Khabarovsk;48.455;135.12;AS
+Boyarka;70.767;97.5;AS
+Savetskaya Gavan;48.9699;140.2749;AS
+Uyar;55.8104;94.3153;AS
+Bogotol;56.2165;89.5184;AS
+Lesosibirsk;58.2433;92.4833;AS
+Noginsk;64.4833;91.2333;AS
+Artemovsk;54.3487;93.4355;AS
+Podkamennaya;61.5995;90.1236;AS
+Dikson;73.507;80.5451;AS
+Igarka;67.4671;86.5833;AS
+Komsa;61.868;89.2577;AS
+Kansk;56.19;95.71;AS
+Arsenyev;44.1623;133.2823;AS
+Starorybnoye;72.7666;104.8;AS
+Zaozernyy;55.962;94.7028;AS
+Achinsk;56.27;90.5;AS
+Omolon;65.25;160.5;AS
+Pevek;69.7008;170.3133;AS
+Mikhalkino;69.4244;161.4811;AS
+Lesozavodsk;45.4748;133.4298;AS
+Pokrovsk;61.4934;129.1272;AS
+Olyokminsk;60.5032;120.3926;AS
+Svobodnyy;51.4062;128.1312;AS
+Omsukchan;62.5333;155.8;AS
+Tynda;55.1743;124.7076;AS
+Omchak;61.6333;147.9167;AS
+Progress;49.7504;129.6167;AS
+Belogorsk;50.9191;128.4637;AS
+Susuman;62.7833;148.1668;AS
+Amursk;50.2228;136.8974;AS
+Kavalerovo;44.2702;135.0498;AS
+Dalnegorsk;44.5372;135.5172;AS
+Ishim;56.1502;69.4498;AS
+Yakutsk;62.035;129.735;AS
+Kamenna Obi;53.7936;81.3388;AS
+Severobaykalsk;55.634;109.313;AS
+Trofimovsk;72.5997;127.0337;AS
 Novorossiysk;44.73;37.7699;EU
-Inta;66.0374;60.1674;EU
-Gyda;70.8814;78.4661;EU
-Uray;60.1401;64.7548;EU
-Tobolsk;58.1998;68.2648;EU
-Suntar;62.1444;117.6319;EU
-Vorkuta;67.5;64.01;EU
-Uzhur;55.3292;89.8207;EU
-Bilibino;68.0504;166.3333;EU
-Tiksi;71.6269;128.835;EU
-Beringovskiy;63.0655;179.3067;EU
-Okha;53.5739;142.9479;EU
-Nogliki;51.8333;143.1667;EU
-Ambarchik;69.651;162.3336;EU
-Spassk Dalniy;44.6002;132.8198;EU
-Komsomolsk na Amure;50.555;137.02;EU
-Ust Kamchatsk;56.2135;162.435;EU
-Sagastyr;73.3779;126.5924;EU
-Birobidzhan;48.7974;132.9508;EU
-Obluchye;49.0;131.0833;EU
-Manily;62.55;165.3;EU
-Chersky;68.7501;161.33;EU
-Bol'sheretsk;52.439;156.3594;EU
-Oktyabrskiy;52.6636;156.2387;EU
-Chegdomyn;51.1178;133.0241;EU
-Evensk;61.95;159.2333;EU
-Utkholok;57.5504;157.2333;EU
-Karamken;60.2004;151.1666;EU
-Kartaly;53.0474;60.6819;EU
-Siglan;59.0337;152.4166;EU
-Ust Nera;64.5666;143.2;EU
-Pakhachi;60.5816;169.05;EU
-Nakhodka;67.7504;77.52;EU
-Magadan;59.575;150.81;EU
-Menkere;67.9886;123.3505;EU
-Strelka;61.867;152.2502;EU
-Tunguskhaya;64.9004;125.25;EU
-Sangar;63.9241;127.4739;EU
-Terbyas;64.3761;120.5469;EU
-Zhigansk;66.7697;123.3711;EU
-Vilyuysk;63.7553;121.6248;EU
-Verkhnevilyuysk;63.4457;120.3167;EU
-Klyuchi;56.3;160.85;EU
-Palatka;60.1;150.9;EU
-Krasnoyarsk;56.014;92.866;EU
-Mukhomornoye;66.4171;173.3333;EU
-Anadyr;64.737;177.475;EU
-Logashkino;70.8504;153.9;EU
-Srednekolymsk;67.45;153.71;EU
-Zyryanka;65.736;150.89;EU
-Ayan;56.4542;138.1673;EU
-Vyazemskiy;47.5328;134.7475;EU
-Chumikan;54.7114;135.3145;EU
-Ugolnye Kopi;64.7333;177.7;EU
-Ulkan;55.9004;107.7833;EU
-Zhilinda;70.1337;114.0;EU
-Yeniseysk;58.4515;92.1565;EU
-Ust Olensk;72.9978;119.7729;EU
-Udachnyy;66.4232;112.3965;EU
-Chernyshevskiy;63.0128;112.4714;EU
-Okhotsk;59.383;143.217;EU
-Makarov;48.6337;142.8;EU
-Dolinsk;47.3504;142.8;EU
+Inta;66.0374;60.1674;AS
+Gyda;70.8814;78.4661;AS
+Uray;60.1401;64.7548;AS
+Tobolsk;58.1998;68.2648;AS
+Suntar;62.1444;117.6319;AS
+Vorkuta;67.5;64.01;AS
+Uzhur;55.3292;89.8207;AS
+Bilibino;68.0504;166.3333;AS
+Tiksi;71.6269;128.835;AS
+Beringovskiy;63.0655;179.3067;AS
+Okha;53.5739;142.9479;AS
+Nogliki;51.8333;143.1667;AS
+Ambarchik;69.651;162.3336;AS
+Spassk Dalniy;44.6002;132.8198;AS
+Komsomolsk na Amure;50.555;137.02;AS
+Ust Kamchatsk;56.2135;162.435;AS
+Sagastyr;73.3779;126.5924;AS
+Birobidzhan;48.7974;132.9508;AS
+Obluchye;49.0;131.0833;AS
+Manily;62.55;165.3;AS
+Chersky;68.7501;161.33;AS
+Bol'sheretsk;52.439;156.3594;AS
+Oktyabrskiy;52.6636;156.2387;AS
+Chegdomyn;51.1178;133.0241;AS
+Evensk;61.95;159.2333;AS
+Utkholok;57.5504;157.2333;AS
+Karamken;60.2004;151.1666;AS
+Kartaly;53.0474;60.6819;AS
+Siglan;59.0337;152.4166;AS
+Ust Nera;64.5666;143.2;AS
+Pakhachi;60.5816;169.05;AS
+Nakhodka;67.7504;77.52;AS
+Magadan;59.575;150.81;AS
+Menkere;67.9886;123.3505;AS
+Strelka;61.867;152.2502;AS
+Tunguskhaya;64.9004;125.25;AS
+Sangar;63.9241;127.4739;AS
+Terbyas;64.3761;120.5469;AS
+Zhigansk;66.7697;123.3711;AS
+Vilyuysk;63.7553;121.6248;AS
+Verkhnevilyuysk;63.4457;120.3167;AS
+Klyuchi;56.3;160.85;AS
+Palatka;60.1;150.9;AS
+Krasnoyarsk;56.014;92.866;AS
+Mukhomornoye;66.4171;173.3333;AS
+Anadyr;64.737;177.475;AS
+Logashkino;70.8504;153.9;AS
+Srednekolymsk;67.45;153.71;AS
+Zyryanka;65.736;150.89;AS
+Ayan;56.4542;138.1673;AS
+Vyazemskiy;47.5328;134.7475;AS
+Chumikan;54.7114;135.3145;AS
+Ugolnye Kopi;64.7333;177.7;AS
+Ulkan;55.9004;107.7833;AS
+Zhilinda;70.1337;114.0;AS
+Yeniseysk;58.4515;92.1565;AS
+Ust Olensk;72.9978;119.7729;AS
+Udachnyy;66.4232;112.3965;AS
+Chernyshevskiy;63.0128;112.4714;AS
+Okhotsk;59.383;143.217;AS
+Makarov;48.6337;142.8;AS
+Dolinsk;47.3504;142.8;AS
 Lavrentiya;65.5833;-171.025;EU
-Korsakov;46.6424;142.7775;EU
-Yuzhno Sakhalinsk;46.965;142.74;EU
-Khilok;51.35;110.45;EU
-Khandyga;62.666;135.6;EU
-Nikolayevsk na Amure;53.1496;140.73;EU
-Ust Maya;60.4566;134.5433;EU
-Chagda;60.1;133.9;EU
-Eldikan;60.8;135.1833;EU
-Verkhoyansk;67.5447;133.385;EU
-Ust Kuyga;70.0171;135.6;EU
-Poronaysk;49.2416;143.085;EU
-Aldan;58.603;125.3894;EU
-Uglegorsk;49.0833;142.0333;EU
-Nizhneyansk;71.4333;136.0666;EU
-Neryungri;56.674;124.7104;EU
-Taksimo;56.3315;114.89;EU
-Vanino;49.0873;140.2425;EU
-De Kastri;51.4666;140.7833;EU
+Korsakov;46.6424;142.7775;AS
+Yuzhno Sakhalinsk;46.965;142.74;AS
+Khilok;51.35;110.45;AS
+Khandyga;62.666;135.6;AS
+Nikolayevsk na Amure;53.1496;140.73;AS
+Ust Maya;60.4566;134.5433;AS
+Chagda;60.1;133.9;AS
+Eldikan;60.8;135.1833;AS
+Verkhoyansk;67.5447;133.385;AS
+Ust Kuyga;70.0171;135.6;AS
+Poronaysk;49.2416;143.085;AS
+Aldan;58.603;125.3894;AS
+Uglegorsk;49.0833;142.0333;AS
+Nizhneyansk;71.4333;136.0666;AS
+Neryungri;56.674;124.7104;AS
+Taksimo;56.3315;114.89;AS
+Vanino;49.0873;140.2425;AS
+De Kastri;51.4666;140.7833;AS
 Provideniya;64.4235;-173.2258;EU
-Tukchi;57.367;139.5;EU
-Nyukzha;56.5312;121.6131;EU
-Severo Kurilsk;50.6905;156.085;EU
+Tukchi;57.367;139.5;AS
+Nyukzha;56.5312;121.6131;AS
+Severo Kurilsk;50.6905;156.085;AS
 Egvekinot;66.3221;-179.1837;EU
-Khakhar;57.6666;135.43;EU
-Batagay;67.656;134.635;EU
-Il'pyrskiy;59.9674;164.172;EU
+Khakhar;57.6666;135.43;AS
+Batagay;67.656;134.635;AS
+Il'pyrskiy;59.9674;164.172;AS
 Enurmino;66.95;-171.8166;EU
-Korf;60.3321;165.8183;EU
-Vitim;59.4515;112.5578;EU
+Korf;60.3321;165.8183;AS
+Vitim;59.4515;112.5578;AS
 Timashevsk;45.6247;38.9444;EU
 Tikhoretsk;45.8531;40.1377;EU
 Tuapse;44.1148;39.0644;EU
 Apsheronsk;44.4687;39.7287;EU
 Yeysk;46.6988;38.2634;EU
 Labinsk;44.6348;40.7443;EU
-Yerema;60.3808;107.7794;EU
-Tomsk;56.495;84.975;EU
-Krasnogorsk;48.4615;142.09;EU
-Kholmsk;47.0473;142.0624;EU
-Aleksandrovsk Sakhalinskiy;50.8975;142.1561;EU
-Nevelsk;46.6803;141.8699;EU
-Zemlya Bunge;74.8983;142.105;EU
-Chokurdakh;70.6183;147.8946;EU
-Tulun;54.5653;100.5654;EU
-Chelyabinsk;55.155;61.4387;EU
-Shalaurova;73.2204;143.1833;EU
-Mogocha;53.7333;119.7666;EU
-Petrovsk Zabaykalskiy;51.2827;108.8327;EU
-Blagoveshchensk;50.2666;127.5333;EU
-Usolye Sibirskoye;52.765;103.645;EU
+Yerema;60.3808;107.7794;AS
+Tomsk;56.495;84.975;AS
+Krasnogorsk;48.4615;142.09;AS
+Kholmsk;47.0473;142.0624;AS
+Aleksandrovsk Sakhalinskiy;50.8975;142.1561;AS
+Nevelsk;46.6803;141.8699;AS
+Zemlya Bunge;74.8983;142.105;AS
+Chokurdakh;70.6183;147.8946;AS
+Tulun;54.5653;100.5654;AS
+Chelyabinsk;55.155;61.4387;AS
+Shalaurova;73.2204;143.1833;AS
+Mogocha;53.7333;119.7666;AS
+Petrovsk Zabaykalskiy;51.2827;108.8327;AS
+Blagoveshchensk;50.2666;127.5333;AS
+Usolye Sibirskoye;52.765;103.645;AS
 Gorod Maykop;44.6667;40.0;EU
 Krasnodar;45.02;39.0;EU
-Petropavlovsk Kamchatskiy;53.062;158.623;EU
+Petropavlovsk Kamchatskiy;53.062;158.623;AS
 Millerovo;48.9379;40.3974;EU
 Salsk;46.4775;41.542;EU
 Belaya Kalitva;48.1865;40.7861;EU
 Kamensk Shakhtinskiy;48.3318;40.2518;EU
 Chernyakhovsk;54.6316;21.8109;EU
 Sovetsk;55.0718;21.882;EU
-Aginskoye;51.1031;114.5228;EU
-Tura;64.2833;100.25;EU
-Palana;59.084;159.95;EU
-Dudinka;69.4182;86.225;EU
+Aginskoye;51.1031;114.5228;AS
+Tura;64.2833;100.25;AS
+Palana;59.084;159.95;AS
+Dudinka;69.4182;86.225;AS
 Novocherkassk;47.42;40.08;EU
-Kaspiysk;42.8747;47.6244;EU
+Kaspiysk;42.8747;47.6244;AS
 Cyangugu;-2.4796;28.9;AF
 Kigali;-1.9536;30.0605;AF
 Ruhengeri;-1.4996;29.63;AF
@@ -3176,8 +3175,8 @@ Mango;10.3596;0.4708;AF
 Kara;9.5511;1.1861;AF
 Sokodé;8.9905;1.15;AF
 Dapaong;10.8623;0.2076;AF
-Bassar;9.261;789;AF
-Sotouboua;8.557;985;AF
+Bassar;9.261;789.0;AF
+Sotouboua;8.557;985.0;AF
 Amnat Charoen;15.8585;104.6288;AS
 Chiang Rai;19.9119;99.8265;AS
 Bangkok;13.75;100.5166;AS
@@ -3633,7 +3632,7 @@ Rubirizi;-0.2989;30.1336;AF
 Mitoma;-0.6842;30.07;AF
 Ntoroko;1.0411;30.4811;AF
 Kanoni;0.1772;31.8811;AF
-Kibingo;-626;30.4359;AF
+Kibingo;-626.0;30.4359;AF
 Nakaseke;0.7517;32.385;AF
 Ibanda;-0.1539;30.5319;AF
 Namayingo;0.2398;33.8849;AF
@@ -3672,7 +3671,7 @@ Moroto;2.5403;34.64;AF
 Mayuge;0.4578;33.4806;AF
 Mityana;0.4004;32.05;AF
 Bundibugyo;0.7085;30.0634;AF
-Fort Portal;671;30.275;AF
+Fort Portal;671.0;30.275;AF
 Manafwa;0.9784;34.3743;AF
 Namutumba;0.8363;33.6858;AF
 Butaleja;0.9166;33.9563;AF
@@ -3681,7 +3680,7 @@ Gombe;0.1818;32.1158;AF
 Soroti;1.7104;33.6;AF
 Amolatar;1.6378;32.8448;AF
 Apac;1.9845;32.534;AF
-Mpigi;225;32.3136;AF
+Mpigi;225.0;32.3136;AF
 Kamuli;0.9472;33.1197;AF
 Iganga;0.6092;33.4686;AF
 Kyankwanzi;1.1987;31.8062;AF
@@ -4560,9 +4559,9 @@ Manga;11.662;-1.065;AF
 Sapouy;11.5544;-1.7736;AF
 Ouagadougou;12.3703;-1.5247;AF
 Orodara;10.974;-4.908;AF
-Bogandé;12.969;-138;AF
+Bogandé;12.969;-138.0;AF
 Ziniaré;12.577;-1.293;AF
-Fada Ngourma;12.055;361;AF
+Fada Ngourma;12.055;361.0;AF
 Leo;11.094;-2.098;AF
 Diébougou;10.952;-3.248;AF
 Gaoua;10.325;-3.174;AF
@@ -4573,11 +4572,11 @@ Réo;12.3335;-2.4669;AF
 Yako;12.954;-2.263;AF
 Solenzo;12.1833;-4.0833;AF
 Djibo;14.099;-1.627;AF
-Dori;14.034;-28;AF
+Dori;14.034;-28.0;AF
 Gorom Gorom;14.45;-0.2333;AF
-Zorgo;12.243;-611;AF
-Boulsa;12.657;-569;AF
-Koupéla;12.177;-356;AF
+Zorgo;12.243;-611.0;AF
+Boulsa;12.657;-569.0;AF
+Koupéla;12.177;-356.0;AF
 Kombissiri;12.064;-1.334;AF
 Ruse;43.8537;25.9733;EU
 Varna;43.2156;27.8953;EU
@@ -5074,11 +5073,11 @@ Canoinhas;-26.18;-50.4;SA
 Altamira;-3.1996;-52.21;SA
 Boa Vista;2.8161;-60.666;SA
 São Paulo;-23.5587;-46.625;SA
-Macapá;33;-51.05;SA
+Macapá;33.0;-51.05;SA
 Itacoatiara;-3.14;-58.44;SA
 Alenquer;-1.9396;-54.79;SA
 Porto Santana;-0.0396;-51.18;SA
-Barcelos;-975;-62.9239;SA
+Barcelos;-975.0;-62.9239;SA
 Tonantins;-2.8727;-67.8019;SA
 Imbituba;-28.2296;-48.66;SA
 Balsas;-7.52;-46.05;SA
@@ -5427,7 +5426,7 @@ Lubutu;-0.7329;26.5833;AF
 Mbanza-Ngungu;-5.2496;14.86;AF
 Kasongo;-4.45;26.66;AF
 Tshela;-4.9696;12.93;AF
-Buluko;-757;28.528;AF
+Buluko;-757.0;28.528;AF
 Beni;0.4904;29.45;AF
 Kampene;-3.5995;26.67;AF
 Goma;-1.6788;29.2218;AF
@@ -6429,7 +6428,7 @@ Mila;36.4503;6.2644;AF
 Mostaganem;35.9404;0.09;AF
 Naama;33.2667;-0.3167;AF
 Oran;35.71;-0.62;AF
-Relizane;35.7373;556;AF
+Relizane;35.7373;556.0;AF
 Saïda;34.8404;0.14;AF
 Sétif;36.18;5.4;AF
 Sidi bel Abbes;35.1903;-0.64;AF
@@ -6443,7 +6442,7 @@ Valdez;1.2671;-78.9855;SA
 Piñas;-3.67;-79.65;SA
 Alausí;-2.19;-78.85;SA
 Yaupi;-2.8543;-77.9363;SA
-Quito;-215;-78.5001;SA
+Quito;-215.0;-78.5001;SA
 San Gabriel;0.61;-77.84;SA
 Jipijapa;-1.3496;-80.58;SA
 Santa Cruz;-0.5333;-90.35;SA
@@ -6469,13 +6468,13 @@ Puyo;-1.483;-77.987;SA
 Ambato;-1.2696;-78.62;SA
 Tena;-0.9796;-77.81;SA
 Puerto Francisco de Orellana;-0.4664;-76.9872;SA
-Santo Domingo de los Colorados;-253;-79.1754;SA
+Santo Domingo de los Colorados;-253.0;-79.1754;SA
 Santa Elena;-2.2262;-80.8587;SA
 Puerto Baquerizo Moreno;-0.9;-89.6;SA
 Cuenca;-2.9;-79.0;SA
 Guaranda;-1.61;-79.01;SA
 Azogues;-2.74;-78.84;SA
-Tulcán;822;-77.732;SA
+Tulcán;822.0;-77.732;SA
 Riobamba;-1.67;-78.65;SA
 Latacunga;-0.9296;-78.61;SA
 Machala;-3.26;-79.96;SA
@@ -6707,7 +6706,7 @@ Paris;48.8667;2.3333;EU
 Clermont-Ferrand;45.78;3.08;EU
 Montpellier;43.6104;3.87;EU
 Poitier;46.5833;0.3333;EU
-Bordeaux;44.85;-595;EU
+Bordeaux;44.85;-595.0;EU
 Limoges;45.83;1.25;EU
 Dijon;47.3304;5.03;EU
 Lille;50.65;3.08;EU
@@ -6724,7 +6723,7 @@ Reims;49.2504;4.03;EU
 Calais;50.9504;1.8333;EU
 Roanne;46.0333;4.0667;EU
 Dieppe;49.9337;1.0833;EU
-Le Havre;49.505;105;EU
+Le Havre;49.505;105.0;AS
 Brive;45.1504;1.5333;EU
 Béziers;43.3505;3.21;EU
 St.-Brieuc;48.5167;-2.7833;EU
@@ -7321,7 +7320,7 @@ Tanjungpandan;-2.75;107.65;AS
 Sumenep;-7.0049;113.8496;AS
 Tarakan;3.3;117.633;AS
 Sorong;-0.8554;131.285;AS
-Singkawang;912;108.9655;AS
+Singkawang;912.0;108.9655;AS
 Bukittinggi;-0.3031;100.3615;AS
 Tasikmalaya;-7.3254;108.2147;AS
 Sawahlunto;-0.6663;100.7833;AS
@@ -7336,7 +7335,7 @@ Cilacap;-7.7188;109.0154;AS
 Indramayu;-6.3356;108.319;AS
 Praya;-8.7223;116.2923;AS
 Waingapu;-9.6582;120.253;AS
-Ternate;793;127.363;AS
+Ternate;793.0;127.363;AS
 Kualakapuas;-3.0996;114.35;AS
 Balikpapan;-1.25;116.83;AS
 Bontang;0.1333;117.5;AS
@@ -7364,9 +7363,9 @@ Mamuju;-2.6806;118.8861;AS
 Manokwari;-0.8711;134.0693;AS
 Palangkaraya;-2.2096;113.91;AS
 Palembang;-2.98;104.75;AS
-Palu;-907;119.833;AS
+Palu;-907.0;119.833;AS
 Pangkalpinang;-2.08;106.15;AS
-Pekanbaru;565;101.425;AS
+Pekanbaru;565.0;101.425;AS
 Pontianak;-0.03;109.32;AS
 Samarinda;-0.5;117.15;AS
 Semarang;-6.9666;110.42;AS
@@ -7894,7 +7893,7 @@ Nairobi;-1.2833;36.8167;AF
 Moyale;3.52;39.05;AF
 Kisumu;-0.09;34.75;AF
 Mombasa;-4.04;39.6899;AF
-Nyeri;-417;36.951;AF
+Nyeri;-417.0;36.951;AF
 Garissa;-0.4396;39.67;AF
 Kakamega;0.2904;34.73;AF
 Nakuru;-0.28;36.07;AF
@@ -7923,7 +7922,7 @@ Maralal;1.1105;36.68;AF
 Marsabit;2.33;37.98;AF
 Meru;0.06;37.64;AF
 Migori;-1.0634;34.4731;AF
-Murang’a;-721;37.1526;AF
+Murang’a;-721.0;37.1526;AF
 Mwatate;-3.505;38.3772;AF
 Narok;-1.0808;35.8711;AF
 Nyamira;-0.5633;34.9358;AF

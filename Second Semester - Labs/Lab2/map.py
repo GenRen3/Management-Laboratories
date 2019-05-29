@@ -18,7 +18,6 @@ lats_cl,lons_cl,names_cl,country_cl = [],[],[],[]
 name_ser=[]
 names_cl=[]
 countries_cl = []
-#distances=[]
 min_servers = []
 N=10
 
@@ -48,7 +47,7 @@ def get_data_clients():
         reader_cl = csv.DictReader(csvfile,delimiter=';')
         for data_cl in reader_cl:
             names_cl.append(str(data_cl['city']))
-            countries_cl.append(str(data_cl['iso2']))
+            countries_cl.append(str(data_cl['continent']))
             lats_cl.append(float(data_cl['lat']))
             lons_cl.append(float(data_cl['lng']))
     return
