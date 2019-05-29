@@ -73,11 +73,12 @@ class Client(object):
         random.seed(time.clock())
         K = random.randint(10,100) #random number of requests between 1 and 10
         print("Client ", self.number, "from ", self.position, "arrived at ", time_arrival, "with ", K, "requests")
-        #[lat_client,long_client] = map.get_random_client(self.position) #get a random client
-        [lat_client,long_client] = get_client.random_client(self.position)
-        nearest_servers = map.get_nearest_servers(lat_client,long_client) #get the nearset servers to the chosen client
-        #nearest_servers = get_nearest.nearest_serv(lat_client, long_client)
-        #print(nearest_servers[0:5])
+        #with this line we get a random client:
+        [lat_client,long_client] = C.random_client(self.position)
+
+        #with this line we get the nearset servers to the chosen client:
+        nearest_servers = S.nearest_servers(lat_client,long_client)
+
         #map.get_map_links(nearest_servers,lat_client,long_client)
         count_req = 1
         #client calls available server for every request
@@ -100,24 +101,24 @@ class Server(object):
        self.env = environment
        self.server_resources = all_servers
 
-   def serve(self,list_nearest,packet_size):
-       self.timeout_flag = 0
-       self.start_time = 0
-       self.flag = 0 #flag tells us if the request was solved or not. C'è un modo migliore??
-       #iterate over the list of nearest servers
-       for server in list_nearest:
-           number_req = self.tot_requests(server[0])
-           if number_req < MAX_REQ: #if server is not full, yield request to it, otherwise go onto the next one in the list  
+   def serve(self,list_nearest):
+       self.flag = 0
+       for server in list_nearest: #select the nearest servers
+           if self.server_resources[server[0]].count < MAX_REQ:
+               #print(server[0], self.server_resources[server[0]].count)
                with self.server_resources[server[0]].request() as request:
                    yield request
-                   server_latency = random.uniform(1, 10) #latency time of the serer, random number between 1 and 10
-                   RTT = float(server[1])/(3*10^5) #Round Trip Time is equal to the time needed to cross the distance (in km) at the speed of light
-                   transfer_delay = self.serve_control(packet_size,number_req) #it depends on the load of the server, it's given by packet_size/available_capacity
-                   service_time = server_latency + transfer_delay + RTT #total service time
-                   self.start_time = self.env.now
+                   stert_time = self.env.now
+                   server_latency = random.uniform(1, 10)/1000
+                   yield self.env.timeout(server_latency)
+
+                   RTT = (float(server[1])/(3*10^5))/1000
+                   yield self.env.timeout(RTT)
+                   # print(RTT)
+                   #transfer_delay = random.randint(1, 5)
                    while self.timeout_flag == 0:
                        start_time += (self.env.now - start_time)
-                       yield self.env.timeout(service_time) | #the timeout must be server_latency+RTT(depending on distance)+transfer_delay (depending on available capacity and packet size)
+                       yield self.env.timeout(service_time) | Event(env).succeed()#the timeout must be server_latency+RTT(depending on distance)+transfer_delay (depending on available capacity and packet size)
                        if self.env.now == start_time+service_time:
                            self.timeout_flag = 1
                        else:
@@ -125,8 +126,48 @@ class Server(object):
                            size_to_do = packet_size - elapsed_time*(LINK_CAPACITY/number_req)
                            number_req = self.tot_requests(server[0])
                            service_time = self.serve_control(size_to_do,number_req)
-               self.flag = 1 #if request is solved by the server, set flag to 1, break from cycle and go back to client for next rquest
+                   packet_processing = self.processing_time
+                   service_time = server_latency + transfer_delay + RTT
+                   # print(service_time)
+
+                   #the timeout must be server_latency+RTT(depending on
+                   #distance)+transfer_delay (depending on available capacity
+                   #and packet size)
+
+                   yield self.env.timeout(service_time)
+               #if request is solved by the server,set ok flag to 1,break from
+               # cycle and go back to client for next rquest
+               self.flag = 1
+               #print(ok)
                break
+
+   # def serve(self,list_nearest,packet_size):
+   #     self.timeout_flag = 0
+   #     self.start_time = 0
+   #     self.flag = 0 #flag tells us if the request was solved or not. C'è un modo migliore??
+   #     #iterate over the list of nearest servers
+   #     for server in list_nearest:
+   #         number_req = self.tot_requests(server[0])
+   #         if number_req < MAX_REQ: #if server is not full, yield request to it, otherwise go onto the next one in the list
+   #             with self.server_resources[server[0]].request() as request:
+   #                 yield request
+   #                 server_latency = random.uniform(1, 10) #latency time of the serer, random number between 1 and 10
+   #                 RTT = float(server[1])/(3*10^5) #Round Trip Time is equal to the time needed to cross the distance (in km) at the speed of light
+   #                 transfer_delay = self.serve_control(packet_size,number_req) #it depends on the load of the server, it's given by packet_size/available_capacity
+   #                 service_time = server_latency + transfer_delay + RTT #total service time
+   #                 self.start_time = self.env.now
+   #                 while self.timeout_flag == 0:
+   #                     start_time += (self.env.now - start_time)
+   #                     yield self.env.timeout(service_time) | #the timeout must be server_latency+RTT(depending on distance)+transfer_delay (depending on available capacity and packet size)
+   #                     if self.env.now == start_time+service_time:
+   #                         self.timeout_flag = 1
+   #                     else:
+   #                         elapsed_time = self.env.now - start_time - server_latency - RTT
+   #                         size_to_do = packet_size - elapsed_time*(LINK_CAPACITY/number_req)
+   #                         number_req = self.tot_requests(server[0])
+   #                         service_time = self.serve_control(size_to_do,number_req)
+   #             self.flag = 1 #if request is solved by the server, set flag to 1, break from cycle and go back to client for next rquest
+   #             break
 
    def success_req(self):
        if self.flag == 1:
@@ -134,13 +175,34 @@ class Server(object):
        else:
            return 0
 
-    def serve_control(self,packet_size, number_req):
-        divided_capacity = LINK_CAPACITY/number_req
-        self.transfer_delay = packet_size/divided_capacity
-        return self.transfer_delay
+   def capacity_change():
 
-    def tot_requests(self,server_name):
-        return self.server_resources[server_name].count
+       pass
+
+
+class Event(object):
+
+    def __init__(self, environment):
+        self.env = environment
+
+    def check_req(self, server):
+        current_req = self.server_resources[server].count
+        while 1==1:
+            changed_req = self.server_resources[server].count
+            if changed_req != current_req:
+                do something
+                current_req = changed_req
+
+    def recompute_service_time(self, ?):
+        
+
+    # def serve_control(self,packet_size, number_req):
+    #     divided_capacity = LINK_CAPACITY/number_req
+    #     self.transfer_delay = packet_size/divided_capacity
+    #     return self.transfer_delay
+    #
+    # def tot_requests(self,server_name):
+    #     return self.server_resources[server_name].count
 
 
 if __name__=='__main__':
@@ -153,10 +215,11 @@ if __name__=='__main__':
     #create simulation environment
     env = simpy.Environment()
 
-    tot_list_servers = map.get_list_servers() #get the list of total servers
+
+    names_ser, lats_ser, lons_ser = S.get_data_servers() #get the list of total servers
     #print(tot_list_servers)
     all_servers = {}
-    for server in tot_list_servers: #create dictionary of all servers as resources
+    for server in names_ser: #create dictionary of all servers
         all_servers[server]=simpy.Resource(env, capacity=MAX_REQ)
     #print(all_servers)
 
