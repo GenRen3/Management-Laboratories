@@ -1,12 +1,20 @@
 #!/usr/bin/env python3
-from mpl_toolkits.basemap import Basemap
+
 from math import sin, cos, sqrt, atan2, radians
+from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
+import Server as S
+import Client as C
+import numpy as np
 import csv
 
 
 #THIS FUNCTION PRODUCES THE MAP
 def get_map_total(Title):
+
+    # Getting the Server and Client's data
+    names_cl, countries_cl, lats_cl, lons_cl = C.get_data_clients()
+    names_ser, lats_ser, lons_ser = S.get_data_servers()
 
     # How much to zoom from coordinates (in degrees)
     zoom_scale = 0
@@ -49,25 +57,5 @@ def get_map_total(Title):
 
     #Adds titles and saves the figure
     plt.title(Title+" Distribution")
-    plt.savefig(Title +'.pdf', format='pdf', dpi=1000)
+    plt.savefig('./Outputs/'+Title +'.pdf', format='pdf', dpi=1000)
     plt.show()
-
-
-#This function gets the distance between 2 points
-def compute_dist(lat1,lon1,lat2,lon2):
-    R = 6373.0
-
-    lat1 = radians(lat1)
-    lon1 = radians(lon1)
-    lat2 = radians(lat2)
-    lon2 = radians(lon2)
-
-    dlon = lon2 - lon1
-    dlat = lat2 - lat1
-
-    a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
-    c = 2 * atan2(sqrt(a), sqrt(1 - a))
-
-    distance = R * c
-
-    return distance

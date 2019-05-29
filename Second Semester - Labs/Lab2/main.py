@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-import simpy
-import random
-from runstats import Statistics
+
 import matplotlib.pyplot as pyplot
+from runstats import Statistics
 import Map_generator as map
-import time
 import Client as C
 import Server as S
+import random
+import simpy
+import time
+
 
 
 #-------------------------------------------------------------------------------
@@ -154,6 +156,8 @@ class Server(object):
 if __name__=='__main__':
 
     random.seed(RANDOM_SEED)
+
+    map.get_map_total("Clients")
 
     #create simulation environment
     env = simpy.Environment()
