@@ -16,6 +16,6 @@ def random_client(position):
 
 
 def write_df(position):
-    df = pd.read_csv('./worldcities.csv', sep=';', keep_default_na=False)
+    df = pd.read_csv('./Datasets/worldcities.csv', sep=';', keep_default_na=False)
     is_origin = df[df.continent == position]
     return is_origin
