@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from math import sin, cos, sqrt, atan2, radians
 from operator import itemgetter
 import csv
 
@@ -7,20 +8,17 @@ import csv
 
 #This function gets the servers' info
 def get_data_servers():
-    global names_ser
-    global lats_ser
-    global lons_ser
-    names_ser = []
-    lats_ser = []
-    lons_ser = []
+    names_ser, countries_ser,lats_ser, lons_ser, costs_ser = [],[],[],[],[]
     with open('./Datasets/Amazon_servers_stations.csv') as csvfile:
         reader_ser = csv.DictReader(csvfile,delimiter=';')
         for data_ser in reader_ser:
             names_ser.append(data_ser['NAME'])
+            countries_ser.append(data_ser['COUNTRY'])
             lats_ser.append(float(data_ser['LAT']))
             lons_ser.append(float(data_ser['LON']))
+            costs_ser.append(float(data_ser['COST']))
 
-    return names_ser, lats_ser, lons_ser
+    return names_ser, countries_ser,lats_ser, lons_ser, costs_ser
 
 
 
@@ -48,7 +46,7 @@ def compute_dist(lat1,lon1,lat2,lon2):
 
 #This function gets the nearest servers
 def nearest_servers(lat_cl,lon_cl):
-    names, lats, lons = get_data_servers()
+    names,countries ,lats, lons, cost = get_data_servers()
     print(len(names))
     all_dist = []
     for i in range(len(names)):

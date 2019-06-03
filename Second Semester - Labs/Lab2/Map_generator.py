@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from math import sin, cos, sqrt, atan2, radians
 from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
 import Server as S
@@ -14,7 +13,7 @@ def get_map_total(Title):
 
     # Getting the Server and Client's data
     names_cl, countries_cl, lats_cl, lons_cl = C.get_data_clients()
-    names_ser, lats_ser, lons_ser = S.get_data_servers()
+    names_ser, countries_ser,lats_ser, lons_ser, costs_ser = S.get_data_servers()
 
     # How much to zoom from coordinates (in degrees)
     zoom_scale = 0
@@ -35,25 +34,39 @@ def get_map_total(Title):
 
     #Prits servers or clients and uses different colors for different continents
     if Title=="Clients":
+
         for i in range(len(lats_cl)):
-            country = countries_cl[i]
             x,y = m(lons_cl[i],lats_cl[i])
 
-            if country=="NA":
+            if countries_cl[i]=="NA":
                 m.plot(x,y,'r*',markersize=1)
-            if country=="SA":
+            if countries_cl[i]=="SA":
                 m.plot(x,y,'y*',markersize=1)
-            if country=="EU":
+            if countries_cl[i]=="EU":
                 m.plot(x,y,'c*',markersize=1)
-            if country=="AS":
-                m.plot(x,y,'b*',markersize=1)
-            if country=="OC":
+            if countries_cl[i]=="AS":
+                m.plot(x,y,'g*',markersize=1)
+            if countries_cl[i]=="OC":
                 m.plot(x,y,'w*',markersize=1)
-            if country=="AF":
+            if countries_cl[i]=="AF":
                 m.plot(x,y,'m*',markersize=1)
     else:
-        x,y = m(lons_ser,lats_ser)
-        m.plot(x,y,'r*',markersize=5)
+
+        for i in range(len(lats_ser)):
+            x,y = m(lons_ser[i],lats_ser[i])
+
+            if countries_ser[i]=="NA":
+                m.plot(x,y,'r*',markersize=4)
+            if countries_ser[i]=="SA":
+                m.plot(x,y,'y*',markersize=4)
+            if countries_ser[i]=="EU":
+                m.plot(x,y,'c*',markersize=4)
+            if countries_ser[i]=="AS":
+                m.plot(x,y,'g*',markersize=4)
+            if countries_ser[i]=="OC":
+                m.plot(x,y,'w*',markersize=4)
+            if countries_ser[i]=="AF":
+                m.plot(x,y,'m*',markersize=4)
 
     #Adds titles and saves the figure
     plt.title(Title+" Distribution")

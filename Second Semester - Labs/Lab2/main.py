@@ -81,10 +81,11 @@ class Client(object):
         #with this line we get a random client:
         [lat_client,long_client] = C.random_client(self.position)
 
+
         #with this line we get the nearset servers to the chosen client:
         nearest_servers = S.nearest_servers(lat_client,long_client)
 
-        #print(nearest_servers[0:5])
+        # print(nearest_servers[0:5])
 
         count_req = 1
 
@@ -123,8 +124,8 @@ class Server(object):
                #print(server[0], self.server_resources[server[0]].count)
                with self.server_resources[server[0]].request() as request:
                    yield request
-                   server_latency = random.uniform(1, 10)
-                   RTT = float(server[1])/(3*10^5)
+                   server_latency = random.uniform(1, 10)/1000
+                   RTT = (float(server[1])/(3*10^5))/1000
                    # print(RTT)
                    transfer_delay = random.randint(1, 5)
                    service_time = server_latency + transfer_delay + RTT
@@ -157,12 +158,13 @@ if __name__=='__main__':
 
     random.seed(RANDOM_SEED)
 
-    map.get_map_total("Clients")
+    #map.get_map_total("Clients")
+    #map.get_map_total("Servers")
 
     #create simulation environment
     env = simpy.Environment()
 
-    names_ser, lats_ser, lons_ser = S.get_data_servers()
+    names_ser,countries_ser,lats_ser,lons_ser,costs_ser = S.get_data_servers()
 
     all_servers = {}
     for server in names_ser: #create dictionary of all servers
