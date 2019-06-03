@@ -47,12 +47,10 @@ def compute_dist(lat1,lon1,lat2,lon2):
 #This function gets the nearest servers
 def nearest_servers(lat_cl,lon_cl):
     names,countries ,lats, lons, cost = get_data_servers()
-    print(len(names))
     all_dist = []
     for i in range(len(names)):
         dist = compute_dist(lat_cl,lon_cl,lats[i],lons[i])
         all_dist.append([names[i], dist])
-    print(len(all_dist))
     ordered_dist = sorted(all_dist, key=itemgetter(1))
 
     return ordered_dist

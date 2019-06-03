@@ -15,7 +15,7 @@ import time
 # CONSTANTS
 #-------------------------------------------------------------------------------
 RANDOM_SEED = 17
-SIM_TIME = 1440 #1440 è un giorno in minuti
+SIM_TIME = 60 #1440 è un giorno in minuti
 LINK_CAPACITY = 10 #Gb
 MAX_REQ = 30
 #SERVER_NUM = 3
@@ -26,12 +26,12 @@ lambda_AF = 4
 lambda_AS = 10
 lambda_OC = 7
 #ORIGIN = 'SA' #(we can use NA,SA,EU,AF,AS,OC)
-#01-12, 12-17, 17-01
+#00-08, 08-16, 16-00
 #small, large, larger
 #periodi riferiti all'Europa
-first_period = SIM_TIME*11/24
-second_period = first_period + SIM_TIME*5/24
-third_period = second_period + SIM_TIME*8/24
+first_period = SIM_TIME/3
+second_period = 2*first_period
+third_period = 3*first_period
 
 
 
@@ -39,41 +39,41 @@ third_period = second_period + SIM_TIME*8/24
 # ARRIVAL
 #-------------------------------------------------------------------------------
 def arrival(environment,position):
-    i=0
-    time=0
+    i = 0
+    timer = 0
     if position=='NA':
-        arrival_rate1=lambda_NA #17-01
-        arrival_rate2=lambda_NA*30/100 #01-12
-        arrival_rate3=lambda_NA*80/100 #12-17
+        arrival_rate1=lambda_NA #16-00
+        arrival_rate2=lambda_NA*30/100 #00-08, 3
+        arrival_rate3=lambda_NA*80/100 #08-16, 8
     if position=='SA':
-        arrival_rate1=lambda_SA #17-01
-        arrival_rate2=lambda_SA*30/100 #01-12
-        arrival_rate3=lambda_SA*80/100 #12-17
+        arrival_rate1=lambda_SA #16-00
+        arrival_rate2=lambda_SA*30/100 #00-08, 2.4
+        arrival_rate3=lambda_SA*80/100 #08-16, 6.4
     if position=='EU':
-        arrival_rate1=lambda_EU*30/100 #01-12
-        arrival_rate2=lambda_EU*80/100 #12-17
-        arrival_rate3=lambda_EU #17-01
+        arrival_rate1=lambda_EU*30/100 #00-08, 3
+        arrival_rate2=lambda_EU*80/100 #08-16, 8
+        arrival_rate3=lambda_EU #16-00
     if position=='AF':
-        arrival_rate1=lambda_AF*30/100 #01-12
-        arrival_rate2=lambda_AF*80/100 #12-17
-        arrival_rate3=lambda_AF #17-01
+        arrival_rate1=lambda_AF*30/100 #00-08, 1.2
+        arrival_rate2=lambda_AF*80/100 #08-16, 3.2
+        arrival_rate3=lambda_AF #16-00
     if position=='AS':
-        arrival_rate1=lambda_AS*80/100 #12-17
-        arrival_rate2=lambda_AS #17-01
-        arrival_rate3=lambda_AS*30/100 #01-12
+        arrival_rate1=lambda_AS*80/100 #08-16, 8
+        arrival_rate2=lambda_AS #16-00
+        arrival_rate3=lambda_AS*30/100 #00-08, 3
     if position=='OC':
-        arrival_rate1=lambda_OC*80/100 #12-17
-        arrival_rate2=lambda_OC #17-01
-        arrival_rate3=lambda_OC*30/100 #01-12
-    while time <= SIM_TIME:
-        time+=1
-        if time<=first_period:
+        arrival_rate1=lambda_OC*80/100 #08-16, 5.6
+        arrival_rate2=lambda_OC #16-00
+        arrival_rate3=lambda_OC*30/100 #00-08, 2.1
+    while timer <= SIM_TIME:
+        if timer<=first_period:
             inter_arrival = random.expovariate(lambd=arrival_rate1)
-        elif time>first_period and time<=second_period:
+        elif timer>first_period and timer<=second_period:
             inter_arrival = random.expovariate(lambd=arrival_rate2)
-        elif time>second_period and time<=third_period:
+        elif timer>second_period and timer<=third_period:
             inter_arrival = random.expovariate(lambd=arrival_rate3)
         yield environment.timeout(inter_arrival)
+        timer=environment.now
         i+=1
         Client(environment,i,position)
 
@@ -212,4 +212,5 @@ if __name__=='__main__':
     env.process(arrival(env,'OC'))
 
     # #simulate until SIM_TIME
+    #i = 0
     env.run(until=SIM_TIME)
