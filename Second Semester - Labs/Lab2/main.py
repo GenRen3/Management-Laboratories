@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.7
 
 import matplotlib.pyplot as pyplot
 from runstats import Statistics
@@ -15,17 +15,23 @@ import time
 # CONSTANTS
 #-------------------------------------------------------------------------------
 RANDOM_SEED = 17
-SIM_TIME = 10
+SIM_TIME = 1440 #1440 è un giorno in minuti
 LINK_CAPACITY = 10 #Gb
-MAX_REQ = 10
+MAX_REQ = 30
 #SERVER_NUM = 3
-lambda_NA = 2 #the higher it is, the higher the num of clients
-lambda_SA = 1
-lambda_EU = 2
-lambda_AF = 1
-lambda_AS = 1.5
-lambda_OC = 1.5
+lambda_NA = 10 #the higher it is, the higher the num of clients
+lambda_SA = 8
+lambda_EU = 10
+lambda_AF = 4
+lambda_AS = 10
+lambda_OC = 7
 #ORIGIN = 'SA' #(we can use NA,SA,EU,AF,AS,OC)
+#01-12, 12-17, 17-01
+#small, large, larger
+#periodi riferiti all'Europa
+first_period = SIM_TIME*11/24
+second_period = first_period + SIM_TIME*5/24
+third_period = second_period + SIM_TIME*8/24
 
 
 
@@ -36,20 +42,37 @@ def arrival(environment,position):
     i=0
     time=0
     if position=='NA':
-        arrival_rate=lambda_NA
+        arrival_rate1=lambda_NA #17-01
+        arrival_rate2=lambda_NA*30/100 #01-12
+        arrival_rate3=lambda_NA*80/100 #12-17
     if position=='SA':
-        arrival_rate=lambda_SA
+        arrival_rate1=lambda_SA #17-01
+        arrival_rate2=lambda_SA*30/100 #01-12
+        arrival_rate3=lambda_SA*80/100 #12-17
     if position=='EU':
-        arrival_rate=lambda_EU
+        arrival_rate1=lambda_EU*30/100 #01-12
+        arrival_rate2=lambda_EU*80/100 #12-17
+        arrival_rate3=lambda_EU #17-01
     if position=='AF':
-        arrival_rate=lambda_AF
+        arrival_rate1=lambda_AF*30/100 #01-12
+        arrival_rate2=lambda_AF*80/100 #12-17
+        arrival_rate3=lambda_AF #17-01
     if position=='AS':
-        arrival_rate=lambda_AS
+        arrival_rate1=lambda_AS*80/100 #12-17
+        arrival_rate2=lambda_AS #17-01
+        arrival_rate3=lambda_AS*30/100 #01-12
     if position=='OC':
-        arrival_rate=lambda_OC
+        arrival_rate1=lambda_OC*80/100 #12-17
+        arrival_rate2=lambda_OC #17-01
+        arrival_rate3=lambda_OC*30/100 #01-12
     while time <= SIM_TIME:
         time+=1
-        inter_arrival = random.expovariate(lambd=arrival_rate)
+        if time<=first_period:
+            inter_arrival = random.expovariate(lambd=arrival_rate1)
+        elif time>first_period and time<=second_period:
+            inter_arrival = random.expovariate(lambd=arrival_rate2)
+        elif time>second_period and time<=third_period:
+            inter_arrival = random.expovariate(lambd=arrival_rate3)
         yield environment.timeout(inter_arrival)
         i+=1
         Client(environment,i,position)
@@ -84,8 +107,6 @@ class Client(object):
 
         #with this line we get the nearset servers to the chosen client:
         nearest_servers = S.nearest_servers(lat_client,long_client)
-
-        # print(nearest_servers[0:5])
 
         count_req = 1
 
@@ -124,10 +145,10 @@ class Server(object):
                #print(server[0], self.server_resources[server[0]].count)
                with self.server_resources[server[0]].request() as request:
                    yield request
-                   server_latency = random.uniform(1, 10)/1000
-                   RTT = (float(server[1])/(3*10^5))/1000
+                   server_latency = random.uniform(1, 10)/(1000*60)
+                   RTT = (float(server[1])/(3*10^5))/(1000*60)
                    # print(RTT)
-                   transfer_delay = random.randint(1, 5)
+                   transfer_delay = random.randint(1, 5)/(1000*60)
                    service_time = server_latency + transfer_delay + RTT
                    # print(service_time)
 
@@ -172,6 +193,15 @@ if __name__=='__main__':
     #print(all_servers)
 
     env.servers = Server(env, all_servers)
+
+    #save statistics
+    env.stats_NA = Statistics()
+    env.stats_SA = Statistics()
+    env.stats_EU = Statistics()
+    env.stats_AF = Statistics()
+    env.stats_AS = Statistics()
+    env.stats_OC = Statistics()
+    env.stats = Statistics()
 
     #start the arrival process
     env.process(arrival(env,'NA'))
