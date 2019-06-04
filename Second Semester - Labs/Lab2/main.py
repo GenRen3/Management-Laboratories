@@ -39,7 +39,8 @@ third_period = 3*first_period
 # ARRIVAL
 #-------------------------------------------------------------------------------
 def arrival(environment,position):
-    i = 0
+    global i
+    #i = 0 #tenendo una i diversa per ogni location, si vede che per NA, EU e AS abbiamo numeri molto alti, mentre AF,SA,OC arrivnao meno clienti
     timer = 0
     if position=='NA':
         arrival_rate1=lambda_NA #16-00
@@ -115,10 +116,13 @@ class Client(object):
             ok = 0
 
             while ok == 0:
-                yield self.env.process(self.env.servers.serve(nearest_servers))
-                ok = self.env.servers.success_req()
+                for server in nearest_servers: #select the nearest servers
+                    if all_servers[server[0]].count < MAX_REQ:
+                        yield self.env.process(self.env.servers.serve(server))
+                        ok = 1
 
-            # size = 1000 #size = random.randint(1000,1400)
+
+            #size = random.randint(1000,1400)
             count_req+=1
             #calculate response time
             #self.env.stats.push(self.env.now-time_arrival)
@@ -133,41 +137,25 @@ class Client(object):
 # SERVERS
 #-------------------------------------------------------------------------------
 class Server(object):
-    # we drop requests if everything is full
-   def __init__(self, environment, all_servers):
+   def __init__(self, environment):
        self.env = environment
-       self.server_resources = all_servers
+       global all_servers
 
-   def serve(self,list_nearest):
-       self.flag = 0
-       for server in list_nearest: #select the nearest servers
-           if self.server_resources[server[0]].count < MAX_REQ:
-               #print(server[0], self.server_resources[server[0]].count)
-               with self.server_resources[server[0]].request() as request:
-                   yield request
-                   server_latency = random.uniform(1, 10)/(1000*60)
-                   RTT = (float(server[1])/(3*10^5))/(1000*60)
-                   # print(RTT)
-                   transfer_delay = random.randint(1, 5)/(1000*60)
-                   service_time = server_latency + transfer_delay + RTT
-                   # print(service_time)
+   def serve(self,server):
+       with all_servers[server[0]].request() as request:
+           yield request
+           server_latency = random.uniform(1, 10)/(1000*60)
+           RTT = (float(server[1])/(3*10^5))/(1000*60)
+           # print(RTT)
+           transfer_delay = random.randint(1, 5)/(1000*60)
+           service_time = server_latency + transfer_delay + RTT
+           # print(service_time)
 
-                   #the timeout must be server_latency+RTT(depending on
-                   #distance)+transfer_delay (depending on available capacity
-                   #and packet size)
+           #the timeout must be server_latency+RTT(depending on
+           #distance)+transfer_delay (depending on available capacity
+           #and packet size)
 
-                   yield self.env.timeout(service_time)
-               #if request is solved by the server,set ok flag to 1,break from
-               # cycle and go back to client for next rquest
-               self.flag = 1
-               #print(ok)
-               break
-
-   def success_req(self):
-       if self.flag == 1:
-           return 1
-       else:
-           return 0
+           yield self.env.timeout(service_time)
 
 
 
@@ -192,7 +180,7 @@ if __name__=='__main__':
         all_servers[server]=simpy.Resource(env, capacity=MAX_REQ)
     #print(all_servers)
 
-    env.servers = Server(env, all_servers)
+    env.servers = Server(env)
 
     #save statistics
     env.stats_NA = Statistics()
@@ -212,5 +200,5 @@ if __name__=='__main__':
     env.process(arrival(env,'OC'))
 
     # #simulate until SIM_TIME
-    #i = 0
+    i = 0
     env.run(until=SIM_TIME)
