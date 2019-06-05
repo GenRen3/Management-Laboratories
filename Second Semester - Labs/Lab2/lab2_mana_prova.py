@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 
 import simpy
 import random
@@ -85,42 +85,32 @@ class Client(object):
 
 class Servers(object):
 
-    def __init__(self, environment, max_req, service_rate):
+    def __init__(self, environment):
         global i
         global server_request
         global all_servers
         self.old_time = 0
         self.env = environment
-        self.max_req = max_req
-        self.service_rate = service_rate
-        self.server_list = all_servers
-        self.env.process(self.run())
-
-    def run(self):
-        while True:
-            if self.env.now > SIM_TIME:
-                break
-
 
     def serve(self, position, server, size):
         self.position = position
-        with self.server_list[server].request() as request:
+        with all_servers[server].request() as request:
             yield request
             yield self.env.process(self.env.servers.update_timeouts(server,size))
 
 
     def update_timeouts(self, server, size):
         self.list_timeouts = []
-        self.available_capacity = LINK_CAPACITY/self.server_list[server].count
+        self.available_capacity = LINK_CAPACITY/all_servers[server].count
         self.elapsed_time = self.env.now - self.old_time
-        for client in server_request[server]:
-            client[1] = client[1] - self.available_capacity/self.elapsed_time
-            client[0] = client[1]/self.available_capacity
-            self.list_timeouts.append(client[1])
+        for k,v in server_request[server].items():
+            v[1] = v[1] - self.available_capacity/self.elapsed_time
+            v[0] = v[1]/self.available_capacity
+            self.list_timeouts.append(self.env.timeout(v[1]))
         server_request[server][str(i)] = [size, size/self.available_capacity]
-        self.list_timeouts.append(server_request[server][str(i)][1])
+        self.list_timeouts.append(self.env.timeout(server_request[server][str(i)][1]))
         print(server_request)
-        yield simpy.AnyOf(self.list_timeouts)
+        yield simpy.AnyOf(self.env,self.list_timeouts)
 
 
 
@@ -142,7 +132,7 @@ if __name__ == '__main__':
     for server in all_servers:
         server_request[server] = {}
 
-    env.servers = Servers(env, MAX_REQ, mu_as)
+    env.servers = Servers(env)
 
     env.process(arrival(env, 'as'))
     env.process(arrival(env, 'us'))
