@@ -9,23 +9,33 @@ import random
 import simpy
 import time
 
+#per visualizzare delle print con servizio interrotto, simulare con:
+#arrivi solo dall'Africa
+#LINK_CAPACITY = pow(10, 2)
+#SIM_TIME = 5
+#lambda_AF = 9
+#K = 1
 
 
 #-------------------------------------------------------------------------------
 # CONSTANTS
 #-------------------------------------------------------------------------------
-RANDOM_SEED = 17
-SIM_TIME = 60 #1440 è un giorno in minuti
-LINK_CAPACITY = 10 #Gb
-MAX_REQ = 30
-#SERVER_NUM = 3
-lambda_NA = 10 #the higher it is, the higher the num of clients
+RANDOM_SEED = 13
+SIM_TIME = 5 #1440 è un giorno in minuti
+# LINK_CAPACITY = pow(10, 10) #Gb
+LINK_CAPACITY = pow(10, 10) #il valore corretto è pow(10, 10)
+MAX_REQ = 10 #dovremmo basare MAX_REQ su un valore minimo di capacità
+#meno di 1kB/s non ha senso, forse neanche meno di 1MB/s ha senso
+#capacità minima per richiesta = 1MB/s allora MAX_REQ = pow(10, 4)
+#lambda = number of clients per minute
+lambda_NA = 10 #the higher it is, the higher the num of clients per minute
 lambda_SA = 8
 lambda_EU = 10
 lambda_AF = 4
 lambda_AS = 10
 lambda_OC = 7
-#ORIGIN = 'SA' #(we can use NA,SA,EU,AF,AS,OC)
+#lambda da sistemare
+#Se SIM_TIME è in minuti, qual è un numero sensato di clienti al minuto in arrivo?
 #00-08, 08-16, 16-00
 #small, large, larger
 #periodi riferiti all'Europa
@@ -93,12 +103,11 @@ class Client(object):
         self.position = position
         self.env.process(self.run())
 
-
-
     def run(self):
         time_arrival = self.env.now
-        random.seed(time.clock())
-        K = random.randint(1,3)
+        #random.seed(time.clock())
+        K = random.randint(1,10) #number of requests of the client
+        #K = 1
         print("Client ", self.number, "from ", self.position, "arrived at ",
         time_arrival, "with ", K, "requests")
 
@@ -111,25 +120,30 @@ class Client(object):
 
         count_req = 1
 
-        while count_req <= K:
+        while count_req <= K: #loop until all requests have been served
 
+            self.size = random.randint(1000,1400) #size of a request in Bytes
+            print("Client ", self.number, "size: ", self.size)
             ok = 0
 
-            while ok == 0:
+            while ok == 0: #loop until request as been served
                 for server in nearest_servers: #select the nearest servers
-                    if all_servers[server[0]].count < MAX_REQ:
-                        yield self.env.process(self.env.servers.serve(server))
-                        ok = 1
+                    if all_servers[server[0]].count < MAX_REQ: #check if server is available
+                        server_latency = random.uniform(1, 10)/(1000*60) #latency of the server, random
+                        RTT = (float(server[1])/(3*10^5))/(1000*60) #Round Trip Time, depending on server-client distance
+                        #print("Client ", i, "first timeout: ", server_latency+RTT)
+                        yield self.env.timeout(server_latency+RTT) #first timeout interval (it doesn't depend on number of requests at server)
+                        yield self.env.process(self.env.servers.arrived(server, self.size, self.number)) #yield to server
+                        ok = 1 #set flag to break from inner while
+                        break #break from for
 
-
-            #size = random.randint(1000,1400)
             count_req+=1
             #calculate response time
             #self.env.stats.push(self.env.now-time_arrival)
 
         self.tot_time = self.env.now-time_arrival
         print("Client ", self.number, "from ", self.position, "served in ",
-        self.tot_time)
+        self.tot_time, "at ", self.env.now)
 
 
 
@@ -138,25 +152,50 @@ class Client(object):
 #-------------------------------------------------------------------------------
 class Server(object):
    def __init__(self, environment):
-       self.env = environment
+       #global i
        global all_servers
+       global names_ser
+       self.env = environment
+       self.new_arrival = {} #create dictionary to store simpy event of arrival for each server
+       for server_name in names_ser:
+           self.new_arrival[server_name] = environment.event()
+       self.new_departure = {} #create dictionary to store simpy event of departure for each server
+       for server_name in names_ser:
+           self.new_departure[server_name] = environment.event()
 
-   def serve(self,server):
+   #affinché non sovrascriva i vari server o clienti, le variabili non devono aver self. davanti (tranne new_arrival e new_departure e env)
+   def arrived(self,server,size, number):
+       self.new_arrival[server[0]].succeed() #a client has arrived at server[0]
+       self.new_arrival[server[0]] = self.env.event() #re-initialize event
+       request_successful = 0 #set flag to check the state of the request
        with all_servers[server[0]].request() as request:
            yield request
-           server_latency = random.uniform(1, 10)/(1000*60)
-           RTT = (float(server[1])/(3*10^5))/(1000*60)
-           # print(RTT)
-           transfer_delay = random.randint(1, 5)/(1000*60)
-           service_time = server_latency + transfer_delay + RTT
-           # print(service_time)
-
-           #the timeout must be server_latency+RTT(depending on
-           #distance)+transfer_delay (depending on available capacity
-           #and packet size)
-
-           yield self.env.timeout(service_time)
-
+           print("client ", number, "arrived in ", server[0], "server at ", self.env.now)
+           while request_successful == 0: #loop until request has been served
+               current_time = self.env.now
+               current_requests = all_servers[server[0]].count #number of requests currently in service at server[0]
+               transfer_delay = size/(LINK_CAPACITY*60/all_servers[server[0]].count) #time to serve the request according to current number od requests at server
+               #moltiplicato per 60 perché noi simuliamo in minuti e invece LINK_CAPACITY è in GB/s
+               print("Expected timeout for ", number, "is ", transfer_delay)
+               yield self.env.timeout(transfer_delay) | self.new_arrival[server[0]] | self.new_departure[server[0]] #whichever happens first, it stops all clients in server[0]
+               elapsed_time = self.env.now - current_time
+               #print("Client ", number, "times: ", elapsed_time, " & ", transfer_delay)
+               print("Client ", number, "times difference: ", transfer_delay - elapsed_time) #difference between expected timeout and actual elapsed time
+               if transfer_delay-elapsed_time > pow(10, -4): #sarebbe più corretto mettere l'if sulla size invece che sul time elapsed, ma alla fine dovrebbe essere uguale
+                   print("Service interrupted for ", number, "at ", self.env.now, "during service in ", server[0])
+                   size = size - (self.env.now - current_time)*(LINK_CAPACITY*60/current_requests) #compute remaining size to do according to elapsed time and requests at server[0] before interruption of service
+                   # *60 vedi sopra
+                   print("Remaining size for ", number, "is: ", size)
+                   if size < 0.1: #in caso rimanesse meno di 0.1 Byte da fare, ma non dovrebbe mai succedere perché prima c'è l'if sulla differenza tra timeout ed elapsed
+                       request_successful = 1
+                       self.new_departure[server[0]].succeed()
+                       self.new_departure[server[0]] = self.env.event()
+               else:
+                   request_successful = 1 #set flag to 1 in order to break from while loop
+                   #print("Flag for ", number, "is ", request_successful)
+                   self.new_departure[server[0]].succeed() #request was served, client leaves server[0]
+                   self.new_departure[server[0]] = self.env.event()
+                   print("Client ", number, "left server in ", server[0])
 
 
 
