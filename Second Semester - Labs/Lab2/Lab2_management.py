@@ -17,13 +17,13 @@ import time
 RANDOM_SEED = 13
 SIM_TIME = 5 #1440 è un giorno in minuti
 # LINK_CAPACITY = pow(10, 10) #Gb
-LINK_CAPACITY = pow(10, 4)
+LINK_CAPACITY = pow(10, 2)
 MAX_REQ = 10
 #SERVER_NUM = 3
 lambda_NA = 10 #the higher it is, the higher the num of clients
 lambda_SA = 8
 lambda_EU = 10
-lambda_AF = 4
+lambda_AF = 9
 lambda_AS = 10
 lambda_OC = 7
 #ORIGIN = 'SA' #(we can use NA,SA,EU,AF,AS,OC)
@@ -207,6 +207,9 @@ if __name__=='__main__':
         all_servers[server]=simpy.Resource(env, capacity=MAX_REQ)
     #print(all_servers)
 
+    total_cost = sum(costs_ser)
+    print("With all servers on, the total cost per hour is: ", total_cost)
+
     env.servers = Server(env)
 
     #save statistics
@@ -223,7 +226,7 @@ if __name__=='__main__':
     # env.process(arrival(env,'SA'))
     # env.process(arrival(env,'EU'))
     env.process(arrival(env,'AF'))
-    env.process(arrival(env,'AS'))
+    # env.process(arrival(env,'AS'))
     # env.process(arrival(env,'OC'))
 
     # #simulate until SIM_TIME
