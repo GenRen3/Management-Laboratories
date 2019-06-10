@@ -30,12 +30,12 @@ MAX_REQ = 1250 #dovremmo basare MAX_REQ su un valore minimo di capacità
 #meno di 1kB/s non ha senso, forse neanche meno di 1MB/s ha senso
 #capacità minima per richiesta = 1MB/s allora MAX_REQ = 1250
 #lambda = number of clients per minute (moltiplicare tutti per 10?)
-lambda_NA = 4173 #4173 (75%) - 2782 (50%)
-lambda_SA = 527 #527 (50%) - 369 (35%)
-lambda_EU = 1174 #1174 (70%) - 783 (40%)
-lambda_AF = 445 #445 (30%) - 297 (20%)
-lambda_AS = 1009 #1009 (40%) - 631 (25%)
-lambda_OC = 156 #156 (45%) - 87 (25%)
+lambda_NA = 41 #4173 (75%) - 2782 (50%)
+lambda_SA = 5 #527 (50%) - 369 (35%)
+lambda_EU = 11 #1174 (70%) - 783 (40%)
+lambda_AF = 4 #445 (30%) - 297 (20%)
+lambda_AS = 10 #1009 (40%) - 631 (25%)
+lambda_OC = 1 #156 (45%) - 87 (25%)
 #lambda da sistemare
 #Se SIM_TIME è in minuti, qual è un numero sensato di clienti al minuto in arrivo?
 #00-08, 08-16, 16-00
@@ -113,6 +113,7 @@ class Client(object):
         print("Client ", self.number, "from ", self.position, "arrived at ",
         time_arrival, "with ", K, "requests")
 
+
         #with this line we get a random client:
         [lat_client,long_client] = C.random_client(self.position)
 
@@ -134,6 +135,7 @@ class Client(object):
                         server_latency = random.uniform(1, 10)/(1000*60) #latency of the server, random
                         RTT = (float(server[1])/(3*10^5))/(1000*60) #Round Trip Time, depending on server-client distance
                         self.env.stats_RTT.push(RTT)
+                        self.env.stats_clients[self.position].push(RTT)
                         #print("Client ", i, "first timeout: ", server_latency+RTT)
                         yield self.env.timeout(server_latency+RTT) #first timeout interval (it doesn't depend on number of requests at server)
                         yield self.env.process(self.env.servers.arrived(server, self.size, self.number)) #yield to server
@@ -209,6 +211,7 @@ class Server(object):
 if __name__=='__main__':
 
     random.seed(RANDOM_SEED)
+    locations = ['NA', 'SA', 'EU', 'AF', 'AS', 'OC']
 
     #map.get_map_total("Clients")
     #map.get_map_total("Servers")
@@ -230,12 +233,15 @@ if __name__=='__main__':
     env.servers = Server(env)
 
     #save statistics
-    env.stats_NA = Statistics()
-    env.stats_SA = Statistics()
-    env.stats_EU = Statistics()
-    env.stats_AF = Statistics()
-    env.stats_AS = Statistics()
-    env.stats_OC = Statistics()
+    env.stats_clients = {}
+    for loc in locations:
+        env.stats_clients[loc] = Statistics()
+    # env.stats_NA = Statistics()
+    # env.stats_SA = Statistics()
+    # env.stats_EU = Statistics()
+    # env.stats_AF = Statistics()
+    # env.stats_AS = Statistics()
+    # env.stats_OC = Statistics()
     env.stats_RTT = Statistics()
     env.stats_service_time = Statistics()
 
@@ -253,3 +259,9 @@ if __name__=='__main__':
 
     print("With all servers on, the average round trip time over 24 hours is: ", env.stats_RTT.mean()) #0.0014016330907470288 (simulazione con parametri scritti in cima)
     print("With all servers on, the average service time over 24 hours is: ", env.stats_service_time.mean())
+    print("Average RTT for NA: ", env.stats_clients['NA'].mean())
+    print("Average RTT for SA: ", env.stats_clients['SA'].mean())
+    print("Average RTT for EU: ", env.stats_clients['EU'].mean())
+    print("Average RTT for AF: ", env.stats_clients['AF'].mean())
+    print("Average RTT for AS: ", env.stats_clients['AS'].mean())
+    print("Average RTT for OC: ", env.stats_clients['OC'].mean())

@@ -31,7 +31,7 @@ lambda_AF = 9
 lambda_AS = 10
 lambda_OC = 7
 #ORIGIN = 'SA' #(we can use NA,SA,EU,AF,AS,OC)
-#00-08, 08-16, 16-00
+#00-08 (40%), 08-16 (60%), 16-00 (70%)
 #small, large, larger
 #periodi riferiti all'Europa
 first_period = SIM_TIME/3
@@ -49,28 +49,28 @@ def arrival(environment,position):
     timer = 0
     if position=='NA':
         arrival_rate1=lambda_NA #16-00
-        arrival_rate2=lambda_NA*30/100 #00-08, 3
-        arrival_rate3=lambda_NA*80/100 #08-16, 8
+        arrival_rate2=lambda_NA*30/100 #00-08
+        arrival_rate3=lambda_NA*80/100 #08-16
     if position=='SA':
         arrival_rate1=lambda_SA #16-00
-        arrival_rate2=lambda_SA*30/100 #00-08, 2.4
-        arrival_rate3=lambda_SA*80/100 #08-16, 6.4
+        arrival_rate2=lambda_SA*30/100 #00-08
+        arrival_rate3=lambda_SA*80/100 #08-16
     if position=='EU':
-        arrival_rate1=lambda_EU*30/100 #00-08, 3
-        arrival_rate2=lambda_EU*80/100 #08-16, 8
+        arrival_rate1=lambda_EU*30/100 #00-08
+        arrival_rate2=lambda_EU*80/100 #08-16
         arrival_rate3=lambda_EU #16-00
     if position=='AF':
-        arrival_rate1=lambda_AF*30/100 #00-08, 1.2
-        arrival_rate2=lambda_AF*80/100 #08-16, 3.2
+        arrival_rate1=lambda_AF*30/100 #00-08
+        arrival_rate2=lambda_AF*80/100 #08-16
         arrival_rate3=lambda_AF #16-00
     if position=='AS':
-        arrival_rate1=lambda_AS*80/100 #08-16, 8
+        arrival_rate1=lambda_AS*80/100 #08-16
         arrival_rate2=lambda_AS #16-00
-        arrival_rate3=lambda_AS*30/100 #00-08, 3
+        arrival_rate3=lambda_AS*30/100 #00-08
     if position=='OC':
-        arrival_rate1=lambda_OC*80/100 #08-16, 5.6
+        arrival_rate1=lambda_OC*80/100 #08-16
         arrival_rate2=lambda_OC #16-00
-        arrival_rate3=lambda_OC*30/100 #00-08, 2.1
+        arrival_rate3=lambda_OC*30/100 #00-08
     while timer <= SIM_TIME:
         if timer<=first_period:
             inter_arrival = random.expovariate(lambd=arrival_rate1)
@@ -221,14 +221,14 @@ if __name__=='__main__':
         all_servers[server]=simpy.Resource(env, capacity=MAX_REQ)
     #print(all_servers)
 
-    cost_count = 0
+    index_ser = 0
     server_status = {}
     for server in names_ser:
-        server_status[server] = [random.randint(0,1), costs_ser[cost_count]]
-        cost_count+=1
+        server_status[server] = [random.randint(0,1), countries_ser[index_ser], costs_ser[index_ser]]
+        index_ser+=1
     print(server_status)
 
-    total_cost = sum(server_status[server][1] for server in server_status if server_status[server][0]==1)
+    total_cost = sum(server_status[server][2] for server in server_status if server_status[server][0]==1)
     print("With some server off, the total cost per hour is: ", total_cost)
 
     env.servers = Server(env)
@@ -259,3 +259,16 @@ if __name__=='__main__':
 
     #trovare modo furbo per spegnere i server.
     #In base a cosa li spegnamo? Il numero dei server spenti e quali sono spenti deve essere diverso nei tre intervalli di tempo
+
+    # NA,SA
+    #fascia 1: da -42.419415 (Rio de Janeiro) a -86.250007 (South Bend)
+    #fascia 2: da South Bend a -104.984703 (Denver)
+    #fascia 3: da Denver a -124.367277 (Capetown, NA)
+
+    # EU, AF
+    #fascia 1: da 28.049722 (Johannesburg) a 4.897976 (Amsterdam)
+    #fascia 2: da Amsterdam a -15.295431 (Saint Louis)
+
+    # AS, OC
+    #fascia 1: da 151.216454 (Sidney) a 115.86048 (Perth)
+    #fascia 2: da Perth a 72.8335238 (Mumbai)
