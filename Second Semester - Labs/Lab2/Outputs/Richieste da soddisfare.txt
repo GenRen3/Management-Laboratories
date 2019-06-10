@@ -1,0 +1,58 @@
+Bisogna avere il numero medio di richieste generato da ogni zona 
+che dipende da lambda e alternanza giorno/notte.
+
+considerare un costo di accensione del server 
+(che possiamo mettere costante, anche se l'energia ha un prezzo 
+diverso in base alla localitˆ) e poi c' il costo al minuto
+
+Calcolare in base al RTT il costo di avere richieste così lontane (QoS)
+
+Calcolare il numero medio di richieste rigettate per server (QoS)
+
+In base alla qualitˆ del servizio che voglio mantenere 
+(se QoS elevato permetto un numero basso di rigetti e ritardi brevi)
+e a quanti soldi perdo nel tenere server accesi 
+(il costo al minuto cambia per localitˆ)
+
+
+
+QoS
+-Soglia per RTT   
+-Soglia rigetti
+-Numero medio richieste 
+(presi dalle statistiche per tutti i server accesi)
+
+Costo monetario
+-costo di accensione (fisso)
+-costo mantenimento
+
+potremmo fare vari livelli di QoS a cui corrispondono le varie soglie
+fare simulazioni per diverse politiche di risparmio monetario
+
+Politiche di risparmio monetario
+-spengo tutti i server di una zona (meno i server principali) 
+se in quella zona è notte, aumento il numero se è mattina,
+numero massimo in pieno giorno
+-spengo server in maniera interattiva se non ho abbastanza richieste 
+(se il numero richieste è sotto una certa soglia, lo spengo) soprattutto per la notte
+oppure li accendo se ci sono troppe richieste
+
+Statistiche
+-quanto costa in totale ogni server
+-quanto si risparmia con spegnimento giorno\notte
+-numero di clienti che si connettono x localitˆ e giorno\notte
+-numero di richieste medio per fascia oraria
+
+
+Statistiche all servers on
+- average service time 0.0030434 (E pi alto di RTT, quindi RTT influenza poco->ma i server sono vicini)
+->facciamo una simulazione brutta, con basso QoS e vediamo quanto RTT influenza il servizio
+
+-average RTT 0.0004642
+-average RTT x region:
+ NA 0.000229
+ SA 0.001222
+ EU 0.00027522 (l'Europa è piccola e ha tanti server)
+ AF 0.0012607 (è molto grande e ha pochi server)
+ AS 0.000888 (distanze enormi e server collocati nella stessa zona-> RTT altino; in cina hanno alibaba, aliexpress)
+ OC 0.00100 (è più piccolo di SA e AF e ha più server)
