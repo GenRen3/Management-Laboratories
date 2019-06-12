@@ -24,18 +24,18 @@ from decimal import Decimal
 #-------------------------------------------------------------------------------
 RANDOM_SEED = 13
 SIM_TIME = 1440 #1440 è un giorno in minuti
-LINK_CAPACITY = 1.25*pow(10, 9) # 10Gbps = 1250000kB/s = 1.25*10^6kB/s = 1.25*10^9 B/s
-#LINK_CAPACITY = pow(10, 2) #il valore corretto è pow(10, 10)
-MAX_REQ = 1250 #dovremmo basare MAX_REQ su un valore minimo di capacità
+#LINK_CAPACITY = 1.25*pow(10, 9) # 10Gbps = 1250000kB/s = 1.25*10^6kB/s = 1.25*10^9 B/s
+LINK_CAPACITY = 1.25*pow(10, 6) #10Mbps #il valore corretto è pow(10, 10)
+MAX_REQ = 125 #dovremmo basare MAX_REQ su un valore minimo di capacità
 #meno di 1kB/s non ha senso, forse neanche meno di 1MB/s ha senso
 #capacità minima per richiesta = 1MB/s allora MAX_REQ = 1250
 #lambda = number of clients per minute (moltiplicare tutti per 10?)
-lambda_NA = 41 #4173 (75%) - 2782 (50%)
-lambda_SA = 5 #527 (50%) - 369 (35%)
-lambda_EU = 11 #1174 (70%) - 783 (40%)
-lambda_AF = 4 #445 (30%) - 297 (20%)
-lambda_AS = 10 #1009 (40%) - 631 (25%)
-lambda_OC = 1 #156 (45%) - 87 (25%)
+lambda_NA = 400 #4173 (75%) - 2782 (50%)
+lambda_SA = 300 #527 (50%) - 369 (35%)
+lambda_EU = 350 #1174 (70%) - 783 (40%)
+lambda_AF = 120 #445 (30%) - 297 (20%)
+lambda_AS = 500 #1009 (40%) - 631 (25%)
+lambda_OC = 80 #156 (45%) - 87 (25%)
 #lambda da sistemare
 #Se SIM_TIME è in minuti, qual è un numero sensato di clienti al minuto in arrivo?
 #00-08, 08-16, 16-00
@@ -110,8 +110,8 @@ class Client(object):
         #random.seed(time.clock())
         K = random.randint(1,10) #number of requests of the client
         #K = 1
-        print("Client ", self.number, "from ", self.position, "arrived at ",
-        time_arrival, "with ", K, "requests")
+        # print("Client ", self.number, "from ", self.position, "arrived at ",
+        # time_arrival, "with ", K, "requests")
 
 
         #with this line we get a random client:
@@ -125,7 +125,7 @@ class Client(object):
 
         while count_req <= K: #loop until all requests have been served
 
-            self.size = random.randint(1000,1400) #size of a request in Bytes
+            self.size = random.randint(1000,2000) #size of a request in Bytes
             #print("Client ", self.number, "size: ", self.size)
             ok = 0
 
@@ -133,23 +133,28 @@ class Client(object):
                 for server in nearest_servers: #select the nearest servers
                     if all_servers[server[0]].count < MAX_REQ: #check if server is available
                         server_latency = random.uniform(1, 10)/(1000*60) #latency of the server, random
-                        RTT = (float(server[1])/(3*10^5))/(1000*60) #Round Trip Time, depending on server-client distance
+                        RTT = (float(server[1])/(3*10^5))/(60) #Round Trip Time, depending on server-client distance
                         self.env.stats_RTT.push(RTT)
-                        self.env.stats_clients[self.position].push(RTT)
+                        self.env.stats_pos[self.position].push(RTT)
                         #print("Client ", i, "first timeout: ", server_latency+RTT)
                         yield self.env.timeout(server_latency+RTT) #first timeout interval (it doesn't depend on number of requests at server)
                         yield self.env.process(self.env.servers.arrived(server, self.size, self.number)) #yield to server
+                        yield self.env.timeout(RTT)
                         ok = 1 #set flag to break from inner while
                         break #break from for
 
             count_req+=1
-            #calculate response time
-            #self.env.stats.push(self.env.now-time_arrival)
 
         self.tot_time = self.env.now-time_arrival
         self.env.stats_service_time.push(self.tot_time)
-        print("Client ", self.number, "from ", self.position, "served in ",
-        self.tot_time, "at ", self.env.now)
+        if time_arrival<=first_period:
+            self.env.stats_day_night['first'].push(self.tot_time)
+        elif time_arrival>=first_period and time_arrival<=second_period:
+            self.env.stats_day_night['second'].push(self.tot_time)
+        elif time_arrival>=second_period and time_arrival<=third_period:
+            self.env.stats_day_night['third'].push(self.tot_time)
+        # print("Client ", self.number, "from ", self.position, "served in ",
+        # self.tot_time, "at ", self.env.now)
 
 
 
@@ -183,11 +188,13 @@ class Server(object):
                transfer_delay = size/(LINK_CAPACITY*60/all_servers[server[0]].count) #time to serve the request according to current number od requests at server
                #moltiplicato per 60 perché noi simuliamo in minuti e invece LINK_CAPACITY è in GB/s
                #print("Expected timeout for ", number, "is ", transfer_delay)
-               yield self.env.timeout(transfer_delay) | self.new_arrival[server[0]] | self.new_departure[server[0]] #whichever happens first, it stops all clients in server[0]
+               a = self.new_arrival[server[0]]
+               d = self.new_departure[server[0]]
+               r = yield self.env.timeout(transfer_delay) | a | d #whichever happens first, it stops all clients in server[0]
                elapsed_time = self.env.now - current_time
                #print("Client ", number, "times: ", elapsed_time, " & ", transfer_delay)
                # print("Client ", number, "times difference: ", transfer_delay - elapsed_time) #difference between expected timeout and actual elapsed time
-               if transfer_delay-elapsed_time > pow(10, -4): #sarebbe più corretto mettere l'if sulla size invece che sul time elapsed, ma alla fine dovrebbe essere uguale
+               if a in r or d in r: #sarebbe più corretto mettere l'if sulla size invece che sul time elapsed, ma alla fine dovrebbe essere uguale
                    #print("Service interrupted for ", number, "at ", self.env.now, "during service in ", server[0])
                    size = size - (self.env.now - current_time)*(LINK_CAPACITY*60/current_requests) #compute remaining size to do according to elapsed time and requests at server[0] before interruption of service
                    # *60 vedi sopra
@@ -233,15 +240,12 @@ if __name__=='__main__':
     env.servers = Server(env)
 
     #save statistics
-    env.stats_clients = {}
+    env.stats_pos = {}
     for loc in locations:
-        env.stats_clients[loc] = Statistics()
-    # env.stats_NA = Statistics()
-    # env.stats_SA = Statistics()
-    # env.stats_EU = Statistics()
-    # env.stats_AF = Statistics()
-    # env.stats_AS = Statistics()
-    # env.stats_OC = Statistics()
+        env.stats_pos[loc] = Statistics()
+    env.stats_day_night = {}
+    for h in ['first', 'second', 'third']:
+        env.stats_day_night[h] = Statistics()
     env.stats_RTT = Statistics()
     env.stats_service_time = Statistics()
 
@@ -259,9 +263,12 @@ if __name__=='__main__':
 
     print("With all servers on, the average round trip time over 24 hours is: ", env.stats_RTT.mean()) #0.0014016330907470288 (simulazione con parametri scritti in cima)
     print("With all servers on, the average service time over 24 hours is: ", env.stats_service_time.mean())
-    print("Average RTT for NA: ", env.stats_clients['NA'].mean())
-    print("Average RTT for SA: ", env.stats_clients['SA'].mean())
-    print("Average RTT for EU: ", env.stats_clients['EU'].mean())
-    print("Average RTT for AF: ", env.stats_clients['AF'].mean())
-    print("Average RTT for AS: ", env.stats_clients['AS'].mean())
-    print("Average RTT for OC: ", env.stats_clients['OC'].mean())
+    print("Average RTT for NA: ", env.stats_pos['NA'].mean())
+    print("Average RTT for SA: ", env.stats_pos['SA'].mean())
+    print("Average RTT for EU: ", env.stats_pos['EU'].mean())
+    print("Average RTT for AF: ", env.stats_pos['AF'].mean())
+    print("Average RTT for AS: ", env.stats_pos['AS'].mean())
+    print("Average RTT for OC: ", env.stats_pos['OC'].mean())
+    print("Average service time in the first period: ", env.stats_day_night['first'].mean())
+    print("Average service time in the second period: ", env.stats_day_night['second'].mean())
+    print("Average service time in the third period: ", env.stats_day_night['third'].mean())
