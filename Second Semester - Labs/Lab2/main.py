@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 
 import matplotlib.pyplot as pyplot
 from runstats import Statistics
@@ -154,7 +154,7 @@ class Client(object):
         elif time_arrival>=second_period and time_arrival<=third_period:
             self.env.stats_day_night['third'].push(self.tot_time)
         # print("Client ", self.number, "from ", self.position, "served in ",
-        # self.tot_time, "at ", self.env.now) 
+        # self.tot_time, "at ", self.env.now)
 
 
 
