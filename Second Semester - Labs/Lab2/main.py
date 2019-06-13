@@ -26,7 +26,7 @@ RANDOM_SEED = 13
 SIM_TIME = 1440 #1440 è un giorno in minuti
 #LINK_CAPACITY = 1.25*pow(10, 9) # 10Gbps = 1250000kB/s = 1.25*10^6kB/s = 1.25*10^9 B/s
 LINK_CAPACITY = 1.25*pow(10, 6) #10Mbps #il valore corretto è pow(10, 10)
-MAX_REQ = 125 #dovremmo basare MAX_REQ su un valore minimo di capacità
+MAX_REQ = 50 #dovremmo basare MAX_REQ su un valore minimo di capacità
 #meno di 1kB/s non ha senso, forse neanche meno di 1MB/s ha senso
 #capacità minima per richiesta = 1MB/s allora MAX_REQ = 1250
 #lambda = number of clients per minute (moltiplicare tutti per 10?)
@@ -154,7 +154,7 @@ class Client(object):
         elif time_arrival>=second_period and time_arrival<=third_period:
             self.env.stats_day_night['third'].push(self.tot_time)
         # print("Client ", self.number, "from ", self.position, "served in ",
-        # self.tot_time, "at ", self.env.now)
+        # self.tot_time, "at ", self.env.now) 
 
 
 
