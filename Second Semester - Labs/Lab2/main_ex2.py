@@ -23,15 +23,14 @@ import time
 RANDOM_SEED = 17
 SIM_TIME = 1440 #1440 è un giorno in minuti
 #LINK_CAPACITY = 1.25*pow(10, 9) # 10Gbps = 1250000kB/s = 1.25*10^6kB/s = 1.25*10^9 B/s
-LINK_CAPACITY = 1.25*pow(10,6) #Gb/s #il valore corretto è pow(10, 10)
-MAX_REQ = 125
-lambda_NA = 400 #the higher it is, the higher the num of clients
-lambda_SA = 300
-lambda_EU = 350
-lambda_AF = 120
-lambda_AS = 500
-lambda_OC = 80
-#ORIGIN = 'SA' #(we can use NA,SA,EU,AF,AS,OC)
+LINK_CAPACITY = 1.25*pow(10,6) #10Mb/s
+MAX_REQ = 10
+lambda_NA = 200 #the higher it is, the higher the number of clients per minute
+lambda_SA = 150
+lambda_EU = 175
+lambda_AF = 60
+lambda_AS = 250
+lambda_OC = 40
 #00-08 (40%), 08-16 (60%), 16-00 (70%)
 #small, large, larger
 #periodi riferiti all'Europa
@@ -91,7 +90,7 @@ def print_cose(environment):
         print("Servers status: ")
         for server in server_status.items():
             print(server[0], ": ", server[1][0])
-        yield environment.timeout(180)
+        yield environment.timeout(20)
         timer = environment.now
 
 
@@ -106,6 +105,7 @@ class Client(object):
 
     def __init__(self,environment,i,position):
         global server_status
+        global switch
         self.env = environment
         self.number = i
         self.position = position
@@ -147,10 +147,10 @@ class Client(object):
                         yield self.env.process(self.env.servers.arrived(server, self.size, self.number)) #yield to server
                         yield self.env.timeout(RTT)
                         ok = 1 #set flag to break from inner while
-                        break #break from for
+                        break #break from for loop
                 if ok == 0:
                     for server in nearest_servers:
-                        if server_status[server[0]][0] == 0:
+                        if server_status[server[0]][0] == 0 and self.env.now-switch[server[0]]>=60:
                             server_status[server[0]][0] = 1
                             break
 
@@ -172,12 +172,12 @@ class Server(object):
        global all_servers
        global names_ser
        global server_status
+       global switch
        self.env = environment
        self.new_arrival = {} #create dictionary to store simpy event of arrival for each server
-       for server_name in names_ser:
-           self.new_arrival[server_name] = environment.event()
        self.new_departure = {} #create dictionary to store simpy event of departure for each server
        for server_name in names_ser:
+           self.new_arrival[server_name] = environment.event()
            self.new_departure[server_name] = environment.event()
 
    #affinché non sovrascriva i vari server o clienti, le variabili non devono aver self. davanti (tranne new_arrival e new_departure e env)
@@ -216,9 +216,10 @@ class Server(object):
                    self.new_departure[server[0]] = self.env.event()
                    #print("Client ", number, "left server in ", server[0])
            #print(all_servers[server[0]].count)
-           if all_servers[server[0]].count <= 2 and self.env.now >= 10:
-               print('Current req: ', current_requests)
+           if all_servers[server[0]].count <= 1 and self.env.now-switch[server[0]]>=60:
+               #print('Current req in ', server[0], ': ', current_requests)
                server_status[server[0]][0] = 0
+               switch[server[0]] = self.env.now
 
 
 
@@ -241,18 +242,21 @@ if __name__=='__main__':
     print(costs_ser) #forse c'è uno 0.16 dove dovrebbe esserci uno 0.32; in Oceania 0.35 forse è tanto
 
     all_servers = {}
-    for server in names_ser: #create dictionary of all servers
-        all_servers[server]=simpy.Resource(env, capacity=MAX_REQ)
+    # for server in names_ser: #create dictionary of all servers
+    #     all_servers[server]=simpy.Resource(env, capacity=MAX_REQ)
     #print(all_servers)
 
     index_ser = 0
     server_status = {}
+    switch = {}
     for server in names_ser:
+        all_servers[server] = simpy.Resource(env, capacity=MAX_REQ)
+        switch[server] = 0
         server_status[server] = [0, countries_ser[index_ser], costs_ser[index_ser]]
         index_ser+=1
-    server_status['DENVER'][0] = 1
-    server_status['MONACO'][0] = 1
-    server_status['HONG KONG'][0] = 1
+    server_status['CHICAGO'][0] = 1
+    server_status['SAN PAOLO'][0] = 1
+    server_status['NEW DELHI'][0] = 1
     print(server_status)
 
     total_cost = sum(server_status[server][2] for server in server_status if server_status[server][0]==1)

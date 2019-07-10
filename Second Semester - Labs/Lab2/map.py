@@ -60,7 +60,7 @@ def get_data_servers():
     names_ser = []
     lats_ser = []
     lons_ser = []
-    with open('./Amazon_servers_stations.csv') as csvfile:
+    with open('./Amazon_servers_stations2.csv') as csvfile:
         reader_ser = csv.DictReader(csvfile,delimiter=';')
         for data_ser in reader_ser:
             names_ser.append(data_ser['NAME'])
