@@ -21,16 +21,23 @@ import time
 # CONSTANTS
 #-------------------------------------------------------------------------------
 RANDOM_SEED = 17
-SIM_TIME = 1440 #1440 è un giorno in minuti
-#LINK_CAPACITY = 1.25*pow(10, 9) # 10Gbps = 1250000kB/s = 1.25*10^6kB/s = 1.25*10^9 B/s
-LINK_CAPACITY = 1.25*pow(10,6) #10Mb/s
+#SIM_TIME = 1440 #1440 è un giorno in minuti
+SIM_TIME = 24*60*60
+LINK_CAPACITY = 1.25*pow(10, 9) # 10Gbps = 1250000kB/s = 1.25*10^6kB/s = 1.25*10^9 B/s
+#LINK_CAPACITY = 1.25*pow(10,6) #10Mb/s
 MAX_REQ = 10
-lambda_NA = 200 #the higher it is, the higher the number of clients per minute
-lambda_SA = 150
-lambda_EU = 175
-lambda_AF = 60
-lambda_AS = 250
-lambda_OC = 40
+# lambda_NA = 180 #the higher it is, the higher the number of clients per minute
+# lambda_SA = 120
+# lambda_EU = 150
+# lambda_AF = 60
+# lambda_AS = 240
+# lambda_OC = 40
+lambda_NA = 3 #the higher it is, the higher the number of clients per minute
+lambda_SA = 2
+lambda_EU = 2.5
+lambda_AF = 1
+lambda_AS = 4
+lambda_OC = 0.67
 #00-08 (40%), 08-16 (60%), 16-00 (70%)
 #small, large, larger
 #periodi riferiti all'Europa
@@ -90,7 +97,7 @@ def print_cose(environment):
         print("Servers status: ")
         for server in server_status.items():
             print(server[0], ": ", server[1][0])
-        yield environment.timeout(20)
+        yield environment.timeout(3600)
         timer = environment.now
 
 
@@ -137,8 +144,10 @@ class Client(object):
             while ok == 0:
                 for server in nearest_servers: #select the nearest servers
                     if all_servers[server[0]].count < MAX_REQ and server_status[server[0]][0] == 1:
-                        server_latency = random.uniform(1, 10)/(1000*60)
-                        RTT = (float(server[1])/(3*10^5))/(60)
+                        # server_latency = random.uniform(1, 10)/(1000*60)
+                        # RTT = (float(server[1])/(3*10^5))/(60)
+                        server_latency = random.uniform(1, 10)/(1000)
+                        RTT = (float(server[1])/(3*pow(10,5)))
                         self.env.stats_RTT.push(RTT)
                         #fare statistica di RTT
                         #self.env.stats.push(RTT)
@@ -150,8 +159,9 @@ class Client(object):
                         break #break from for loop
                 if ok == 0:
                     for server in nearest_servers:
-                        if server_status[server[0]][0] == 0 and self.env.now-switch[server[0]]>=60:
+                        if server_status[server[0]][0] == 0 and self.env.now-switch[server[0]]>=60*60:
                             server_status[server[0]][0] = 1
+                            switch[server[0]]=self.env.now
                             break
 
             count_req+=1
@@ -191,8 +201,9 @@ class Server(object):
            while request_successful == 0: #loop until request has been served
                current_time = self.env.now
                current_requests = all_servers[server[0]].count #number of requests currently in service at server[0]
-               transfer_delay = size/(LINK_CAPACITY*60/current_requests) #time to serve the request according to current number od requests at server
+               # transfer_delay = size/(LINK_CAPACITY*60/current_requests) #time to serve the request according to current number od requests at server
                #moltiplicato per 60 perché noi simuliamo in minuti e invece LINK_CAPACITY è in GB/s
+               transfer_delay = size/(LINK_CAPACITY/current_requests)
                #print("Expected timeout for ", number, "is ", transfer_delay)
                a = self.new_arrival[server[0]]
                d = self.new_departure[server[0]]
@@ -201,9 +212,10 @@ class Server(object):
                #print("Client ", number, "times: ", elapsed_time, " & ", transfer_delay)
                #print("Client ", number, "times difference: ", transfer_delay - elapsed_time) #difference between expected timeout and actual elapsed time
                if a in r or d in r: #sarebbe più corretto mettere l'if sulla size invece che sul time elapsed, ma alla fine dovrebbe essere uguale
-                   #print("Service interrupted for ", number, "at ", self.env.now, "during service in ", server[0])
-                   size = size - (self.env.now - current_time)*(LINK_CAPACITY*60/current_requests) #compute remaining size to do according to elapsed time and requests at server[0] before interruption of service
+                   print("Service interrupted for ", number, "at ", self.env.now, "during service in ", server[0])
+                   # size = size - (self.env.now - current_time)*(LINK_CAPACITY*60/current_requests) #compute remaining size to do according to elapsed time and requests at server[0] before interruption of service
                    # *60 vedi sopra
+                   size = size - (self.env.now - current_time)*(LINK_CAPACITY/current_requests)
                    #print("Remaining size for ", number, "is: ", size)
                    if size < 0.1: #in caso rimanesse meno di 0.1 Byte da fare, ma non dovrebbe mai succedere perché prima c'è l'if sulla differenza tra timeout ed elapsed
                        request_successful = 1
@@ -216,7 +228,7 @@ class Server(object):
                    self.new_departure[server[0]] = self.env.event()
                    #print("Client ", number, "left server in ", server[0])
            #print(all_servers[server[0]].count)
-           if all_servers[server[0]].count <= 1 and self.env.now-switch[server[0]]>=60:
+           if all_servers[server[0]].count <= 1 and self.env.now-switch[server[0]]>=60*60:
                #print('Current req in ', server[0], ': ', current_requests)
                server_status[server[0]][0] = 0
                switch[server[0]] = self.env.now
