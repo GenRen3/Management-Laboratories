@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 
 import matplotlib.pyplot as pyplot
 from runstats import Statistics
@@ -100,8 +100,8 @@ def compute_cost(environment):
     while timer <= SIM_TIME:
         cost_on = sum(server_status[server][2] for server in server_status if server_status[server][0]==1)
         tot_number_on = sum(server_status[server][0] for server in server_status)
-        self.env.stats_number.push(tot_number_on)
-        self.env.stats_cost.push(cost_on)
+        env.stats_number.push(tot_number_on)
+        env.stats_cost.push(cost_on)
         yield environment.timeout(3600)
         timer = environment.now
 
