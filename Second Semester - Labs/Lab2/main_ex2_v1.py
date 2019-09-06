@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 
 import matplotlib.pyplot as pyplot
 from runstats import Statistics
@@ -23,8 +23,8 @@ import time
 RANDOM_SEED = 13
 SIM_TIME = 24*60*60
 #LINK_CAPACITY = 1.25*pow(10, 9) #10Gbps = 1250000kB/s = 1.25*10^6kB/s = 1.25*10^9 B/s
-LINK_CAPACITY = 1.25*pow(10, 6) #10Mbps
-#LINK_CAPACITY = 1.25*pow(10, 3) #10kbps
+#LINK_CAPACITY = 1.25*pow(10, 6) #10Mbps
+LINK_CAPACITY = 125*pow(10, 3) #10kbps
 MAX_REQ = 10
 lambda_NA = 3 #the higher it is, the higher the number of clients per second
 lambda_SA = 2
@@ -100,8 +100,8 @@ def compute_cost(environment):
     while timer <= SIM_TIME:
         cost_on = sum(server_status[server][2] for server in server_status if server_status[server][0]==1)
         tot_number_on = sum(server_status[server][0] for server in server_status)
-        self.env.stats_number.push(tot_number_on)
-        self.env.stats_cost.push(cost_on)
+        env.stats_number.push(tot_number_on)
+        env.stats_cost.push(cost_on)
         yield environment.timeout(3600)
         timer = environment.now
 
