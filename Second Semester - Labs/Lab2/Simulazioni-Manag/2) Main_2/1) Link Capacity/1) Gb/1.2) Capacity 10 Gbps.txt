@@ -1,0 +1,3 @@
+Kt'~UKll<: V
+Kith some servers on, the average round trip time over 24 hours is: 0.025052896228482467
+Kith some servers on, the average service time over 24 hours is: 0.3059344467721246 The average numkmr of servers on is: 1.166666666666667 Kith some servers on, the average cost per hour is: 0.2404166666666666
