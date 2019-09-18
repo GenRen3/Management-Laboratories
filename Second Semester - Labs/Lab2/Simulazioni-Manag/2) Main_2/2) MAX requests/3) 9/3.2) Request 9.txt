@@ -1,0 +1,1 @@
+With some servers on, the average round trip time over 24 hours is: 0.025570597068093604 With some servers on, the average service time over 24 hours is: 0.3188369346903639 The average number of servers on is: 1.166666666666667 With some servers on, the average cost per hour is: 0.25749999999999995

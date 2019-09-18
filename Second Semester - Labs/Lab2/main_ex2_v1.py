@@ -9,6 +9,7 @@ import random
 import simpy
 import time
 
+
 #per visualizzare delle print con servizio interrotto, simulare con:
 #arrivi solo dall'Africa
 #LINK_CAPACITY = pow(10, 2)
@@ -24,8 +25,8 @@ RANDOM_SEED = 13
 SIM_TIME = 24*60*60
 #LINK_CAPACITY = 1.25*pow(10, 9) #10Gbps = 1250000kB/s = 1.25*10^6kB/s = 1.25*10^9 B/s
 LINK_CAPACITY = 1.25*pow(10, 6) #10Mbps
-#LINK_CAPACITY = 1.25*pow(10, 3) #10kbps
-MAX_REQ = 10
+#LINK_CAPACITY = 125*pow(10, 3) #10kbps
+MAX_REQ = 5
 lambda_NA = 3 #the higher it is, the higher the number of clients per second
 lambda_SA = 2
 lambda_EU = 2.5
