@@ -12,7 +12,7 @@ def random_client(position):
     latcl = rnd_client['lat']
     lngcl = rnd_client['lng']
     citycl = str(rnd_client['city'])
-    return citycl, latcl, lngcl
+    return latcl, lngcl
 
 
 
