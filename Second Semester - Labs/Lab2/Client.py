@@ -11,7 +11,6 @@ def random_client(position):
     rnd_client = data_client.sample(n=1)
     latcl = rnd_client['lat']
     lngcl = rnd_client['lng']
-    citycl = str(rnd_client['city'])
     return latcl, lngcl
 
 
