@@ -1,16 +1,17 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.7
 
 import matplotlib.pyplot as pyplot
 from runstats import Statistics
 import Map_generator as map
-import Client as C
+import Client_prova as C
 import Server as S
+import create_RTT as cR
 import random
 import simpy
 import time
-from decimal import Decimal
-import pandas as pd
 import numpy as np
+import pandas as pd
+from decimal import Decimal
 
 #per visualizzare delle print con servizio interrotto, simulare con:
 #arrivi solo dall'Africa
@@ -95,6 +96,7 @@ class Client(object):
 
     global RTT_table
 
+
     def __init__(self,environment,i,position):
         self.env = environment
         self.number = i
@@ -109,18 +111,14 @@ class Client(object):
 
         #random client from chosen zone:
         [citycl, lat_client, long_client] = C.random_client(self.position)
-        print(citycl)
-        print(lat_client)
-        print(long_client)
-        if (citycl in RTT_table.index)==True:
-            RTT=(pd.Dataframe(RTT_table.loc[citycl])).transpose
-        else:
-            #list of servers ordedered by ditance from chosen client:
-            nearest_servers = S.nearest_servers(lat_client, long_client)
-            RTT_table.loc[citycl]=np.zeros((1,len(nearest_servers)))#OCCHIO!!!!
-            for server in nearest_servers:
-                RTT_table.loc[citycl][server[0]] = (float(server[1])/(3*pow(10,5)))
-                RTT=(pd.Dataframe(RTT_table.loc[citycl])).transpose
+
+        #list of servers ordedered by ditance from chosen client:
+        #nearest_servers = S.nearest_servers(lat_client,long_client)
+        RTT_line=pd.DataFrame(RTT_table.loc[citycl]).transpose()
+        RTT_sort=RTT_line.sort_values(by=citycl,axis=1)
+        rtt=RTT_sort.values
+        #print(rtt) #è un vettore di vettore rtt[0][0]
+
         count_req = 1
 
         while count_req <= K: #loop until all client's requests have been served
@@ -129,17 +127,15 @@ class Client(object):
             ok = 0 #flag for the single request
 
             while ok == 0: #loop until request as been served
-                RTT_sort=RTT.sort_values(by=citycl,axis=1)
-                rtt=RTT_sort.values
-                for i in np.size(rtt): #select the nearest server
+                for i in range(np.size(rtt[0])): #select the nearest server
                     if all_servers[(RTT_sort.columns)[i]].count < MAX_REQ: #check if selected server is available, if not go to the next one
                         server_latency = random.uniform(1, 10)/(1000) #latency of the server, random between 1 and 10 ms
                         #RTT = (float(server[1])/(3*pow(10,5))) #Round Trip Time, depending on server-client distance
-                        self.env.stats_RTT.push(rtt[i])
-                        self.env.stats_pos[self.position].push(rtt[i])
-                        yield self.env.timeout(server_latency+rtt[i]) #first timeout interval (it doesn't depend on number of requests at server)
+                        self.env.stats_RTT.push(rtt[0][i])
+                        self.env.stats_pos[self.position].push(rtt[0][i])
+                        yield self.env.timeout(server_latency+rtt[0][i]) #first timeout interval (it doesn't depend on number of requests at server)
                         yield self.env.process(self.env.servers.arrived((RTT_sort.columns)[i], self.size, self.number)) #yield to server
-                        yield self.env.timeout(rtt[i]) #RTT for the server's response
+                        yield self.env.timeout(rtt[0][i]) #RTT for the server's response
                         ok = 1 #set flag to break from inner while (request has been served)
                         break #break from for (we do not need to look for another server)
 
@@ -212,17 +208,17 @@ if __name__=='__main__':
     random.seed(RANDOM_SEED)
     locations = ['NA', 'SA', 'EU', 'AF', 'AS', 'OC']
 
-
-
     #map.get_map_total("Clients") #get clients map
     #map.get_map_total("Servers2") #get servers map
+
+    RTT_table = cR.get_RTT()
+    #print(RTT_table)
 
     #create simulation environment
     env = simpy.Environment()
 
     #get data of the servers
     names_ser,countries_ser,lats_ser,lons_ser,costs_ser = S.get_data_servers()
-    RTT_table = pd.DataFrame(index=[],columns=names_ser)
 
     all_servers = {}
     for server in names_ser: #create dictionary of all servers

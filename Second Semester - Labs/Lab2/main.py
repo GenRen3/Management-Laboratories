@@ -10,14 +10,6 @@ import simpy
 import time
 from decimal import Decimal
 
-#per visualizzare delle print con servizio interrotto, simulare con:
-#arrivi solo dall'Africa
-#LINK_CAPACITY = pow(10, 2)
-#MAX_REQ = 10
-#SIM_TIME = 5
-#lambda_AF = 9
-#K = 1
-
 
 #-------------------------------------------------------------------------------
 # CONSTANTS
@@ -110,7 +102,7 @@ class Client(object):
         #list of servers ordedered by ditance from chosen client:
         nearest_servers = S.nearest_servers(lat_client,long_client)
 
-        count_req = 1 
+        count_req = 1
 
         while count_req <= K: #loop until all client's requests have been served
 

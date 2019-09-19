@@ -10,14 +10,6 @@ import simpy
 import time
 
 
-#per visualizzare delle print con servizio interrotto, simulare con:
-#arrivi solo dall'Africa
-#LINK_CAPACITY = pow(10, 2)
-#SIM_TIME = 5
-#lambda_AF = 9
-#K = 1
-
-
 #-------------------------------------------------------------------------------
 # CONSTANTS
 #-------------------------------------------------------------------------------

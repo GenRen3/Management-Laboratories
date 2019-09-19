@@ -9,7 +9,7 @@ import csv
 #This function gets the servers' info
 def get_data_servers():
     names_ser, countries_ser,lats_ser, lons_ser, costs_ser = [],[],[],[],[]
-    with open('./Datasets/Amazon_servers_stations2.csv') as csvfile:
+    with open('./Datasets/Amazon_servers_stations3.csv') as csvfile:
         reader_ser = csv.DictReader(csvfile,delimiter=';')
         for data_ser in reader_ser:
             names_ser.append(data_ser['NAME'])
