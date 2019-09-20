@@ -88,17 +88,8 @@ def get_map_total(Title):
 
     fig = plt.figure(figsize=(12, 7), edgecolor='b')
     m = Basemap(projection='cyl', resolution=None,llcrnrlat=-90, urcrnrlat=90,llcrnrlon=-180, urcrnrlon=180)
-    #m.bluemarble()
     m.arcgisimage(service='ESRI_Imagery_World_2D', xpixels = 1500, verbose= True)
 
-    # Draw coastlines and fill continents and water with color
-    #m.drawcoastlines()
-    #m.fillcontinents(color='peru',lake_color='dodgerblue')
-
-    # draw parallels, meridians, and color boundaries
-    #m.drawparallels(np.arange(bbox[0],bbox[1],(bbox[1]-bbox[0])/5),labels=[1,0,0,0])
-    #m.drawmeridians(np.arange(bbox[2],bbox[3],(bbox[3]-bbox[2])/5),labels=[0,0,0,1],rotation=45)
-    #m.drawmapboundary(fill_color='dodgerblue')
 
     if Title=="Clients":
         for i in range(len(lats_cl)):
@@ -135,18 +126,9 @@ def get_map_links(nearest_servers,lat_r_cl,lon_r_cl):
     zoom_scale = 0
     lat,lon = [],[]
 
-    # # Setup the bounding box for the zoom and bounds of the map
-    # bbox = [np.min(lats)-zoom_scale,np.max(lats)+zoom_scale,\
-    #         np.min(lons)-zoom_scale,np.max(lons)+zoom_scale]
-
     plt.figure(figsize=(12,6))
     # Define the projection, scale, the corners of the map, and the resolution.
     m = Basemap(projection='merc',resolution=None,llcrnrlat=-90, urcrnrlat=90,llcrnrlon=-180, urcrnrlon=180)
-
-
-    # Draw coastlines and fill continents and water with color
-    #m.drawcoastlines()
-    #m.fillcontinents(color='white')
 
     lat.append(lat_r_cl)
     lon.append(lon_r_cl)
@@ -199,7 +181,7 @@ def takeFirst(elem):
 
 #THIS FUNCTION RETURNS THE N NEAREST SERVERS
 def get_nearest_servers(lat_r_cl,lon_r_cl):
-    # [lats_ser, lons_ser] = get_data_servers()
+    lats_ser, lons_ser] = get_data_servers()
     distances = []
 
     for i in range(len(lats_ser)):
