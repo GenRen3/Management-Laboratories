@@ -20,7 +20,7 @@ SIM_TIME = 24*60*60
 LINK_CAPACITY = 1.25*pow(10, 6) #10Mbps
 #LINK_CAPACITY = 1.25*pow(10, 3) #10kbps
 MAX_REQ = 10
-lambda_NA = 3 #the higher it is, the higher the number of clients per second
+lambda_NA = 3 #the higher it is, the higher is the number of clients per second
 lambda_SA = 2
 lambda_EU = 2.5
 lambda_AF = 1
@@ -99,7 +99,7 @@ class Client(object):
         #random client from chosen zone:
         [lat_client,long_client] = C.random_client(self.position)
 
-        #list of servers ordedered by ditance from chosen client:
+        #list of servers ordedered by distance for the chosen client:
         nearest_servers = S.nearest_servers(lat_client,long_client)
 
         count_req = 1
@@ -111,8 +111,8 @@ class Client(object):
 
             while ok == 0: #loop until request as been served
                 for server in nearest_servers: #select the nearest server
-                    if all_servers[server[0]].count < MAX_REQ: #check if selected server is available, if not go to the next one
-                        server_latency = random.uniform(1, 10)/(1000) #latency of the server, random between 1 and 10 ms
+                    if all_servers[server[0]].count < MAX_REQ: #check if selected server is available, if not, go to the next one
+                        server_latency = random.uniform(1, 10)/(1000) #latency of the server, random between 1 ms and 10 ms
                         RTT = (float(server[1])/(3*pow(10,5))) #Round Trip Time, depending on server-client distance
                         self.env.stats_RTT.push(RTT)
                         self.env.stats_pos[self.position].push(RTT)
@@ -132,8 +132,6 @@ class Client(object):
             self.env.stats_day_night['second'].push(self.tot_time)
         elif time_arrival>=second_period and time_arrival<=third_period:
             self.env.stats_day_night['third'].push(self.tot_time)
-        #print("Client ", self.number, "from ", self.position, "served in ",
-        #self.tot_time, "at ", self.env.now)
 
 
 
@@ -152,7 +150,6 @@ class Server(object):
        for server_name in names_ser:
            self.new_departure[server_name] = environment.event()
 
-   #affinché non sovrascriva i vari server o clienti, le variabili non devono aver self. davanti (tranne new_arrival e new_departure e env)
    def arrived(self,server,size, number):
        self.new_arrival[server[0]].succeed() #a client has arrived at server[0]
        self.new_arrival[server[0]] = self.env.event() #re-initialize event
@@ -191,8 +188,8 @@ if __name__=='__main__':
     random.seed(RANDOM_SEED)
     locations = ['NA', 'SA', 'EU', 'AF', 'AS', 'OC']
 
-    #map.get_map_total("Clients") #get clients map
-    #map.get_map_total("Servers2") #get servers map
+    #map.get_map_total("Clients") #get clients' map
+    #map.get_map_total("Servers2") #get servers' map
 
     #create simulation environment
     env = simpy.Environment()
@@ -203,7 +200,6 @@ if __name__=='__main__':
     all_servers = {}
     for server in names_ser: #create dictionary of all servers
         all_servers[server]=simpy.Resource(env, capacity=MAX_REQ)
-    #print(all_servers)
 
     total_cost = sum(costs_ser) #compute cost of the servers
     print("With all servers on, the total cost per hour is: ", total_cost, "$")
@@ -233,7 +229,7 @@ if __name__=='__main__':
     i = 0
     env.run(until=SIM_TIME)
 
-    print("With all servers on, the average round trip time over 24 hours is: ", env.stats_RTT.mean()) #0.0014016330907470288 (simulazione con parametri scritti in cima)
+    print("With all servers on, the average round trip time over 24 hours is: ", env.stats_RTT.mean())
     print("With all servers on, the average service time over 24 hours is: ", env.stats_service_time.mean())
     print("Average RTT for NA: ", env.stats_pos['NA'].mean())
     print("Average RTT for SA: ", env.stats_pos['SA'].mean())
