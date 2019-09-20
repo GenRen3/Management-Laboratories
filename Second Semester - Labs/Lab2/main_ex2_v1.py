@@ -19,7 +19,7 @@ SIM_TIME = 24*60*60
 LINK_CAPACITY = 1.25*pow(10, 6) #10Mbps
 #LINK_CAPACITY = 125*pow(10, 3) #10kbps
 MAX_REQ = 5
-lambda_NA = 3 #the higher it is, the higher the number of clients per second
+lambda_NA = 3 #the higher it is, the higher is the number of clients per second
 lambda_SA = 2
 lambda_EU = 2.5
 lambda_AF = 1
@@ -155,8 +155,7 @@ class Client(object):
 
         self.tot_time = self.env.now-time_arrival #service time
         self.env.stats_service_time.push(self.tot_time)
-        #print("Client ", self.number, "from ", self.position, "served in ",
-        #self.tot_time, "at ", self.env.now)
+
 
 
 
@@ -176,7 +175,6 @@ class Server(object):
            self.new_arrival[server_name] = environment.event()
            self.new_departure[server_name] = environment.event()
 
-   #affinché non sovrascriva i vari server o clienti, le variabili non devono aver self. davanti (tranne new_arrival e new_departure e env)
    def arrived(self,server,size, number):
        self.new_arrival[server[0]].succeed() #a client has arrived at server[0]
        self.new_arrival[server[0]] = self.env.event() #re-initialize event
@@ -218,8 +216,8 @@ if __name__=='__main__':
     random.seed(RANDOM_SEED)
     locations = ['NA', 'SA', 'EU', 'AF', 'AS', 'OC']
 
-    #map.get_map_total("Clients") #get clients map
-    #map.get_map_total("Servers2") #get servers map
+    #map.get_map_total("Clients") #get clients' map
+    #map.get_map_total("Servers2") #get servers' map
 
     #create simulation environment
     env = simpy.Environment()
@@ -281,12 +279,12 @@ if __name__=='__main__':
     print("With some servers on, the average service time over 24 hours is: ", env.stats_service_time.mean())
     print("The average number of servers on is: ", env.stats_number.mean())
     print("With some servers on, the average cost per hour is: ", env.stats_cost.mean())
-    # print("Average RTT for NA: ", env.stats_clients['NA'].mean())
-    # print("Average RTT for SA: ", env.stats_clients['SA'].mean())
-    # print("Average RTT for EU: ", env.stats_clients['EU'].mean())
-    # print("Average RTT for AF: ", env.stats_clients['AF'].mean())
-    # print("Average RTT for AS: ", env.stats_clients['AS'].mean())
-    # print("Average RTT for OC: ", env.stats_clients['OC'].mean())
-    # print("Average service time in the first period: ", env.stats_clients['first'].mean())
-    # print("Average service time in the second period: ", env.stats_clients['second'].mean())
-    # print("Average service time in the third period: ", env.stats_clients['third'].mean())
+    print("Average RTT for NA: ", env.stats_clients['NA'].mean())
+    print("Average RTT for SA: ", env.stats_clients['SA'].mean())
+    print("Average RTT for EU: ", env.stats_clients['EU'].mean())
+    print("Average RTT for AF: ", env.stats_clients['AF'].mean())
+    print("Average RTT for AS: ", env.stats_clients['AS'].mean())
+    print("Average RTT for OC: ", env.stats_clients['OC'].mean())
+    print("Average service time in the first period: ", env.stats_clients['first'].mean())
+    print("Average service time in the second period: ", env.stats_clients['second'].mean())
+    print("Average service time in the third period: ", env.stats_clients['third'].mean())
